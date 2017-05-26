@@ -553,7 +553,7 @@ class wpdb {
 	 * @access protected
 	 * @var string
 	 */
-	protected $dbh;
+	public $dbh;
 
 	/**
 	 * A textual description of the last query/get_row/get_var call
@@ -1338,7 +1338,7 @@ class wpdb {
 			if ( $this->use_mysqli ) {
 				$str = mysqli_error( $this->dbh );
 			} else {
-				$str = mysql_error( $this->dbh );
+				$str = mysqli_error( $this->dbh );
 			}
 		}
 		$EZSQL_ERROR[] = array( 'query' => $this->last_query, 'error_str' => $str );
@@ -1783,7 +1783,7 @@ class wpdb {
 			}
 		} else {
 			if ( is_resource( $this->dbh ) ) {
-				$this->last_error = mysql_error( $this->dbh );
+				$this->last_error = mysqli_error( $this->dbh );
 			} else {
 				$this->last_error = __( 'Unable to retrieve the error message from MySQL' );
 			}
