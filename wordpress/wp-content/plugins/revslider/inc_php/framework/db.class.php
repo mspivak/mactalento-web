@@ -26,7 +26,7 @@
 		// validate for errors
 		private function checkForErrors($prefix = ""){
 			
-			if(mysql_error()){
+			if(mysqli_error($this->wpdb->dbh)){
 				$query = $this->wpdb->last_query;
 				$message = $this->wpdb->last_error;
 				
