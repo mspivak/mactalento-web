@@ -36,7 +36,7 @@ if (have_posts()) : the_post();
 		get_template_part('framework/postType/portfolio/post/standard');
 	}
 	
-	
+
 	if ($cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_nav_box']) {
 		cmsms_prev_next_posts();
 	}

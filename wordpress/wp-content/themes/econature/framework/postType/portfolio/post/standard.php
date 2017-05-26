@@ -146,7 +146,15 @@ $uniqid = uniqid();
 				echo '<div class="project_details entry-meta">'. 
 					
 					'<h3 class="project_details_title">' . $cmsms_project_details_title . '</h3>';
-					
+
+			echo '<div class="project_details_item">
+					<div class="project_details_item_title">Ubicación:</div>
+						<div class="project_details_item_desc">
+							<span>'.get_field('country').', '.get_field('state').', '.get_field('city').'</span>
+						</div>
+					</div>';
+
+
 					cmsms_project_like('post');
 					
 					cmsms_project_date('post');
@@ -162,7 +170,14 @@ $uniqid = uniqid();
 					cmsms_project_features('details', $cmsms_project_features, false, 'h2', true);
 					
 					cmsms_project_link($cmsms_project_link_text, $cmsms_project_link_url, $cmsms_project_link_target);
-					
+
+					echo '<div class="project_details_item">
+					<div class="project_details_item_title">Aplicá!</div>
+						<div class="project_details_item_desc">
+							<a href="'.get_field('apply_link').'"><span>Aplicar</span></a>
+						</div>
+					</div>';
+
 				echo '</div>';
 			}
 			
@@ -179,8 +194,14 @@ $uniqid = uniqid();
 			echo '<div class="cmsms_project_content entry-content">' . "\n";
 		
 			the_content();
-			
-			wp_link_pages(array( 
+
+			echo '<h3>Requerimientos</h3>';
+			echo '<p>'.get_field('requirements').'</p>';
+
+			echo '<h3>Beneficios</h3>';
+			echo '<p>'.get_field('benefits').'</p>';
+
+			wp_link_pages(array(
 				'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'cmsmasters') . ':</strong>', 
 				'after' => '</div>', 
 				'link_before' => ' [ ', 
@@ -196,12 +217,12 @@ $uniqid = uniqid();
 			cmsms_project_features('features', $cmsms_project_features_two, $cmsms_project_features_two_title, 'h4', true);
 			
 			cmsms_project_features('features', $cmsms_project_features_three, $cmsms_project_features_three_title, 'h4', true);
-			
-			// echo '<a href="/postularse" class="cmsms_button bt-postularse">POSTULARSE</a>';
-			echo '<h3>Postularse</h3>';
-			echo do_shortcode( '[contact-form-7 id="2883" title="Postularse"]' );
-			
-			echo '<div class="cl"></div>';
+
+
+
+
+
+		echo '<div class="cl"></div>';
 			
 		echo '</div>';
 	}
