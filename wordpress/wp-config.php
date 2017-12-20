@@ -14,6 +14,9 @@
  * @package WordPress
  */
 
+define('WP_HOME', getenv('WP_HOME') ?: 'http://mactalento.com');
+define('WP_SITEURL', getenv('WP_SITEURL') ?: 'http://mactalento.com');
+
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define('DB_NAME', getenv('DB_DATABASE') ?: 'macwp');
