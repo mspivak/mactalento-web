@@ -1,0 +1,12 @@
+{
+	"date": "2015-11-26 10:00:00",
+    "date_gmt": "2015-11-26 09:00:00",
+    "modified": "2015-11-26 10:00:00",
+    "modified_gmt": "2015-11-26 09:00:00",
+    "status": "future",
+    "title": "Titre media",       
+    "description": "description media",
+    "media_type": "image",
+    "source_url": "https://www.base64-image.de/build/img/mr-base64-482fa1f767.png",
+    "Content-Disposition": "filename=name-of-file.jpg"
+}
