@@ -181,9 +181,9 @@ $uniqid = uniqid();
 				echo '</div>';
 			}
 			
-			if ($cmsms_project_sharing_box == 'true') {
-				cmsms_sharing_box(__('Like this project?', 'cmsmasters'), 'h3');
-			}
+//			if ($cmsms_project_sharing_box == 'true') {
+				cmsms_sharing_box(__('Compartí!', 'cmsmasters'), 'h3');
+//			}
 		
 		echo '</div>';
 	
