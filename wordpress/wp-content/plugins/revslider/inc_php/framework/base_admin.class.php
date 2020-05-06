@@ -20,7 +20,7 @@
 		private static $tempVars = array();
 		private static $startupError = "";
 		private static $menuRole = self::ROLE_ADMIN;
-		private static $arrMetaBoxes = "";		//option boxes that will be added to post
+		private static $arrMetaBoxes = [];		//option boxes that will be added to post
 		
 		
 		/**
