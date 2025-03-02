@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.1.3
+ * @version		1.3.8
  * 
  * Single Post Template
  * Created by CMSMasters
@@ -31,7 +31,7 @@ if ($cmsms_layout == 'r_sidebar') {
 } elseif ($cmsms_layout == 'l_sidebar') {
 	echo '<div class="content entry fr" role="main">' . "\n\t";
 } else {
-	echo '<div class="middle_content entry" role="main">' . "\n\t";
+	echo '<div class="middle_content entry" role="main">';
 }
 
 
@@ -59,12 +59,12 @@ if (have_posts()) : the_post();
 	
 	
 	if ($cmsms_post_sharing_box == 'true') {
-		cmsms_sharing_box(__('Share this post?', 'cmsmasters'), 'h3');
+		cmsms_sharing_box(esc_html__('Share this post?', 'econature'), 'h3');
 	}
 	
 	
 	if ($cmsms_post_author_box == 'true') {
-		cmsms_author_box(__('About author', 'cmsmasters'), 'h3');
+		cmsms_author_box(esc_html__('About author', 'econature'), 'h3');
 	}
 	
 	
@@ -90,6 +90,9 @@ if (have_posts()) : the_post();
 			'post' 
 		);
 	}
+	
+	
+	echo cmsms_get_post_pings(get_the_ID(), 'h3');
 	
 	
 	comments_template(); 

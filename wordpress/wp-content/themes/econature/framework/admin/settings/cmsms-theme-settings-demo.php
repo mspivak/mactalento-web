@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.0
  * 
  * Admin Panel Theme Settings Import/Export
  * Created by CMSMasters
@@ -14,8 +14,8 @@ function cmsms_options_demo_tabs() {
 	$tabs = array();
 	
 	
-	$tabs['import'] = __('Import', 'cmsmasters');
-	$tabs['export'] = __('Export', 'cmsmasters');
+	$tabs['import'] = __('Import', 'econature');
+	$tabs['export'] = __('Export', 'econature');
 	
 	
 	return $tabs;
@@ -30,14 +30,14 @@ function cmsms_options_demo_sections() {
 	case 'import':
 		$sections = array();
 		
-		$sections['import_section'] = __('Theme Settings Import', 'cmsmasters');
+		$sections['import_section'] = __('Theme Settings Import', 'econature');
 		
 		
 		break;
 	case 'export':
 		$sections = array();
 		
-		$sections['export_section'] = __('Theme Settings Export', 'cmsmasters');
+		$sections['export_section'] = __('Theme Settings Export', 'econature');
 		
 		
 		break;
@@ -64,8 +64,8 @@ function cmsms_options_demo_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'import_section', 
 			'id' => CMSMS_SHORTNAME . '_demo_import', 
-			'title' => __('Theme Settings', 'cmsmasters'), 
-			'desc' => __("Enter your theme settings data here and click 'Import' button", 'cmsmasters'), 
+			'title' => __('Theme Settings', 'econature'), 
+			'desc' => __("Enter your theme settings data here and click 'Import' button", 'econature'), 
 			'type' => 'textarea', 
 			'std' => '', 
 			'class' => '' 
@@ -77,10 +77,10 @@ function cmsms_options_demo_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'export_section', 
 			'id' => CMSMS_SHORTNAME . '_demo_export', 
-			'title' => __('Theme Settings', 'cmsmasters'), 
-			'desc' => __("Click here to export your theme settings data to the file", 'cmsmasters'), 
+			'title' => __('Theme Settings', 'econature'), 
+			'desc' => __("Click here to export your theme settings data to the file", 'econature'), 
 			'type' => 'button', 
-			'std' => __('Export Theme Settings', 'cmsmasters'), 
+			'std' => __('Export Theme Settings', 'econature'), 
 			'class' => 'cmsms-demo-export' 
 		);
 		

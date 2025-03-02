@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.1
  * 
  * Blog Post with Sidebar Image Post Format Template
  * Created by CMSMasters
@@ -25,9 +25,9 @@ $cmsms_post_image_link = get_post_meta(get_the_ID(), 'cmsms_post_image_link', tr
 	<?php 
 	if (!post_password_required()) {
 		if ($cmsms_post_image_link != '') {
-			cmsms_thumb(get_the_ID(), 'masonry-thumb', false, 'img_' . get_the_ID(), true, true, true, true, $cmsms_post_image_link);
+			cmsms_thumb(get_the_ID(), 'masonry-thumb', false, 'img_' . get_the_ID(), false, false, false, true, $cmsms_post_image_link);
 		} elseif (has_post_thumbnail()) {
-			cmsms_thumb(get_the_ID(), 'masonry-thumb', false, 'img_' . get_the_ID(), true, true, true, true, false);
+			cmsms_thumb(get_the_ID(), 'masonry-thumb', false, 'img_' . get_the_ID(), false, false, false, true, false);
 		}
 	}
 	
@@ -45,7 +45,7 @@ $cmsms_post_image_link = get_post_meta(get_the_ID(), 'cmsms_post_image_link', tr
 		the_content();
 		
 		wp_link_pages(array( 
-			'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'cmsmasters') . ':</strong>', 
+			'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'econature') . ':</strong>', 
 			'after' => '</div>', 
 			'link_before' => ' [ ', 
 			'link_after' => ' ] ' 

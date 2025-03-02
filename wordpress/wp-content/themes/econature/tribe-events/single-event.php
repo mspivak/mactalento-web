@@ -9,15 +9,22 @@
  * @package TribeEventsCalendar
  *
  * @cmsms_package 	EcoNature
- * @cmsms_version 	1.1.0
+ * @cmsms_version 	1.4.1
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); }
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
+$events_label_singular = tribe_get_event_label_singular();
+$events_label_plural = tribe_get_event_label_plural();
 
 $event_id = get_the_ID();
 
 if (have_posts()) : the_post();
+
 ?>
 
 <div id="tribe-events-content" class="tribe-events-single vevent hentry">
@@ -27,9 +34,9 @@ if (have_posts()) : the_post();
 				<?php the_title('<h1 class="tribe-events-single-event-title summary entry-title">', '</h1>'); ?>
 				<div class="tribe-events-schedule updated published clearfix">
 				<?php 
-					echo '<div>' . 
+					echo '<h6>' . 
 						tribe_events_event_schedule_details( $event_id, '', '') . 
-					'</div>';
+					'</h6>';
 					
 					if (tribe_get_cost()) {
 						echo '<h6 class="tribe-events-cost">' . tribe_get_cost( null, true ) . '</h6>';
@@ -39,13 +46,19 @@ if (have_posts()) : the_post();
 			</div>
 			<div class="cmsms_single_event_header_right clearfix">
 				<h6 class="tribe-events-back">
-					<a class="cmsms-icon-calendar-8" href="<?php echo tribe_get_events_link() ?>"><?php _e('All Events', 'tribe-events-calendar') ?></a>
+					<a class="cmsms-icon-calendar-8" href="<?php echo esc_url( tribe_get_events_link() ); ?>"><?php printf( __( 'All %s', 'econature' ), $events_label_plural ); ?></a>
 				</h6>
-				<?php TribeiCal::single_event_links(); ?>
+				
+				
+				<?php
+				$cmsms_tribe_events_ical = new Tribe__Events__iCal();
+				
+				$cmsms_tribe_events_ical->single_event_links(); 
+				?>
 			</div>
 		</div>
 		<?php 
-		tribe_events_the_notices();
+		tribe_the_notices();
 		
 		if (has_post_thumbnail() || tribe_embed_google_map()) {
 			echo '<div class="cmsms_single_event_inner">';
@@ -73,8 +86,6 @@ if (have_posts()) : the_post();
 			
 		echo '</div>';
 		
-		remove_action('tribe_events_single_event_after_the_content', array('TribeiCal', 'single_event_links'));
-		
 		do_action('tribe_events_single_event_after_the_content');
 		
 		
@@ -97,17 +108,19 @@ if (have_posts()) : the_post();
 	if ($published_events > 1) {
 		echo '<aside id="tribe-events-sub-nav" class="post_nav">';		
 			echo '<span class="tribe-events-nav-previous cmsms_prev_post">'; 
-				tribe_the_prev_event_link('%title%<span class="cmsms_prev_arrow"><span></span></span>');
+				tribe_the_prev_event_link('%title%');
+				echo '<span class="cmsms_prev_arrow"><span></span></span>';
 			echo '</span>';
 			
 			echo '<span class="tribe-events-nav-next cmsms_next_post">';
-				tribe_the_next_event_link('%title%<span class="cmsms_next_arrow"><span></span></span>');
+				tribe_the_next_event_link('%title%');
+				echo '<span class="cmsms_next_arrow"><span></span></span>';
 			echo '</span>';
 		echo '</aside>';
 	}
 	
 	
-	if (get_post_type() == TribeEvents::POSTTYPE && tribe_get_option('showComments', false)) {
+	if (get_post_type() == Tribe__Events__Main::POSTTYPE && tribe_get_option('showComments', false)) {
 		comments_template();
 	}
 	?>

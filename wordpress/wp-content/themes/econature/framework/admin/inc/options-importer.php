@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.4.1
  * 
  * Theme Options Importer
  * Created by CMSMasters
@@ -10,7 +10,7 @@
  */
 
 
-$parse_uri = explode('wp-content', $_SERVER['SCRIPT_FILENAME']);
+$parse_uri = explode('wp-content', getenv('SCRIPT_FILENAME'));
 
 require_once($parse_uri[0] . 'wp-load.php');
 

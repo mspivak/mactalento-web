@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.1.0
+ * @version		1.3.1
  * 
  * Blog Page Default Standard Post Format Template
  * Created by CMSMasters
@@ -42,7 +42,7 @@ $more = (in_array('more', $cmsms_post_metadata) || is_home() || is_archive() || 
 	<div class="cmsms_post_cont">
 	<?php
 		if (!post_password_required() && has_post_thumbnail()) {
-			cmsms_thumb(get_the_ID(), 'post-thumbnail', true, false, true, false, true, true, false);
+			cmsms_thumb(get_the_ID(), 'post-thumbnail', true, false, false, false, false, true, false);
 		}
 		
 		cmsms_post_heading(get_the_ID(), 'h1');

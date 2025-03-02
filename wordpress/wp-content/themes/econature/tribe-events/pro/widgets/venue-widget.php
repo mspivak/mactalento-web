@@ -8,11 +8,17 @@
  * @package TribeEventsCalendarPro
  *
  * @cmsms_package 	EcoNature
- * @cmsms_version 	1.1.0
+ * @cmsms_version 	1.4.1
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); }
+ 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
+$events_label_plural = tribe_get_event_label_plural();
+
 ?>
 
 <div class="tribe-venue-widget-wrapper">
@@ -25,20 +31,17 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<div class="tribe-venue-widget-venue-name">
 			<?php echo tribe_get_venue_link($venue_ID); ?>
 		</div>
-		<div class="tribe-venue-widget-address">
-			<?php echo tribe_get_meta_group( $venue_ID, 'tribe_event_venue' ) ?>
-		</div>
 	</div>
 
 	<?php if ( 0 === $events->post_count ): ?>
-		<?php _e('No upcoming events.', 'tribe-events-calendar-pro'); ?>
+		<?php printf( __( 'No upcoming %s.', 'econature' ),  strtolower( $events_label_plural ) ); ?>
 	<?php else: ?>
 	<?php do_action( 'tribe_events_venue_widget_before_the_list' ); ?>
 	<ul class="tribe-venue-widget-list hfeed vcalendar">
 		<?php while ( $events->have_posts() ): ?>
 			<?php $events->the_post(); ?>
-			<li class="<?php tribe_events_event_classes() ?>">
-				<h3 class="entry-title summary"><a href="<?php echo tribe_get_event_link() ?>"><?php echo get_the_title( get_the_ID() ) ?></a></h3>
+			<li class="vevent <?php tribe_events_event_classes() ?>">
+				<h3 class="entry-title summary"><a href="<?php echo esc_url( tribe_get_event_link() ); ?>"><?php echo get_the_title( get_the_ID() ) ?></a></h3>
 				<div class="cmsms_widget_event_info">
 					<?php echo tribe_events_event_schedule_details() ?>
 					<?php if ( tribe_get_cost( get_the_ID() ) != '' ): ?>
@@ -54,6 +57,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php do_action( 'tribe_events_venue_widget_after_the_list' ); ?>
 	<?php endif; ?>
 	<p class="tribe-events-widget-link">
-		<a href="<?php echo tribe_get_venue_link( $venue_ID, false ); ?>"><?php printf(__( 'View all Events at this %s','tribe-events-calendar'), tribe_get_venue_label_singular()); ?></a>
+		<a href="<?php echo esc_url( tribe_get_venue_link( $venue_ID, false ) ); ?>"><?php printf( __( 'View all %s at this %s', 'econature' ), $events_label_plural, tribe_get_venue_label_singular() ); ?></a>
 	</p>
 </div>

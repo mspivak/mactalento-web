@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.1.3
+ * @version		1.3.8
  * 
  * Default Main Page Template
  * Created by CMSMasters
@@ -24,7 +24,7 @@ if ($cmsms_layout == 'r_sidebar') {
 } elseif ($cmsms_layout == 'l_sidebar') {
 	echo '<div class="content entry fr" role="main">' . "\n\t";
 } else {
-	echo '<div class="middle_content entry" role="main">' . "\n\t";
+	echo '<div class="middle_content entry" role="main">';
 }
 
 	echo '<div class="blog">' . "\n";
@@ -38,7 +38,7 @@ if ($cmsms_layout == 'r_sidebar') {
 			}
 		endwhile;
 		
-		echo pagination();
+		echo cmsms_pagination();
 	endif;
 		
 	echo '</div>' . "\n" . 

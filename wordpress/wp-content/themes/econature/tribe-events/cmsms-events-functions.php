@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.0
+ * @version 	1.4.0
  * 
  * Website Events Functions
  * Created by CMSMasters
@@ -11,24 +11,25 @@
 
 
 /* Replace Styles */
-
 function replace_tribe_events_calendar_stylesheet() {
-	$styleUrl = '';
-
-	return $styleUrl;
+	wp_deregister_style('tribe-events-calendar-style');
+    wp_deregister_style('tribe-events-full-calendar-style');
+    wp_deregister_style('tribe-events-admin-menu');
+	
+    wp_enqueue_style('tribe-events-custom-jquery-styles');
+    wp_enqueue_style('tribe-events-bootstrap-datepicker-css');
 }
 
-add_filter('tribe_events_stylesheet_url', 'replace_tribe_events_calendar_stylesheet');
+add_action('wp_enqueue_scripts', 'replace_tribe_events_calendar_stylesheet', 100);
 
 
 /* Replace Pro Styles */
 
 function replace_tribe_events_calendar_pro_stylesheet() {
-	$styleUrl = '';
-
-	return $styleUrl;
+    wp_deregister_style('tribe-events-calendar-pro-style');
+    wp_deregister_style('tribe-events-full-pro-calendar-style' );
 }
-add_filter('tribe_events_pro_stylesheet_url', 'replace_tribe_events_calendar_pro_stylesheet');
+add_action('wp_enqueue_scripts', 'replace_tribe_events_calendar_pro_stylesheet', 100);
 
 
 /* Replace Widget Styles */
@@ -47,7 +48,4 @@ function customize_tribe_events_breakpoint() {
     return 749;
 }
 add_filter('tribe_events_mobile_breakpoint', 'customize_tribe_events_breakpoint');
-
-
-add_filter('tribe_events_kill_responsive', '__return_true');
 

@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.1
+ * @version		1.4.1
  * 
  * Template Functions for Portfolio & Project
  * Created by CMSMasters
@@ -11,18 +11,28 @@
 
 
 /* Get Projects Heading Function */
-function cmsms_project_heading($cmsms_id, $tag = 'h1', $show = true, $link_redirect = false, $link_url = false) { 
+function cmsms_project_heading($cmsms_id, $tag = 'h1', $show = true, $link_redirect = false, $link_url = false, $link_target = false) { 
+	$h1_tag_class = '';
+	
+	
+	if ($tag == 'h1') {
+		$tag = 'h3';
+		
+		$h1_tag_class = ' cmsms_h1_font_style';
+	}
+	
+	
 	$out = '<header class="cmsms_project_header entry-header">' . 
-		'<' . $tag . ' class="cmsms_project_title entry-title">' . 
-			'<a href="' . (($link_redirect == 'true' && $link_url != '') ? $link_url : get_permalink()) . '">' . cmsms_title($cmsms_id, false) . '</a>' . 
+		'<' . $tag . ' class="cmsms_project_title entry-title' . $h1_tag_class . '">' . 
+			'<a href="' . (($link_redirect == 'true' && $link_url != '') ? esc_url($link_url) : esc_url(get_permalink())) . '"' . ($link_target == 'true' ? ' target="_blank"' : '') . '>' . cmsms_title($cmsms_id, false) . '</a>' . 
 		'</' . $tag . '>' . 
 	'</header>';
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -30,15 +40,25 @@ function cmsms_project_heading($cmsms_id, $tag = 'h1', $show = true, $link_redir
 
 /* Get Projects Heading Without Link Function */
 function cmsms_project_title_nolink($cmsms_id, $tag = 'h1', $show = true) { 
-	$out = '<' . $tag . ' class="cmsms_project_title entry-title">' . 
+	$h1_tag_class = '';
+	
+	
+	if ($tag == 'h1') {
+		$tag = 'h3';
+		
+		$h1_tag_class = ' cmsms_h1_font_style';
+	}
+	
+	
+	$out = '<' . $tag . ' class="cmsms_project_title entry-title' . $h1_tag_class . '">' . 
 		cmsms_title($cmsms_id, false) . 
 	'</' . $tag . '>';
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -52,7 +72,7 @@ function cmsms_project_exc_cont($show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}
@@ -73,7 +93,7 @@ function cmsms_project_category($cmsms_id, $taxonomy, $template_type = 'page', $
 			
 			if ($cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_cat']) {
 				$out = '<div class="project_details_item">' . 
-					'<div class="project_details_item_title">' . __('Categories', 'cmsmasters') . ':' . '</div>' . 
+					'<div class="project_details_item_title">' . __('Categories', 'econature') . ':' . '</div>' . 
 					'<div class="project_details_item_desc">' . 
 						'<span class="cmsms_project_category">' . 
 							get_the_term_list($cmsms_id, $taxonomy, '', ', ', '') . 
@@ -85,9 +105,9 @@ function cmsms_project_category($cmsms_id, $taxonomy, $template_type = 'page', $
 		
 		
 		if ($show) {
-			echo $out;
+			echo wp_kses_post($out);
 		} else {
-			return $out;
+			return wp_kses_post($out);
 		}
 	}
 }
@@ -104,7 +124,7 @@ function cmsms_project_like($template_type = 'page', $show = true) {
 		
 		if ($cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_like']) {
 			$out = '<div class="project_details_item">' . 
-				'<div class="project_details_item_title">' . __('Like', 'cmsmasters') . ':' . '</div>' . 
+				'<div class="project_details_item_title">' . __('Like', 'econature') . ':' . '</div>' . 
 				'<div class="project_details_item_desc">' . 
 					cmsmsLike(false) . 
 				'</div>' . 
@@ -114,7 +134,7 @@ function cmsms_project_like($template_type = 'page', $show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}
@@ -126,7 +146,7 @@ function cmsms_project_like($template_type = 'page', $show = true) {
 function cmsms_project_comments($template_type = 'page', $show = true) {
 	if (comments_open()) {
 		if ($template_type == 'page') {
-			$out = '<a class="cmsms_project_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'cmsmasters') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>';
+			$out = '<a class="cmsms_project_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'econature') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>';
 		} elseif ($template_type == 'post') {
 			$cmsms_option = cmsms_get_global_options();
 			
@@ -134,9 +154,9 @@ function cmsms_project_comments($template_type = 'page', $show = true) {
 			
 			if ($cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_comment']) {
 				$out .= '<div class="project_details_item">' . 
-					'<div class="project_details_item_title">' . __('Comments', 'cmsmasters') . ':' . '</div>' . 
+					'<div class="project_details_item_title">' . __('Comments', 'econature') . ':' . '</div>' . 
 					'<div class="project_details_item_desc">' . 
-						'<a class="cmsms_project_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'cmsmasters') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>' . 
+						'<a class="cmsms_project_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'econature') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>' . 
 					'</div>' . 
 				'</div>';
 			}
@@ -144,7 +164,7 @@ function cmsms_project_comments($template_type = 'page', $show = true) {
 		
 		
 		if ($show) {
-			echo $out;
+			echo cmsms_return_content($out);
 		} else {
 			return $out;
 		}
@@ -169,7 +189,7 @@ function cmsms_project_date($template_type = 'page', $show = true) {
 		
 		if ($cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_date']) {
 			$out .= '<div class="project_details_item">' . 
-				'<div class="project_details_item_title">' . __('Date', 'cmsmasters') . ':' . '</div>' . 
+				'<div class="project_details_item_title">' . __('Date', 'econature') . ':' . '</div>' . 
 				'<div class="project_details_item_desc">' . 
 					'<abbr class="published cmsms_project_date" title="' . get_the_date() . '">' . 
 						get_the_date() . 
@@ -184,9 +204,9 @@ function cmsms_project_date($template_type = 'page', $show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -196,8 +216,8 @@ function cmsms_project_date($template_type = 'page', $show = true) {
 function cmsms_project_author($template_type = 'page', $show = true) {
 	if ($template_type == 'page') {
 		$out = '<span class="cmsms_project_author">' . 
-			__('By', 'cmsmasters') . ' ' . 
-			'<a href="' . get_author_posts_url(get_the_author_meta('ID')) . '" title="' . __('Projects by', 'cmsmasters') . ' ' . get_the_author_meta('display_name') . '" class="vcard author"><span class="fn" rel="author">' . get_the_author_meta('display_name') . '</span></a>' . 
+			__('By', 'econature') . ' ' . 
+			'<a href="' . get_author_posts_url(get_the_author_meta('ID')) . '" title="' . __('Projects by', 'econature') . ' ' . get_the_author_meta('display_name') . '" class="vcard author" rel="author"><span class="fn">' . get_the_author_meta('display_name') . '</span></a>' . 
 		'</span>';
 	} elseif ($template_type == 'post') {
 		$cmsms_option = cmsms_get_global_options();
@@ -206,9 +226,9 @@ function cmsms_project_author($template_type = 'page', $show = true) {
 		
 		if ($cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_author']) {
 			$out .= '<div class="project_details_item">' . 
-				'<div class="project_details_item_title">' . __('Author', 'cmsmasters') . ':' . '</div>' . 
+				'<div class="project_details_item_title">' . __('Author', 'econature') . ':' . '</div>' . 
 				'<div class="project_details_item_desc vcard author">' . 
-					'<span class="cmsms_project_author fn" title="' . __('Projects by', 'cmsmasters') . ' ' . get_the_author_meta('display_name') . '" rel="author">' . get_the_author_meta('display_name') . '</span>' . 
+					'<span class="cmsms_project_author fn" title="' . __('Projects by', 'econature') . ' ' . get_the_author_meta('display_name') . '">' . get_the_author_meta('display_name') . '</span>' . 
 				'</div>' . 
 			'</div>';
 		}
@@ -216,9 +236,9 @@ function cmsms_project_author($template_type = 'page', $show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -237,7 +257,7 @@ function cmsms_project_tags($cmsms_id, $taxonomy, $template_type = 'page', $show
 			
 			if ($cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_tag']) {
 				$out = '<div class="project_details_item">' . 
-					'<div class="project_details_item_title">' . __('Tags', 'cmsmasters') . ':' . '</div>' . 
+					'<div class="project_details_item_title">' . __('Tags', 'econature') . ':' . '</div>' . 
 					'<div class="project_details_item_desc">' . 
 						'<span class="cmsms_project_tags">' . 
 							get_the_term_list($cmsms_id, $taxonomy, '', ', ', '') . 
@@ -249,9 +269,9 @@ function cmsms_project_tags($cmsms_id, $taxonomy, $template_type = 'page', $show
 		
 		
 		if ($show) {
-			echo $out;
+			echo wp_kses_post($out);
 		} else {
-			return $out;
+			return wp_kses_post($out);
 		}
 	}
 }
@@ -261,8 +281,13 @@ function cmsms_project_tags($cmsms_id, $taxonomy, $template_type = 'page', $show
 /* Get Projects Features Function */
 function cmsms_project_features($features_position = 'features', $features = '', $features_title = false, $tag = 'h2', $show = true) {
 	if (
-		!empty($features[1][0]) && 
-		!empty($features[1][1])
+		(
+			!empty($features[0][0]) && 
+			!empty($features[0][1])
+		) || (
+			!empty($features[1][0]) && 
+			!empty($features[1][1])
+		)
 	) {
 		$out = '';
 		
@@ -295,7 +320,7 @@ function cmsms_project_features($features_position = 'features', $features = '',
 		}
 		
 		if ($show) {
-			echo $out;
+			echo cmsms_return_content($out);
 		} else {
 			return $out;
 		}
@@ -315,7 +340,7 @@ function cmsms_project_link($link_text, $link_url, $link_target, $show = true) {
 		$link_url != '' 
 	) {
 		$out = '<div class="project_details_item">' . 
-			'<div class="project_details_item_title">' . __('Project Link', 'cmsmasters') . ':' . '</div>' . 
+			'<div class="project_details_item_title">' . __('Project Link', 'econature') . ':' . '</div>' . 
 			'<div class="project_details_item_desc">' . 
 				'<span class="cmsms_project_tags">' . 
 					'<a href="' . $link_url . '" title="' . $link_text . '"' . (($link_target == 'true') ? ' target="_blank"' : '') . '>' . $link_text . '</a>' . 
@@ -325,9 +350,9 @@ function cmsms_project_link($link_text, $link_url, $link_target, $show = true) {
 	}
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 

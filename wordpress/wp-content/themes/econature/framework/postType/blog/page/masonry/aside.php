@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.4.1
  * 
  * Blog Page Masonry Aside Post Format Template
  * Created by CMSMasters
@@ -39,7 +39,7 @@ if ($post_sort_categs != '') {
 
 <!--_________________________ Start Aside Article _________________________ -->
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('cmsms_masonry_type'); ?> data-category="<?php echo $post_categs; ?>">
+<article id="post-<?php the_ID(); ?>" <?php post_class('cmsms_masonry_type'); ?> data-category="<?php echo esc_attr($post_categs); ?>">
 	<span class="cmsms_post_format_img <?php 
 			if (is_sticky()) {
 				echo ' cmsms-icon-attach-6';
@@ -62,7 +62,7 @@ if ($post_sort_categs != '') {
 				'</div>';
 			}
 		} else {
-			echo '<p class="cmsms_post_content">' . __('There is no excerpt because this is a protected post.', 'cmsmasters') . '</p>';
+			echo '<p class="cmsms_post_content">' . __('There is no excerpt because this is a protected post.', 'econature') . '</p>';
 		}
 		
 		

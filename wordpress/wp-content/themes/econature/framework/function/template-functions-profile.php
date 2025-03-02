@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.1
+ * @version		1.4.1
  * 
  * Template Functions for Profiles & Profile
  * Created by CMSMasters
@@ -12,17 +12,27 @@
 
 /* Get Profiles Heading Function */
 function cmsms_profile_heading($cmsms_id, $tag = 'h1', $show = true) { 
+	$h1_tag_class = '';
+	
+	
+	if ($tag == 'h1') {
+		$tag = 'h3';
+		
+		$h1_tag_class = ' cmsms_h1_font_style';
+	}
+	
+	
 	$out = '<header class="cmsms_profile_header entry-header">' . 
-		'<' . $tag . ' class="cmsms_profile_title entry-title">' . 
+		'<' . $tag . ' class="cmsms_profile_title entry-title' . $h1_tag_class . '">' . 
 			'<a href="' . get_permalink() . '">' . cmsms_title($cmsms_id, false) . '</a>' . 
 		'</' . $tag . '>' . 
 	'</header>';
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -30,7 +40,17 @@ function cmsms_profile_heading($cmsms_id, $tag = 'h1', $show = true) {
 
 /* Get Profiles Heading Without Link Function */
 function cmsms_profile_title_nolink($cmsms_id, $tag = 'h1', $sub_title = false, $tag_sub = 'h5', $show = true) { 
-	$out = '<' . $tag . ' class="cmsms_profile_title entry-title">' . 
+	$h1_tag_class = '';
+	
+	
+	if ($tag == 'h1') {
+		$tag = 'h3';
+		
+		$h1_tag_class = ' cmsms_h1_font_style';
+	}
+	
+	
+	$out = '<' . $tag . ' class="cmsms_profile_title entry-title' . $h1_tag_class . '">' . 
 		cmsms_title($cmsms_id, false) . 
 	'</' . $tag . '>';
 	
@@ -43,9 +63,9 @@ function cmsms_profile_title_nolink($cmsms_id, $tag = 'h1', $sub_title = false, 
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -58,7 +78,7 @@ function cmsms_profile_exc_cont($show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}
@@ -79,7 +99,7 @@ function cmsms_profile_category($cmsms_id, $taxonomy, $template_type = 'page', $
 			
 			if ($cmsms_option[CMSMS_SHORTNAME . '_profile_post_cat']) {
 				$out = '<div class="profile_details_item">' . 
-					'<div class="profile_details_item_title">' . __('Categories', 'cmsmasters') . ':' . '</div>' . 
+					'<div class="profile_details_item_title">' . __('Categories', 'econature') . ':' . '</div>' . 
 					'<div class="profile_details_item_desc">' . 
 						'<span class="cmsms_profile_category">' . 
 							get_the_term_list($cmsms_id, $taxonomy, '', ', ', '') . 
@@ -91,9 +111,9 @@ function cmsms_profile_category($cmsms_id, $taxonomy, $template_type = 'page', $
 		
 		
 		if ($show) {
-			echo $out;
+			echo wp_kses_post($out);
 		} else {
-			return $out;
+			return wp_kses_post($out);
 		}
 	}
 }
@@ -104,16 +124,16 @@ function cmsms_profile_category($cmsms_id, $taxonomy, $template_type = 'page', $
 function cmsms_profile_comments($template_type = 'page', $show = true) {
 	if (comments_open()) {
 		if ($template_type == 'page') {
-			$out = '<a class="cmsms_profile_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'cmsmasters') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>';
+			$out = '<a class="cmsms_profile_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'econature') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>';
 		} elseif ($template_type == 'post') {
 			$cmsms_option = cmsms_get_global_options();
 			$out = '';
 			
 			if ($cmsms_option[CMSMS_SHORTNAME . '_profile_post_comment']) {
 				$out = '<div class="profile_details_item">' . 
-					'<div class="profile_details_item_title">' . __('Comments', 'cmsmasters') . ':' . '</div>' . 
+					'<div class="profile_details_item_title">' . __('Comments', 'econature') . ':' . '</div>' . 
 					'<div class="profile_details_item_desc">' . 
-						'<a class="cmsms_profile_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'cmsmasters') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>' . 
+						'<a class="cmsms_profile_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'econature') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>' . 
 					'</div>' . 
 				'</div>';
 			}
@@ -121,7 +141,7 @@ function cmsms_profile_comments($template_type = 'page', $show = true) {
 		
 		
 		if ($show) {
-			echo $out;
+			echo cmsms_return_content($out);
 		} else {
 			return $out;
 		}
@@ -133,8 +153,13 @@ function cmsms_profile_comments($template_type = 'page', $show = true) {
 /* Get Profiles Features Function */
 function cmsms_profile_features($features_position = 'features', $features = '', $features_title = false, $tag = 'h2', $show = true) {
 	if (
-		!empty($features[1][0]) && 
-		!empty($features[1][1])
+		(
+			!empty($features[0][0]) && 
+			!empty($features[0][1])
+		) || (
+			!empty($features[1][0]) && 
+			!empty($features[1][1])
+		)
 	) {
 		$out = '';
 		
@@ -167,7 +192,7 @@ function cmsms_profile_features($features_position = 'features', $features = '',
 		}
 		
 		if ($show) {
-			echo $out;
+			echo cmsms_return_content($out);
 		} else {
 			return $out;
 		}
@@ -204,7 +229,7 @@ function cmsms_profile_social_icons($social_icons, $title_box = false, $tag = 'h
 		
 		
 		if ($show) {
-			echo $out;
+			echo cmsms_return_content($out);
 		} else {
 			return $out;
 		}

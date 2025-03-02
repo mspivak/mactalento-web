@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.4.1
  * 
  * Breadcrumbs Function
  * Created by CMSMasters
@@ -16,7 +16,7 @@ function breadcrumbs() {
 	
 	$homeLink = home_url();
 	
-	$homeText = __('Home', 'cmsmasters');
+	$homeText = __('Home', 'econature');
 	
 	$sep = "\n\t" . '<span class="breadcrumbs_sep"> / </span>' . "\n\t";
 	
@@ -37,7 +37,7 @@ function breadcrumbs() {
 	$url_month = get_month_link($year_format, $month_format);
 	
 	
-	echo '<span>' . __('You are here: ', 'cmsmasters') . '</span>' . "\n\t\t" . 
+	echo '<span>' . __('You are here: ', 'econature') . '</span>' . "\n\t\t" . 
 	'<a href="' . $homeLink . '" class="cms_home">' . $homeText . '</a>' . $sep;
 	
 	
@@ -67,11 +67,11 @@ function breadcrumbs() {
 		
 		
 		foreach ($multiple_cats_array as $single_cat) {
-			echo $single_cat;
+			echo cmsms_return_content($single_cat);
 			
 			
 			if ($i < $multiple_cats_num) {
-				echo $sep;
+				echo cmsms_return_content($sep);
 			}
 			
 			
@@ -80,17 +80,17 @@ function breadcrumbs() {
 	} elseif (is_tag()) {
 		echo single_tag_title('', false);
 	} elseif (is_day()) {
-		echo '<a href="' . $url_year . '">' . $year_format . '</a>' . 
+		echo '<a href="' . esc_url($url_year) . '">' . esc_html($year_format) . '</a>' . 
 			$sep . 
-			'<a href="' . $url_month . '">' . $month_format . '</a>' . 
+			'<a href="' . esc_url($url_month) . '">' . esc_html($month_format) . '</a>' . 
 			$sep . 
 			$day_format . ' (' . $day_full_format . ')';
 	} elseif (is_month()) {
-		echo '<a href="' . $url_year . '">' . $year_format . '</a>' . $sep . $month_format;
+		echo '<a href="' . esc_url($url_year) . '">' . esc_html($year_format) . '</a>' . $sep . esc_html($month_format);
 	} elseif (is_year()) {
-		echo $year_format;
+		echo esc_html($year_format);
 	} elseif (is_search()) {
-		echo '<span>' . __('Search Results for', 'cmsmasters') . "</span>: '" . get_search_query() . "'";
+		echo '<span>' . __('Search Results for', 'econature') . "</span>: '" . get_search_query() . "'";
 	} elseif (is_page() && !$post->post_parent) {
 		echo '<span>' . cmsms_title(get_the_ID(), false) . '</span>';
 	} elseif (is_page() && $post->post_parent) {
@@ -118,11 +118,11 @@ function breadcrumbs() {
 		$user_info = get_userdata($author);
 		
 		
-		echo $user_info->display_name;
+		echo cmsms_return_content($user_info->display_name);
 	} else if (is_tax()) {
-		echo '<span>' . __('Portfolio Archives', 'cmsmasters') . '</span>';
+		echo '<span>' . __('Portfolio Archives', 'econature') . '</span>';
 	} else {
-		echo '<span>' . __('No Breadcrumbs', 'cmsmasters') . '</span>';
+		echo '<span>' . __('No Breadcrumbs', 'econature') . '</span>';
 	}
 }
 

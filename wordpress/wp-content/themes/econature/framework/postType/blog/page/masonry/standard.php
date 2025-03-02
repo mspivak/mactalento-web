@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.4.1
  * 
  * Blog Page Masonry Standard Post Format Template
  * Created by CMSMasters
@@ -40,7 +40,7 @@ if ($post_sort_categs != '') {
 
 <!--_________________________ Start Standard Article _________________________ -->
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('cmsms_masonry_type'); ?> data-category="<?php echo $post_categs; ?>">
+<article id="post-<?php the_ID(); ?>" <?php post_class('cmsms_masonry_type'); ?> data-category="<?php echo esc_attr($post_categs); ?>">
 	<span class="cmsms_post_format_img <?php 
 			if (is_sticky()) {
 				echo ' cmsms-icon-attach-6';

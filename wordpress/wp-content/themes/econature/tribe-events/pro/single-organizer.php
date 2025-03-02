@@ -17,11 +17,14 @@
  * @package TribeEventsCalendarPro
  *
  * @cmsms_package 	EcoNature
- * @cmsms_version 	1.1.0
+ * @cmsms_version 	1.4.1
  *
  */
  
-if ( !defined('ABSPATH') ) { die('-1'); }
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 $organizer_id = get_the_ID();
 
@@ -41,14 +44,14 @@ while( have_posts() ) : the_post(); ?>
 				<!-- Organizer Meta -->
 				<?php
 				do_action('tribe_events_single_organizer_before_the_meta');
-				echo tribe_get_meta_group('tribe_event_organizer');
+				echo tribe_get_organizer_details();
 				do_action('tribe_events_single_organizer_after_the_meta');
 				?>
 			</div>
 		</div>
 		<div class="cmsms_events_organizer_header_right clearfix">
 			<h6 class="tribe-events-back">
-				<a class="cmsms-icon-calendar-8" href="<?php echo tribe_get_events_link() ?>" rel="bookmark"><?php _e('Back to Events', 'tribe-events-calendar-pro') ?></a>
+				<a class="cmsms-icon-calendar-8" href="<?php echo esc_url( tribe_get_events_link() ); ?>" rel="bookmark"><?php printf( __( 'Back to %s', 'econature' ), tribe_get_event_label_plural() ); ?></a>
 			</h6>
 		</div>
 	</div>
@@ -68,10 +71,10 @@ while( have_posts() ) : the_post(); ?>
 
 	<!-- Upcoming event list -->
 	<?php do_action('tribe_events_single_organizer_before_upcoming_events') ?>
-	<?php // Use the 'tribe_events_single_organizer_posts_per_page' to filter the 
-	 	  // number of events to display beneath the venue info on the venue page.
-	?> 
-	<?php echo tribe_include_view_list( array('organizer' => get_the_ID(), 'eventDisplay' => 'list', apply_filters( 'tribe_events_single_organizer_posts_per_page', 100 ) ) )?>
+	<?php
+	// Use the tribe_events_single_organizer_posts_per_page to filter the number of events to get here.
+
+	echo tribe_organizer_upcoming_events( $organizer_id ); ?>
 	<?php do_action('tribe_events_single_organizer_after_upcoming_events') ?>
 	
 </div><!-- .tribe-events-organizer -->

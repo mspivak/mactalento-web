@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.0
+ * @version 	1.3.1
  * 
  * Admin Panel Scripts & Styles
  * Created by CMSMasters
@@ -28,22 +28,24 @@ function cmsmasters_admin_register($hook) {
 	wp_register_script('cmsms-uploader-js', get_template_directory_uri() . '/framework/admin/inc/js/jquery.cmsmsUploader.js', array('jquery'), '1.0.0', true);
 	
 	wp_localize_script('cmsms-uploader-js', 'cmsms_admin_uploader', array( 
-		'choose' => 				esc_attr__('Choose image', 'cmsmasters'), 
-		'insert' => 				esc_attr__('Insert image', 'cmsmasters'), 
-		'remove' => 				esc_attr__('Remove', 'cmsmasters'), 
-		'edit_gallery' => 			esc_attr__('Edit gallery', 'cmsmasters') 
+		'choose' => 				esc_attr__('Choose image', 'econature'), 
+		'insert' => 				esc_attr__('Insert image', 'econature'), 
+		'remove' => 				esc_attr__('Remove', 'econature'), 
+		'edit_gallery' => 			esc_attr__('Edit gallery', 'econature') 
 	));
 	
 	
 	wp_register_script('cmsms-lightbox-js', get_template_directory_uri() . '/framework/admin/inc/js/jquery.cmsmsLightbox.js', array('jquery'), '1.0.0', true);
 	
 	wp_localize_script('cmsms-lightbox-js', 'cmsms_admin_lightbox', array( 
-		'cancel' => 				esc_attr__('Cancel', 'cmsmasters'), 
-		'insert' => 				esc_attr__('Insert', 'cmsmasters'), 
-		'deselect' => 				esc_attr__('Deselect', 'cmsmasters'), 
-		'choose_icon' => 			esc_attr__('Choose Icon', 'cmsmasters'), 
-		'find_icons' => 			esc_attr__('Find icons', 'cmsmasters'), 
-		'error_on_page' => 			esc_attr__("Error on page!\nReload page and try again.", 'cmsmasters') 
+		'cancel' => 				esc_attr__('Cancel', 'econature'), 
+		'insert' => 				esc_attr__('Insert', 'econature'), 
+		'deselect' => 				esc_attr__('Deselect', 'econature'), 
+		'choose_icon' => 			esc_attr__('Choose Icon', 'econature'), 
+		'find_icons' => 			esc_attr__('Find icons', 'econature'), 
+		'min_length' => 			esc_attr__('min 2 symbols', 'econature'), 
+		'choose_font' => 			esc_attr__('Choose icons font', 'econature'), 
+		'error_on_page' => 			esc_attr__("Error on page!\nReload page and try again.", 'econature') 
 	));
 	
 	

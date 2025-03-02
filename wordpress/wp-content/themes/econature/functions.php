@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.1.2
+ * @version		1.4.3
  * 
  * Main Theme Functions File
  * Created by CMSMasters
@@ -10,28 +10,18 @@
  */
 
 
-/**
- * Add REST API support to an already registered post type.
- */
-add_action( 'init', 'mt_project_type_rest_support', 25 );
-function mt_project_type_rest_support() {
-    global $wp_post_types;
-
-    //be sure to set this to the name of your post type!
-    $post_type_name = 'project';
-    if( isset( $wp_post_types[ $post_type_name ] ) ) {
-        $wp_post_types[$post_type_name]->show_in_rest = true;
-        $wp_post_types[$post_type_name]->rest_base = $post_type_name;
-        $wp_post_types[$post_type_name]->rest_controller_class = 'WP_REST_Posts_Controller';
-    }
-
-}
-
-
-
 // Current Theme Constants
 define('CMSMS_SHORTNAME', 'econature');
 define('CMSMS_FULLNAME', 'EcoNature');
+
+
+// CMSMasters Importer Compatibility
+define('CMSMASTERS_IMPORTER', true);
+
+// Change FS Method
+if (!defined('FS_METHOD')) {
+	define('FS_METHOD', 'direct');
+}
 
 
 
@@ -61,8 +51,7 @@ function cmsms_system_fonts_list() {
 // Theme Settings Google Fonts List
 function cmsms_google_fonts_list() {
 	$fonts = array( 
-		'' => __('None', 'cmsmasters'), 
-		'Hind:300,400,500,600,700' => 'Hind',
+		'' => __('None', 'econature'), 
 		'Roboto:300,300italic,400,400italic,500,500italic,700,700italic' => 'Roboto', 
 		'Roboto+Condensed:400,400italic,700,700italic' => 'Roboto Condensed', 
 		'Roboto+Slab:300,400,700' => 'Roboto Slab', 
@@ -173,11 +162,11 @@ function cmsms_text_decoration_list() {
 // Theme Settings Custom Color Schemes
 function cmsms_custom_color_schemes_list() {
 	$list = array( 
-		'first' => __('Custom 1', 'cmsmasters'), 
-		'second' => __('Custom 2', 'cmsmasters'), 
-		'third' => __('Custom 3', 'cmsmasters'), 
-		'fourth' => __('Custom 4', 'cmsmasters'), 
-		'fifth' => __('Custom 5', 'cmsmasters'), 
+		'first' => __('Custom 1', 'econature'), 
+		'second' => __('Custom 2', 'econature'), 
+		'third' => __('Custom 3', 'econature'), 
+		'fourth' => __('Custom 4', 'econature'), 
+		'fifth' => __('Custom 5', 'econature'), 
 	);
 	
 	
@@ -200,52 +189,52 @@ function cmsms_image_thumbnail_list() {
 			'width' => 		250, 
 			'height' => 	250, 
 			'crop' => 		true, 
-			'title' => 		__('Square', 'cmsmasters') 
+			'title' => 		__('Square', 'econature') 
 		), 
 		'blog-masonry-thumb' => array( 
 			'width' => 		580, 
 			'height' => 	390, 
 			'crop' => 		true, 
-			'title' => 		__('Masonry Blog', 'cmsmasters') 
+			'title' => 		__('Masonry Blog', 'econature') 
 		), 
 		'project-thumb' => array( 
 			'width' => 		580, 
 			'height' => 	460, 
 			'crop' => 		true, 
-			'title' => 		__('Project', 'cmsmasters') 
+			'title' => 		__('Project', 'econature') 
 		), 
 		'project-masonry-thumb' => array( 
 			'width' => 		580, 
 			'height' => 	9999, 
-			'title' => 		__('Masonry Project', 'cmsmasters') 
+			'title' => 		__('Masonry Project', 'econature') 
 		), 
 		'post-thumbnail' => array( 
 			'width' => 		820, 
 			'height' => 	490, 
 			'crop' => 		true, 
-			'title' => 		__('Featured', 'cmsmasters') 
+			'title' => 		__('Featured', 'econature') 
 		), 
 		'masonry-thumb' => array( 
 			'width' => 		820, 
 			'height' => 	9999, 
-			'title' => 		__('Masonry', 'cmsmasters') 
+			'title' => 		__('Masonry', 'econature') 
 		), 
 		'full-thumb' => array( 
 			'width' => 		1160, 
 			'height' => 	700, 
 			'crop' => 		true, 
-			'title' => 		__('Full', 'cmsmasters') 
+			'title' => 		__('Full', 'econature') 
 		), 
 		'project-full-thumb' => array( 
 			'width' => 		1160, 
 			'height' => 	920, 
 			'crop' => 		true, 
-			'title' => 		__('Project Full', 'cmsmasters') 
+			'title' => 		__('Project Full', 'econature') 
 		), 
 		'full-masonry-thumb' => array( 
 			'width' => 		1160, 
 			'height' => 	9999, 
-			'title' => 		__('Masonry Full', 'cmsmasters') 
+			'title' => 		__('Masonry Full', 'econature') 
 		) 
 	);
 	
@@ -258,10 +247,10 @@ function cmsms_image_thumbnail_list() {
 // Theme Settings All Color Schemes List
 function cmsms_all_color_schemes_list() {
 	$list = array( 
-		'default' => 		__('Default', 'cmsmasters'), 
-		'header' => 		__('Header', 'cmsmasters'), 
-		'header_top' => 	__('Header Top', 'cmsmasters'), 
-		'footer' => 		__('Footer', 'cmsmasters') 
+		'default' => 		__('Default', 'econature'), 
+		'header' => 		__('Header', 'econature'), 
+		'header_top' => 	__('Header Top', 'econature'), 
+		'footer' => 		__('Footer', 'econature') 
 	);
 	
 	
@@ -287,6 +276,30 @@ function cmsms_color_schemes_list() {
 	
 	
 	return $out;
+}
+
+
+
+// WP Color Picker Palettes
+if (!function_exists('cmsms_color_picker_palettes')) {
+
+function cmsms_color_picker_palettes() {
+	$palettes = array( 
+		'#000000', 
+		'#ffffff', 
+		'#979ca4', 
+		'#58cf90', 
+		'#c8ccce', 
+		'#4c5562', 
+		'#ffffff', 
+		'#ffffff', 
+		'#e5e8ec' 
+	);
+	
+	
+	return apply_filters('cmsms_color_picker_palettes_filter', $palettes);
+}
+
 }
 
 
@@ -399,8 +412,17 @@ define('CMSMS_CLASS', CMSMS_FRAMEWORK . '/class');
 define('CMSMS_FUNCTION', CMSMS_FRAMEWORK . '/function');
 
 
+define('CMSMASTERS_DEMO_FILES_PATH', get_template_directory() . '/framework/admin/inc/demo-content/');
+
+
 
 // Load Framework Parts
+require_once(CMSMS_CLASS . '/Browser.php');
+
+if (class_exists('Cmsmasters_Theme_Importer')) {
+	require_once(CMSMS_ADMIN_INC . '/demo-content-importer.php');
+}
+
 require_once(CMSMS_SETTINGS . '/cmsms-theme-settings.php');
 
 require_once(CMSMS_OPTIONS . '/cmsms-theme-options.php');
@@ -408,10 +430,6 @@ require_once(CMSMS_OPTIONS . '/cmsms-theme-options.php');
 require_once(CMSMS_ADMIN_INC . '/admin-scripts.php');
 
 require_once(CMSMS_ADMIN_INC . '/plugin-activator.php');
-
-require_once(CMSMS_CLASS . '/likes-posttype.php');
-
-require_once(CMSMS_CLASS . '/twitteroauth.php');
 
 require_once(CMSMS_CLASS . '/widgets.php');
 
@@ -444,6 +462,13 @@ require_once(CMSMS_FUNCTION . '/template-functions-shortcodes.php');
 require_once(CMSMS_FUNCTION . '/template-functions-widgets.php');
 
 
+$cmsms_wp_version = get_bloginfo('version');
+
+if (version_compare($cmsms_wp_version, '5', '>=') || function_exists('is_gutenberg_page')) {
+	require_once(get_template_directory() . '/gutenberg/cmsms-module-functions.php');
+}
+
+
 // Woocommerce functions
 if (class_exists('woocommerce')) {
 	require_once(get_template_directory() . '/woocommerce/cmsms-woo-functions.php');
@@ -452,7 +477,7 @@ if (class_exists('woocommerce')) {
 
 
 // Events functions
-if (class_exists('TribeEvents')) {
+if (class_exists('Tribe__Events__Main')) {
 	require_once(get_template_directory() . '/tribe-events/cmsms-events-functions.php');
 }
 
@@ -464,7 +489,7 @@ if (!function_exists('cmsms_load_theme_textdomain')) {
 		$locale = get_locale();
 		
 		
-		load_theme_textdomain('cmsmasters', CMSMS_FRAMEWORK . '/languages');
+		load_theme_textdomain('econature', CMSMS_FRAMEWORK . '/languages');
 		
 		
 		$locale_file = CMSMS_FRAMEWORK . '/languages/' . $locale . '.php';
@@ -476,6 +501,7 @@ if (!function_exists('cmsms_load_theme_textdomain')) {
 	}
 }
 
+// Load Theme Local File Action
 if (!has_action('after_setup_theme', 'cmsms_load_theme_textdomain')) {
 	add_action('after_setup_theme', 'cmsms_load_theme_textdomain');
 }
@@ -490,9 +516,6 @@ if (!function_exists('cmsms_theme_activation')) {
 			
 			
 			cmsms_add_global_options();
-			
-			
-			cmsms_regenerate_styles();
 			
 			
 			cmsms_add_global_icons();
@@ -517,8 +540,64 @@ if (!function_exists('cmsms_theme_deactivation')) {
 	}
 }
 
+add_action('switch_theme', 'cmsms_theme_deactivation');
 
-if (!has_action('switch_theme', 'cmsms_theme_deactivation')) {
-	add_action('switch_theme', 'cmsms_theme_deactivation');
+
+
+// Plugin Activation Regenerate Styles
+if (!function_exists('cmsms_plugin_activation')) {
+	function cmsms_plugin_activation($plugin, $network_activation) {
+		update_option('cmsms_plugin_activation', 'true');
+		
+		
+		if ($plugin == 'classic-editor/classic-editor.php') {
+			update_option('classic-editor-replace', 'no-replace');
+		}
+	}
 }
+
+add_action('activated_plugin', 'cmsms_plugin_activation', 10, 2);
+
+
+if (!function_exists('cmsms_plugin_activation_regenerate')) {
+	function cmsms_plugin_activation_regenerate() {
+		if (!get_option('cmsms_plugin_activation')) {
+			add_option('cmsms_plugin_activation', 'false');
+		}
+		
+		if (get_option('cmsms_plugin_activation') != 'false') {
+			cmsms_regenerate_styles();
+			
+			update_option('cmsms_plugin_activation', 'false');
+		}
+	}
+}
+
+add_action('init', 'cmsms_plugin_activation_regenerate');
+
+
+function cmsms_run_reinit_import_options($post_id, $key, $value) {
+	if (!get_post_meta($post_id, 'cmsms_heading', true)) {
+		$custom_post_meta_fields = get_custom_all_meta_fields();
+		
+		foreach ($custom_post_meta_fields as $field) {
+			if ( 
+				$field['type'] != 'tabs' && 
+				$field['type'] != 'tab_start' && 
+				$field['type'] != 'tab_finish' && 
+				$field['type'] != 'content_start' && 
+				$field['type'] != 'content_finish' 
+			) {
+				update_post_meta($post_id, $field['id'], $field['std']);
+			}
+		}
+	}
+	
+	
+	if ($key === 'cmsms_composer_show' && $value === 'true') {
+		update_post_meta($post_id, 'cmsms_gutenberg_show', 'true');
+	}
+}
+
+add_action('import_post_meta', 'cmsms_run_reinit_import_options', 10, 3);
 

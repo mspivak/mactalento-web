@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.1.0
+ * @version		1.3.8
  * 
  * Admin Panel Appearance
  * Created by CMSMasters
@@ -15,16 +15,16 @@ function cmsms_options_style_tabs() {
 	
 	$tabs = array();
 	
-	$tabs['logo'] = esc_attr__('Logo', 'cmsmasters');
+	$tabs['logo'] = esc_attr__('Logo', 'econature');
 	
 	if ($cmsms_option[CMSMS_SHORTNAME . '_theme_layout'] === 'boxed') {
-		$tabs['bg'] = esc_attr__('Background', 'cmsmasters');
+		$tabs['bg'] = esc_attr__('Background', 'econature');
 	}
 	
-	$tabs['header'] = esc_attr__('Header', 'cmsmasters');
-	$tabs['content'] = esc_attr__('Content', 'cmsmasters');
-	$tabs['footer'] = esc_attr__('Footer', 'cmsmasters');
-	$tabs['icon'] = esc_attr__('Social Icons', 'cmsmasters');
+	$tabs['header'] = esc_attr__('Header', 'econature');
+	$tabs['content'] = esc_attr__('Content', 'econature');
+	$tabs['footer'] = esc_attr__('Footer', 'econature');
+	$tabs['icon'] = esc_attr__('Social Icons', 'econature');
 	
 	return $tabs;
 }
@@ -37,37 +37,37 @@ function cmsms_options_style_sections() {
 	case 'logo':
 		$sections = array();
 		
-		$sections['logo_section'] = esc_attr__('Logo Options', 'cmsmasters');
+		$sections['logo_section'] = esc_attr__('Logo Options', 'econature');
 		
 		break;
 	case 'bg':
 		$sections = array();
 		
-		$sections['bg_section'] = esc_attr__('Background Options', 'cmsmasters');
+		$sections['bg_section'] = esc_attr__('Background Options', 'econature');
 		
 		break;
 	case 'header':
 		$sections = array();
 		
-		$sections['header_section'] = esc_attr__('Header Options', 'cmsmasters');
+		$sections['header_section'] = esc_attr__('Header Options', 'econature');
 		
 		break;
 	case 'content':
 		$sections = array();
 		
-		$sections['content_section'] = esc_attr__('Content Options', 'cmsmasters');
+		$sections['content_section'] = esc_attr__('Content Options', 'econature');
 		
 		break;
 	case 'footer':
 		$sections = array();
 		
-		$sections['footer_section'] = esc_attr__('Footer Options', 'cmsmasters');
+		$sections['footer_section'] = esc_attr__('Footer Options', 'econature');
 		
 		break;
 	case 'icon':
 		$sections = array();
 		
-		$sections['icon_section'] = esc_attr__('Social Icons', 'cmsmasters');
+		$sections['icon_section'] = esc_attr__('Social Icons', 'econature');
 		
 		break;
 	}
@@ -90,21 +90,21 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'logo_section', 
 			'id' => CMSMS_SHORTNAME . '_logo_type', 
-			'title' => __('Logo Type', 'cmsmasters'), 
+			'title' => __('Logo Type', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'image', 
 			'choices' => array( 
-				__('Image', 'cmsmasters') . '|image', 
-				__('Text', 'cmsmasters') . '|text' 
+				__('Image', 'econature') . '|image', 
+				__('Text', 'econature') . '|text' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'logo_section', 
 			'id' => CMSMS_SHORTNAME . '_logo_url', 
-			'title' => __('Logo Image', 'cmsmasters'), 
-			'desc' => __('Choose your website logo image.', 'cmsmasters'), 
+			'title' => __('Logo Image', 'econature'), 
+			'desc' => __('Choose your website logo image.', 'econature'), 
 			'type' => 'upload', 
 			'std' => '|' . get_template_directory_uri() . '/img/logo.png', 
 			'frame' => 'select', 
@@ -114,8 +114,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'logo_section', 
 			'id' => CMSMS_SHORTNAME . '_logo_url_retina', 
-			'title' => __('Retina Logo Image', 'cmsmasters'), 
-			'desc' => __('Choose logo image for retina displays.', 'cmsmasters'), 
+			'title' => __('Retina Logo Image', 'econature'), 
+			'desc' => __('Choose logo image for retina displays.', 'econature'), 
 			'type' => 'upload', 
 			'std' => '|' . get_template_directory_uri() . '/img/logo_retina.png', 
 			'frame' => 'select', 
@@ -125,7 +125,7 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'logo_section', 
 			'id' => CMSMS_SHORTNAME . '_logo_title', 
-			'title' => __('Logo Title', 'cmsmasters'), 
+			'title' => __('Logo Title', 'econature'), 
 			'desc' => '', 
 			'type' => 'text', 
 			'std' => ((get_bloginfo('name')) ? get_bloginfo('name') : CMSMS_FULLNAME), 
@@ -135,7 +135,7 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'logo_section', 
 			'id' => CMSMS_SHORTNAME . '_logo_subtitle', 
-			'title' => __('Logo Subtitle', 'cmsmasters'), 
+			'title' => __('Logo Subtitle', 'econature'), 
 			'desc' => '', 
 			'type' => 'text', 
 			'std' => '', 
@@ -145,8 +145,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'logo_section', 
 			'id' => CMSMS_SHORTNAME . '_logo_custom_color', 
-			'title' => __('Custom Text Colors', 'cmsmasters'), 
-			'desc' => __('enable', 'cmsmasters'), 
+			'title' => __('Custom Text Colors', 'econature'), 
+			'desc' => __('enable', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 0 
 		);
@@ -154,7 +154,7 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'logo_section', 
 			'id' => CMSMS_SHORTNAME . '_logo_title_color', 
-			'title' => __('Logo Title Color', 'cmsmasters'), 
+			'title' => __('Logo Title Color', 'econature'), 
 			'desc' => '', 
 			'type' => 'rgba', 
 			'std' => '#3d3d3d|100' 
@@ -163,7 +163,7 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'logo_section', 
 			'id' => CMSMS_SHORTNAME . '_logo_subtitle_color', 
-			'title' => __('Logo Subtitle Color', 'cmsmasters'), 
+			'title' => __('Logo Subtitle Color', 'econature'), 
 			'desc' => '', 
 			'type' => 'rgba', 
 			'std' => '#3d3d3d|100' 
@@ -172,8 +172,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'logo_section', 
 			'id' => CMSMS_SHORTNAME . '_favicon', 
-			'title' => __('Favicon', 'cmsmasters'), 
-			'desc' => __('show', 'cmsmasters'), 
+			'title' => __('Favicon', 'econature'), 
+			'desc' => __('show', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 1 
 		);
@@ -181,8 +181,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'logo_section', 
 			'id' => CMSMS_SHORTNAME . '_favicon_url', 
-			'title' => __('Favicon URL', 'cmsmasters'), 
-			'desc' => __('Choose your website favicon image url.', 'cmsmasters'), 
+			'title' => __('Favicon URL', 'econature'), 
+			'desc' => __('Choose your website favicon image url.', 'econature'), 
 			'type' => 'upload', 
 			'std' => '|' . get_template_directory_uri() . '/img/favicon.ico', 
 			'frame' => 'select', 
@@ -194,7 +194,7 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'bg_section', 
 			'id' => CMSMS_SHORTNAME . '_bg_col', 
-			'title' => __('Background Color', 'cmsmasters'), 
+			'title' => __('Background Color', 'econature'), 
 			'desc' => '', 
 			'type' => 'color', 
 			'std' => '#ffffff' 
@@ -203,8 +203,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'bg_section', 
 			'id' => CMSMS_SHORTNAME . '_bg_img_enable', 
-			'title' => __('Background Image Visibility', 'cmsmasters'), 
-			'desc' => __('show', 'cmsmasters'), 
+			'title' => __('Background Image Visibility', 'econature'), 
+			'desc' => __('show', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 0 
 		);
@@ -212,8 +212,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'bg_section', 
 			'id' => CMSMS_SHORTNAME . '_bg_img', 
-			'title' => __('Background Image', 'cmsmasters'), 
-			'desc' => __('Choose your custom website background image url.', 'cmsmasters'), 
+			'title' => __('Background Image', 'econature'), 
+			'desc' => __('Choose your custom website background image url.', 'econature'), 
 			'type' => 'upload', 
 			'std' => '', 
 			'frame' => 'select', 
@@ -223,62 +223,62 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'bg_section', 
 			'id' => CMSMS_SHORTNAME . '_bg_rep', 
-			'title' => __('Background Repeat', 'cmsmasters'), 
+			'title' => __('Background Repeat', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'no-repeat', 
 			'choices' => array( 
-				__('No Repeat', 'cmsmasters') . '|no-repeat', 
-				__('Repeat Horizontally', 'cmsmasters') . '|repeat-x', 
-				__('Repeat Vertically', 'cmsmasters') . '|repeat-y', 
-				__('Repeat', 'cmsmasters') . '|repeat' 
+				__('No Repeat', 'econature') . '|no-repeat', 
+				__('Repeat Horizontally', 'econature') . '|repeat-x', 
+				__('Repeat Vertically', 'econature') . '|repeat-y', 
+				__('Repeat', 'econature') . '|repeat' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'bg_section', 
 			'id' => CMSMS_SHORTNAME . '_bg_pos', 
-			'title' => __('Background Position', 'cmsmasters'), 
+			'title' => __('Background Position', 'econature'), 
 			'desc' => '', 
 			'type' => 'select', 
 			'std' => 'top center', 
 			'choices' => array( 
-				__('Top Left', 'cmsmasters') . '|top left', 
-				__('Top Center', 'cmsmasters') . '|top center', 
-				__('Top Right', 'cmsmasters') . '|top right', 
-				__('Center Left', 'cmsmasters') . '|center left', 
-				__('Center Center', 'cmsmasters') . '|center center', 
-				__('Center Right', 'cmsmasters') . '|center right', 
-				__('Bottom Left', 'cmsmasters') . '|bottom left', 
-				__('Bottom Center', 'cmsmasters') . '|bottom center', 
-				__('Bottom Right', 'cmsmasters') . '|bottom right' 
+				__('Top Left', 'econature') . '|top left', 
+				__('Top Center', 'econature') . '|top center', 
+				__('Top Right', 'econature') . '|top right', 
+				__('Center Left', 'econature') . '|center left', 
+				__('Center Center', 'econature') . '|center center', 
+				__('Center Right', 'econature') . '|center right', 
+				__('Bottom Left', 'econature') . '|bottom left', 
+				__('Bottom Center', 'econature') . '|bottom center', 
+				__('Bottom Right', 'econature') . '|bottom right' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'bg_section', 
 			'id' => CMSMS_SHORTNAME . '_bg_att', 
-			'title' => __('Background Attachment', 'cmsmasters'), 
+			'title' => __('Background Attachment', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'scroll', 
 			'choices' => array( 
-				__('Scroll', 'cmsmasters') . '|scroll', 
-				__('Fixed', 'cmsmasters') . '|fixed' 
+				__('Scroll', 'econature') . '|scroll', 
+				__('Fixed', 'econature') . '|fixed' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'bg_section', 
 			'id' => CMSMS_SHORTNAME . '_bg_size', 
-			'title' => __('Background Size', 'cmsmasters'), 
+			'title' => __('Background Size', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'cover', 
 			'choices' => array( 
-				__('Auto', 'cmsmasters') . '|auto', 
-				__('Cover', 'cmsmasters') . '|cover', 
-				__('Contain', 'cmsmasters') . '|contain' 
+				__('Auto', 'econature') . '|auto', 
+				__('Cover', 'econature') . '|cover', 
+				__('Contain', 'econature') . '|contain' 
 			) 
 		);
 		
@@ -287,8 +287,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'header_section', 
 			'id' => CMSMS_SHORTNAME . '_fixed_header', 
-			'title' => __('Fixed Header', 'cmsmasters'), 
-			'desc' => __('enable', 'cmsmasters'), 
+			'title' => __('Fixed Header', 'econature'), 
+			'desc' => __('enable', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 1 
 		);
@@ -296,8 +296,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'header_section', 
 			'id' => CMSMS_SHORTNAME . '_header_top_line', 
-			'title' => __('Top Line', 'cmsmasters'), 
-			'desc' => __('show', 'cmsmasters'), 
+			'title' => __('Top Line', 'econature'), 
+			'desc' => __('show', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 1 
 		);
@@ -305,8 +305,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'header_section', 
 			'id' => CMSMS_SHORTNAME . '_header_top_height', 
-			'title' => __('Top Height', 'cmsmasters'), 
-			'desc' => __('pixels', 'cmsmasters'), 
+			'title' => __('Top Height', 'econature'), 
+			'desc' => __('pixels', 'econature'), 
 			'type' => 'number', 
 			'std' => '35', 
 			'min' => '30' 
@@ -315,8 +315,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'header_section', 
 			'id' => CMSMS_SHORTNAME . '_header_top_line_short_info', 
-			'title' => __('Top Short Info', 'cmsmasters'), 
-			'desc' => '<strong>' . esc_html__('HTML tags are allowed!', 'cmsmasters') . '</strong>', 
+			'title' => __('Top Short Info', 'econature'), 
+			'desc' => '<strong>' . esc_html__('HTML tags are allowed!', 'econature') . '</strong>', 
 			'type' => 'textarea', 
 			'std' => '', 
 			'class' => '' 
@@ -325,37 +325,37 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'header_section', 
 			'id' => CMSMS_SHORTNAME . '_header_top_line_add_cont', 
-			'title' => __('Top Additional Content', 'cmsmasters'), 
+			'title' => __('Top Additional Content', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'social', 
 			'choices' => array( 
-				__('None', 'cmsmasters') . '|none', 
-				__('Top Line Social Icons', 'cmsmasters') . '|social', 
-				__('Top Line Navigation', 'cmsmasters') . '|nav' 
+				__('None', 'econature') . '|none', 
+				__('Top Line Social Icons', 'econature') . '|social', 
+				__('Top Line Navigation', 'econature') . '|nav' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'header_section', 
 			'id' => CMSMS_SHORTNAME . '_header_styles', 
-			'title' => __('Header Styles', 'cmsmasters'), 
+			'title' => __('Header Styles', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'default', 
 			'choices' => array( 
-				__('Default Style', 'cmsmasters') . '|default', 
-				__('Compact Style Left Navigation', 'cmsmasters') . '|l_nav', 
-				__('Compact Style Right Navigation', 'cmsmasters') . '|r_nav', 
-				__('Compact Style Center Navigation', 'cmsmasters') . '|c_nav'
+				__('Default Style', 'econature') . '|default', 
+				__('Compact Style Left Navigation', 'econature') . '|l_nav', 
+				__('Compact Style Right Navigation', 'econature') . '|r_nav', 
+				__('Compact Style Center Navigation', 'econature') . '|c_nav'
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'header_section', 
 			'id' => CMSMS_SHORTNAME . '_header_mid_height', 
-			'title' => __('Header Middle Height', 'cmsmasters'), 
-			'desc' => __('pixels', 'cmsmasters'), 
+			'title' => __('Header Middle Height', 'econature'), 
+			'desc' => __('pixels', 'econature'), 
 			'type' => 'number', 
 			'std' => '95', 
 			'min' => '80' 
@@ -364,8 +364,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'header_section', 
 			'id' => CMSMS_SHORTNAME . '_header_bot_height', 
-			'title' => __('Header Bottom Height', 'cmsmasters'), 
-			'desc' => __('pixels', 'cmsmasters'), 
+			'title' => __('Header Bottom Height', 'econature'), 
+			'desc' => __('pixels', 'econature'), 
 			'type' => 'number', 
 			'std' => '45', 
 			'min' => '40' 
@@ -374,8 +374,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'header_section', 
 			'id' => CMSMS_SHORTNAME . '_header_search', 
-			'title' => __('Header Search', 'cmsmasters'), 
-			'desc' => __('show', 'cmsmasters'), 
+			'title' => __('Header Search', 'econature'), 
+			'desc' => __('show', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 1 
 		);
@@ -383,22 +383,22 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'header_section', 
 			'id' => CMSMS_SHORTNAME . '_header_add_cont', 
-			'title' => __('Header Additional Content', 'cmsmasters'), 
+			'title' => __('Header Additional Content', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'cust_html', 
 			'choices' => array( 
-				__('None', 'cmsmasters') . '|none', 
-				__('Header Social Icons', 'cmsmasters') . '|social', 
-				__('Header Custom HTML', 'cmsmasters') . '|cust_html' 
+				__('None', 'econature') . '|none', 
+				__('Header Social Icons', 'econature') . '|social', 
+				__('Header Custom HTML', 'econature') . '|cust_html' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'header_section', 
 			'id' => CMSMS_SHORTNAME . '_header_add_cont_cust_html', 
-			'title' => __('Header Custom HTML', 'cmsmasters'), 
-			'desc' => '<strong>' . esc_html__('HTML tags are allowed!', 'cmsmasters') . '</strong>', 
+			'title' => __('Header Custom HTML', 'econature'), 
+			'desc' => '<strong>' . esc_html__('HTML tags are allowed!', 'econature') . '</strong>', 
 			'type' => 'textarea', 
 			'std' => '', 
 			'class' => '' 
@@ -409,35 +409,35 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_layout', 
-			'title' => __('Layout Type by Default', 'cmsmasters'), 
+			'title' => __('Layout Type by Default', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio_img', 
-			'std' => 'r_sidebar', 
+			'std' => 'fullwidth', 
 			'choices' => array( 
-				__('Right Sidebar', 'cmsmasters') . '|' . get_template_directory_uri() . '/framework/admin/inc/img/sidebar_r.jpg' . '|r_sidebar', 
-				__('Left Sidebar', 'cmsmasters') . '|' . get_template_directory_uri() . '/framework/admin/inc/img/sidebar_l.jpg' . '|l_sidebar', 
-				__('Full Width', 'cmsmasters') . '|' . get_template_directory_uri() . '/framework/admin/inc/img/fullwidth.jpg' . '|fullwidth' 
+				__('Right Sidebar', 'econature') . '|' . get_template_directory_uri() . '/framework/admin/inc/img/sidebar_r.jpg' . '|r_sidebar', 
+				__('Left Sidebar', 'econature') . '|' . get_template_directory_uri() . '/framework/admin/inc/img/sidebar_l.jpg' . '|l_sidebar', 
+				__('Full Width', 'econature') . '|' . get_template_directory_uri() . '/framework/admin/inc/img/fullwidth.jpg' . '|fullwidth' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_heading_alignment', 
-			'title' => __('Heading Alignment by Default', 'cmsmasters'), 
+			'title' => __('Heading Alignment by Default', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'left', 
 			'choices' => array( 
-				__('Left', 'cmsmasters') . '|left', 
-				__('Right', 'cmsmasters') . '|right', 
-				__('Center', 'cmsmasters') . '|center' 
+				__('Left', 'econature') . '|left', 
+				__('Right', 'econature') . '|right', 
+				__('Center', 'econature') . '|center' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_heading_scheme', 
-			'title' => __('Heading Custom Color Scheme by Default', 'cmsmasters'), 
+			'title' => __('Heading Custom Color Scheme by Default', 'econature'), 
 			'desc' => '', 
 			'type' => 'select_scheme', 
 			'std' => 'default', 
@@ -447,8 +447,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_heading_bg_image_enable', 
-			'title' => __('Heading Background Image Visibility by Default', 'cmsmasters'), 
-			'desc' => __('show', 'cmsmasters'), 
+			'title' => __('Heading Background Image Visibility by Default', 'econature'), 
+			'desc' => __('show', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 0 
 		);
@@ -456,8 +456,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_heading_bg_image', 
-			'title' => __('Heading Background Image by Default', 'cmsmasters'), 
-			'desc' => __('Choose your custom heading background image by default.', 'cmsmasters'), 
+			'title' => __('Heading Background Image by Default', 'econature'), 
+			'desc' => __('Choose your custom heading background image by default.', 'econature'), 
 			'type' => 'upload', 
 			'std' => '', 
 			'frame' => 'select', 
@@ -467,49 +467,49 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_heading_bg_repeat', 
-			'title' => __('Heading Background Repeat by Default', 'cmsmasters'), 
+			'title' => __('Heading Background Repeat by Default', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'no-repeat', 
 			'choices' => array( 
-				__('No Repeat', 'cmsmasters') . '|no-repeat', 
-				__('Repeat Horizontally', 'cmsmasters') . '|repeat-x', 
-				__('Repeat Vertically', 'cmsmasters') . '|repeat-y', 
-				__('Repeat', 'cmsmasters') . '|repeat' 
+				__('No Repeat', 'econature') . '|no-repeat', 
+				__('Repeat Horizontally', 'econature') . '|repeat-x', 
+				__('Repeat Vertically', 'econature') . '|repeat-y', 
+				__('Repeat', 'econature') . '|repeat' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_heading_bg_attachment', 
-			'title' => __('Heading Background Attachment by Default', 'cmsmasters'), 
+			'title' => __('Heading Background Attachment by Default', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'scroll', 
 			'choices' => array( 
-				__('Scroll', 'cmsmasters') . '|scroll', 
-				__('Fixed', 'cmsmasters') . '|fixed' 
+				__('Scroll', 'econature') . '|scroll', 
+				__('Fixed', 'econature') . '|fixed' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_heading_bg_size', 
-			'title' => __('Heading Background Size by Default', 'cmsmasters'), 
+			'title' => __('Heading Background Size by Default', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'cover', 
 			'choices' => array( 
-				__('Auto', 'cmsmasters') . '|auto', 
-				__('Cover', 'cmsmasters') . '|cover', 
-				__('Contain', 'cmsmasters') . '|contain' 
+				__('Auto', 'econature') . '|auto', 
+				__('Cover', 'econature') . '|cover', 
+				__('Contain', 'econature') . '|contain' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_heading_bg_color', 
-			'title' => __('Heading Background Color Overlay by Default', 'cmsmasters'), 
+			'title' => __('Heading Background Color Overlay by Default', 'econature'), 
 			'desc' => '', 
 			'type' => 'color', 
 			'std' => '#000000' 
@@ -518,8 +518,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_heading_bg_color_opacity', 
-			'title' => __('Heading Background Color Overlay Transparency by Default', 'cmsmasters'), 
-			'desc' => __('percentage', 'cmsmasters'), 
+			'title' => __('Heading Background Color Overlay Transparency by Default', 'econature'), 
+			'desc' => __('percentage', 'econature'), 
 			'type' => 'number', 
 			'std' => '0', 
 			'min' => '0', 
@@ -529,8 +529,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_heading_height', 
-			'title' => __('Heading Height by Default', 'cmsmasters'), 
-			'desc' => __('pixels', 'cmsmasters'), 
+			'title' => __('Heading Height by Default', 'econature'), 
+			'desc' => __('pixels', 'econature'), 
 			'type' => 'number', 
 			'std' => '70', 
 			'min' => '0' 
@@ -539,8 +539,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_breadcrumbs', 
-			'title' => __('Breadcrumbs Visibility by Default', 'cmsmasters'), 
-			'desc' => __('show', 'cmsmasters'), 
+			'title' => __('Breadcrumbs Visibility by Default', 'econature'), 
+			'desc' => __('show', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 1 
 		);
@@ -548,21 +548,21 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_breadcrumbs_alignment', 
-			'title' => __('Breadcrumbs Alignment by Default', 'cmsmasters'), 
+			'title' => __('Breadcrumbs Alignment by Default', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'right', 
 			'choices' => array( 
-				__('Left', 'cmsmasters') . '|left', 
-				__('Right', 'cmsmasters') . '|right', 
-				__('Center', 'cmsmasters') . '|center' 
+				__('Left', 'econature') . '|left', 
+				__('Right', 'econature') . '|right', 
+				__('Center', 'econature') . '|center' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_bottom_scheme', 
-			'title' => __('Bottom Custom Color Scheme', 'cmsmasters'), 
+			'title' => __('Bottom Custom Color Scheme', 'econature'), 
 			'desc' => '', 
 			'type' => 'select_scheme', 
 			'std' => 'default', 
@@ -572,16 +572,16 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_bottom_sidebar', 
-			'title' => __('Bottom Sidebar Visibility by Default', 'cmsmasters'), 
-			'desc' => __('show', 'cmsmasters'), 
+			'title' => __('Bottom Sidebar Visibility by Default', 'econature'), 
+			'desc' => __('show', 'econature'), 
 			'type' => 'checkbox', 
-			'std' => 1 
+			'std' => 0 
 		);
 		
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_bottom_sidebar_layout', 
-			'title' => __('Bottom Sidebar Layout by Default', 'cmsmasters'), 
+			'title' => __('Bottom Sidebar Layout by Default', 'econature'), 
 			'desc' => '', 
 			'type' => 'select', 
 			'std' => '131313', 
@@ -605,7 +605,7 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'footer_section', 
 			'id' => CMSMS_SHORTNAME . '_footer_scheme', 
-			'title' => __('Footer Custom Color Scheme', 'cmsmasters'), 
+			'title' => __('Footer Custom Color Scheme', 'econature'), 
 			'desc' => '', 
 			'type' => 'select_scheme', 
 			'std' => 'footer', 
@@ -615,36 +615,36 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'footer_section', 
 			'id' => CMSMS_SHORTNAME . '_footer_type', 
-			'title' => __('Footer Type', 'cmsmasters'), 
+			'title' => __('Footer Type', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'default', 
 			'choices' => array( 
-				__('Default', 'cmsmasters') . '|default', 
-				__('Small', 'cmsmasters') . '|small' 
+				__('Default', 'econature') . '|default', 
+				__('Small', 'econature') . '|small' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'footer_section', 
 			'id' => CMSMS_SHORTNAME . '_footer_additional_content', 
-			'title' => __('Footer Additional Content', 'cmsmasters'), 
+			'title' => __('Footer Additional Content', 'econature'), 
 			'desc' => '', 
 			'type' => 'radio', 
 			'std' => 'social', 
 			'choices' => array( 
-				__('None', 'cmsmasters') . '|none', 
-				__('Footer Navigation', 'cmsmasters') . '|nav', 
-				__('Social Icons', 'cmsmasters') . '|social', 
-				__('Custom HTML', 'cmsmasters') . '|text' 
+				__('None', 'econature') . '|none', 
+				__('Footer Navigation', 'econature') . '|nav', 
+				__('Social Icons', 'econature') . '|social', 
+				__('Custom HTML', 'econature') . '|text' 
 			) 
 		);
 		
 		$options[] = array( 
 			'section' => 'footer_section', 
 			'id' => CMSMS_SHORTNAME . '_fixed_footer', 
-			'title' => __('Fixed Footer', 'cmsmasters'), 
-			'desc' => __('enable', 'cmsmasters'), 
+			'title' => __('Fixed Footer', 'econature'), 
+			'desc' => __('enable', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 1 
 		);
@@ -652,8 +652,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'footer_section', 
 			'id' => CMSMS_SHORTNAME . '_footer_height', 
-			'title' => __('Footer Height', 'cmsmasters'), 
-			'desc' => __('pixels', 'cmsmasters'), 
+			'title' => __('Footer Height', 'econature'), 
+			'desc' => __('pixels', 'econature'), 
 			'type' => 'number', 
 			'std' => '450', 
 			'min' => '200' 
@@ -662,8 +662,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'footer_section', 
 			'id' => CMSMS_SHORTNAME . '_footer_logo', 
-			'title' => __('Footer Logo', 'cmsmasters'), 
-			'desc' => __('show', 'cmsmasters'), 
+			'title' => __('Footer Logo', 'econature'), 
+			'desc' => __('show', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 1 
 		);
@@ -671,8 +671,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'footer_section', 
 			'id' => CMSMS_SHORTNAME . '_footer_logo_url', 
-			'title' => __('Footer Logo', 'cmsmasters'), 
-			'desc' => __('Choose your website footer logo image.', 'cmsmasters'), 
+			'title' => __('Footer Logo', 'econature'), 
+			'desc' => __('Choose your website footer logo image.', 'econature'), 
 			'type' => 'upload', 
 			'std' => '|' . get_template_directory_uri() . '/img/logo_footer.png', 
 			'frame' => 'select', 
@@ -682,8 +682,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'footer_section', 
 			'id' => CMSMS_SHORTNAME . '_footer_logo_url_retina', 
-			'title' => __('Footer Logo for Retina', 'cmsmasters'), 
-			'desc' => __('Choose your website footer logo image for retina.', 'cmsmasters'), 
+			'title' => __('Footer Logo for Retina', 'econature'), 
+			'desc' => __('Choose your website footer logo image for retina.', 'econature'), 
 			'type' => 'upload', 
 			'std' => '|' . get_template_directory_uri() . '/img/logo_footer_retina.png', 
 			'frame' => 'select', 
@@ -693,8 +693,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'footer_section', 
 			'id' => CMSMS_SHORTNAME . '_footer_nav', 
-			'title' => __('Footer Navigation', 'cmsmasters'), 
-			'desc' => __('show', 'cmsmasters'), 
+			'title' => __('Footer Navigation', 'econature'), 
+			'desc' => __('show', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 1 
 		);
@@ -702,8 +702,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'footer_section', 
 			'id' => CMSMS_SHORTNAME . '_footer_social', 
-			'title' => __('Footer Social Icons', 'cmsmasters'), 
-			'desc' => __('show', 'cmsmasters'), 
+			'title' => __('Footer Social Icons', 'econature'), 
+			'desc' => __('show', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 1 
 		);
@@ -711,8 +711,8 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'footer_section', 
 			'id' => CMSMS_SHORTNAME . '_footer_html', 
-			'title' => __('Footer Custom HTML', 'cmsmasters'), 
-			'desc' => '<strong>' . esc_html__('HTML tags are allowed!', 'cmsmasters') . '</strong>', 
+			'title' => __('Footer Custom HTML', 'econature'), 
+			'desc' => '<strong>' . esc_html__('HTML tags are allowed!', 'econature') . '</strong>', 
 			'type' => 'textarea', 
 			'std' => '', 
 			'class' => '' 
@@ -721,10 +721,10 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'footer_section', 
 			'id' => CMSMS_SHORTNAME . '_footer_copyright', 
-			'title' => __('Copyright Text', 'cmsmasters'), 
+			'title' => __('Copyright Text', 'econature'), 
 			'desc' => '', 
 			'type' => 'text', 
-			'std' => CMSMS_FULLNAME . ' &copy; 2014 | ' . __('All Rights Reserved', 'cmsmasters'), 
+			'std' => CMSMS_FULLNAME . ' &copy; ' . date('Y') . ' | ' . __('All Rights Reserved', 'econature'), 
 			'class' => 'nohtml' 
 		);
 		
@@ -733,15 +733,15 @@ function cmsms_options_style_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'icon_section', 
 			'id' => CMSMS_SHORTNAME . '_social_icons', 
-			'title' => __('Social Icons', 'cmsmasters'), 
+			'title' => __('Social Icons', 'econature'), 
 			'desc' => '', 
 			'type' => 'social', 
 			'std' => array( 
-				'cmsms-icon-twitter-circled|#|' . __('Twitter', 'cmsmasters') . '|true', 
-				'cmsms-icon-facebook-circled|#|' . __('Facebook', 'cmsmasters') . '|true', 
-				'cmsms-icon-gplus-circled|#|' . __('Google+', 'cmsmasters') . '|true', 
-				'cmsms-icon-vimeo-circled|#|' . __('Vimeo', 'cmsmasters') . '|true', 
-				'cmsms-icon-skype-circled|#|' . __('Skype', 'cmsmasters') . '|true' 
+				'cmsms-icon-twitter-circled|#|' . __('Twitter', 'econature') . '|true', 
+				'cmsms-icon-facebook-circled|#|' . __('Facebook', 'econature') . '|true', 
+				'cmsms-icon-gplus-circled|#|' . __('Google+', 'econature') . '|true', 
+				'cmsms-icon-vimeo-circled|#|' . __('Vimeo', 'econature') . '|true', 
+				'cmsms-icon-skype-circled|#|' . __('Skype', 'econature') . '|true' 
 			) 
 		);
 		

@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.3
  * 
  * Posts Slider Standard Project Format Template
  * Created by CMSMasters
@@ -23,6 +23,7 @@ $likes = in_array('likes', $cmsms_metadata) ? true : false;
 
 $cmsms_project_link_url = get_post_meta(get_the_ID(), 'cmsms_project_link_url', true);
 $cmsms_project_link_redirect = get_post_meta(get_the_ID(), 'cmsms_project_link_redirect', true);
+$cmsms_project_link_target = get_post_meta(get_the_ID(), 'cmsms_project_link_target', true);
 
 
 $cmsms_project_images = explode(',', str_replace(' ', '', str_replace('img_', '', get_post_meta(get_the_ID(), 'cmsms_project_images', true))));
@@ -40,7 +41,7 @@ $cmsms_project_images = explode(',', str_replace(' ', '', str_replace('img_', ''
 		if ($title || $categories || $excerpt || $likes || $comments) {
 			echo '<div class="slider_project_inner">';
 			
-				($title) ? cmsms_slider_post_heading(get_the_ID(), 'project', 'h3', true, $cmsms_project_link_redirect, $cmsms_project_link_url) : '';
+				($title) ? cmsms_slider_post_heading(get_the_ID(), 'project', 'h3', true, $cmsms_project_link_redirect, $cmsms_project_link_url, $cmsms_project_link_target) : '';
 				
 				if ($categories) {
 					echo '<div class="cmsms_slider_project_cont_info entry-meta">';

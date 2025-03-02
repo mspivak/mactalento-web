@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.4.1
  * 
  * Standard Project Format Template
  * Created by CMSMasters
@@ -50,11 +50,14 @@ if (
 	$cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_comment'] || 
 	$cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_author'] || 
 	$cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_tag'] || 
+	$cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_link'] || 
 	(
+		!empty($cmsms_project_features[0][0]) && 
+		!empty($cmsms_project_features[0][1])
+	) || (
 		!empty($cmsms_project_features[1][0]) && 
 		!empty($cmsms_project_features[1][1])
-	) || 
-	$cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_link']
+	)
 ) {
 	$project_details = 'true';
 }
@@ -66,11 +69,20 @@ if (
 	$project_details == 'true' || 
 	$cmsms_project_sharing_box == 'true' || 
 	(
+		!empty($cmsms_project_features_one[0][0]) && 
+		!empty($cmsms_project_features_one[0][1])
+	) || (
 		!empty($cmsms_project_features_one[1][0]) && 
 		!empty($cmsms_project_features_one[1][1])
 	) || (
+		!empty($cmsms_project_features_two[0][0]) && 
+		!empty($cmsms_project_features_two[0][1])
+	) || (
 		!empty($cmsms_project_features_two[1][0]) && 
 		!empty($cmsms_project_features_two[1][1])
+	) || (
+		!empty($cmsms_project_features_three[0][0]) && 
+		!empty($cmsms_project_features_three[0][1])
 	) || (
 		!empty($cmsms_project_features_three[1][0]) && 
 		!empty($cmsms_project_features_three[1][1])
@@ -100,7 +112,7 @@ $uniqid = uniqid();
 		?>
 				<script type="text/javascript">
 					jQuery(document).ready(function () {
-						jQuery('.cmsms_slider_<?php echo $uniqid; ?>').owlCarousel( { 
+						jQuery('.cmsms_slider_<?php echo esc_attr($uniqid); ?>').owlCarousel( { 
 							singleItem : 		true, 
 							transitionStyle : 	false, 
 							rewindNav : 		true, 
@@ -119,12 +131,12 @@ $uniqid = uniqid();
 						} );
 					} );
 				</script>
-				<div id="cmsms_owl_carousel_<?php the_ID(); ?>" class="cmsms_slider_<?php echo $uniqid; ?> cmsms_owl_slider">
+				<div id="cmsms_owl_carousel_<?php the_ID(); ?>" class="cmsms_slider_<?php echo esc_attr($uniqid); ?> cmsms_owl_slider">
 				<?php 
 					foreach ($cmsms_project_images as $cmsms_project_image) {
 						echo '<div>' . 
 							'<figure>' . 
-								wp_get_attachment_image($cmsms_project_image, 'masonry-thumb', false, array( 
+								wp_get_attachment_image(strstr($cmsms_project_image, '|', true), 'masonry-thumb', false, array( 
 									'class' => 'full-width', 
 									'alt' => cmsms_title(get_the_ID(), false), 
 									'title' => cmsms_title(get_the_ID(), false) 
@@ -142,19 +154,31 @@ $uniqid = uniqid();
 			}
 		}
 		
-		if ($project_details == 'true') {
-				echo '<div class="project_details entry-meta">'. 
+		
+		echo '<div class="cmsms_project_content entry-content">' . "\n";
+		
+			the_content();
+			
+			wp_link_pages(array( 
+				'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'econature') . ':</strong>', 
+				'after' => '</div>', 
+				'link_before' => ' [ ', 
+				'link_after' => ' ] ' 
+			));
+			
+			echo '<div class="cl"></div>' . 
+		'</div>' . 
+	'</div>';
+	
+	
+	if ($project_sidebar == 'true') {
+		echo '<div class="project_sidebar">';
+			
+			if ($project_details == 'true') {
+				echo '<div class="project_details entry-meta">' . 
 					
-					'<h3 class="project_details_title">' . $cmsms_project_details_title . '</h3>';
-
-			echo '<div class="project_details_item">
-					<div class="project_details_item_title">Ubicación:</div>
-						<div class="project_details_item_desc">
-							<span>'.get_field('country').', '.get_field('state').', '.get_field('city').'</span>
-						</div>
-					</div>';
-
-
+					'<h2 class="project_details_title">' . $cmsms_project_details_title . '</h2>';
+					
 					cmsms_project_like('post');
 					
 					cmsms_project_date('post');
@@ -170,59 +194,21 @@ $uniqid = uniqid();
 					cmsms_project_features('details', $cmsms_project_features, false, 'h2', true);
 					
 					cmsms_project_link($cmsms_project_link_text, $cmsms_project_link_url, $cmsms_project_link_target);
-
-					echo '<div class="project_details_item">
-					<div class="project_details_item_title">Aplicá!</div>
-						<div class="project_details_item_desc">
-							<a href="'.get_field('apply_link').'"><span>Aplicar</span></a>
-						</div>
-					</div>';
-
+					
 				echo '</div>';
 			}
 			
-//			if ($cmsms_project_sharing_box == 'true') {
-				cmsms_sharing_box(__('Compartí!', 'cmsmasters'), 'h3');
-//			}
-		
-		echo '</div>';
-	
-	
-	if ($project_sidebar == 'true') {
-		echo '<div class="project_sidebar">';
 			
-			echo '<div class="cmsms_project_content entry-content">' . "\n";
-		
-			the_content();
-
-			echo '<h3>Requerimientos</h3>';
-			echo '<p>'.get_field('requirements').'</p>';
-
-			echo '<h3>Beneficios</h3>';
-			echo '<p>'.get_field('benefits').'</p>';
-
-			wp_link_pages(array(
-				'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'cmsmasters') . ':</strong>', 
-				'after' => '</div>', 
-				'link_before' => ' [ ', 
-				'link_after' => ' ] ' 
-			));
+			cmsms_project_features('features', $cmsms_project_features_one, $cmsms_project_features_one_title, 'h2', true);
 			
-			cmsms_project_features('features', $cmsms_project_features, $cmsms_project_features_title, 'h3', true);
+			cmsms_project_features('features', $cmsms_project_features_two, $cmsms_project_features_two_title, 'h2', true);
 			
-			echo '<br>';
+			cmsms_project_features('features', $cmsms_project_features_three, $cmsms_project_features_three_title, 'h2', true);
 			
-			cmsms_project_features('features', $cmsms_project_features_one, $cmsms_project_features_one_title, 'h4', true);
 			
-			cmsms_project_features('features', $cmsms_project_features_two, $cmsms_project_features_two_title, 'h4', true);
-			
-			cmsms_project_features('features', $cmsms_project_features_three, $cmsms_project_features_three_title, 'h4', true);
-
-
-
-
-
-		echo '<div class="cl"></div>';
+			if ($cmsms_project_sharing_box == 'true') {
+				cmsms_sharing_box(__('Like this project?', 'econature'), 'h2');
+			}
 			
 		echo '</div>';
 	}

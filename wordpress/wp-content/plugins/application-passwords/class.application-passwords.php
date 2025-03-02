@@ -29,12 +29,16 @@ class Application_Passwords {
 	 * @access public
 	 * @static
 	 */
-	 public static function add_hooks() {
- 		add_filter( 'authenticate',		array( __CLASS__, 'authenticate' ), 10, 3 );
- 		add_action( 'show_user_profile',	array( __CLASS__, 'show_user_profile' ) );
- 		add_action( 'rest_api_init',		array( __CLASS__, 'rest_api_init' ) );
- 		add_filter( 'determine_current_user',	array( __CLASS__, 'rest_api_auth_handler' ), 20 );
- 		add_filter( 'wp_rest_server_class',	array( __CLASS__, 'wp_rest_server_class' ) );
+	public static function add_hooks() {
+		add_filter( 'authenticate', array( __CLASS__, 'authenticate' ), 10, 3 );
+		add_action( 'show_user_profile', array( __CLASS__, 'show_user_profile' ) );
+		add_action( 'edit_user_profile', array( __CLASS__, 'show_user_profile' ) );
+		add_action( 'rest_api_init', array( __CLASS__, 'rest_api_init' ) );
+		add_filter( 'determine_current_user', array( __CLASS__, 'rest_api_auth_handler' ), 20 );
+		add_filter( 'wp_rest_server_class', array( __CLASS__, 'wp_rest_server_class' ) );
+		add_action( 'admin_menu', array( __CLASS__, 'admin_menu' ) );
+		add_action( 'admin_post_authorize_application_password', array( __CLASS__, 'authorize_application_password' ) );
+		self::fallback_populate_username_password();
 	}
 
 	/**
@@ -51,9 +55,9 @@ class Application_Passwords {
 	public static function wp_rest_server_class( $class ) {
 		global $current_user;
 		if ( defined( 'REST_REQUEST' )
-		     && REST_REQUEST
-		     && $current_user instanceof WP_User
-		     && 0 === $current_user->ID ) {
+			&& REST_REQUEST
+			&& $current_user instanceof WP_User
+			&& 0 === $current_user->ID ) {
 			/*
 			 * For our authentication to work, we need to remove the cached lack
 			 * of a current user, so the next time it checks, we can detect that
@@ -75,14 +79,14 @@ class Application_Passwords {
 	 * @static
 	 */
 	public static function rest_api_init() {
-		// List existing application passwords
+		// List existing application passwords.
 		register_rest_route( '2fa/v1', '/application-passwords/(?P<user_id>[\d]+)', array(
 			'methods' => WP_REST_Server::READABLE,
 			'callback' => __CLASS__ . '::rest_list_application_passwords',
 			'permission_callback' => __CLASS__ . '::rest_edit_user_callback',
 		) );
 
-		// Add new application passwords
+		// Add new application passwords.
 		register_rest_route( '2fa/v1', '/application-passwords/(?P<user_id>[\d]+)/add', array(
 			'methods' => WP_REST_Server::CREATABLE,
 			'callback' => __CLASS__ . '::rest_add_application_password',
@@ -94,14 +98,14 @@ class Application_Passwords {
 			),
 		) );
 
-		// Delete an application password
+		// Delete an application password.
 		register_rest_route( '2fa/v1', '/application-passwords/(?P<user_id>[\d]+)/(?P<slug>[\da-fA-F]{12})', array(
 			'methods' => WP_REST_Server::DELETABLE,
 			'callback' => __CLASS__ . '::rest_delete_application_password',
 			'permission_callback' => __CLASS__ . '::rest_edit_user_callback',
 		) );
 
-		// Delete all application passwords for a given user
+		// Delete all application passwords for a given user.
 		register_rest_route( '2fa/v1', '/application-passwords/(?P<user_id>[\d]+)', array(
 			'methods' => WP_REST_Server::DELETABLE,
 			'callback' => __CLASS__ . '::rest_delete_all_application_passwords',
@@ -112,6 +116,7 @@ class Application_Passwords {
 		register_rest_route( '2fa/v1', '/test-basic-authorization-header/', array(
 			'methods' => WP_REST_Server::READABLE . ', ' . WP_REST_Server::CREATABLE,
 			'callback' => __CLASS__ . '::rest_test_basic_authorization_header',
+			'permission_callback' => '__return_true',
 		) );
 	}
 
@@ -245,7 +250,7 @@ class Application_Passwords {
 	 * @return WP_User|bool
 	 */
 	public static function rest_api_auth_handler( $input_user ){
-		// Don't authenticate twice
+		// Don't authenticate twice.
 		if ( ! empty( $input_user ) ) {
 			return $input_user;
 		}
@@ -289,6 +294,53 @@ class Application_Passwords {
 	}
 
 	/**
+	 * Some servers running in CGI or FastCGI mode don't pass the Authorization
+	 * header on to WordPress.  If it's been rewritten to the `REMOTE_USER` header,
+	 * fill in the proper $_SERVER variables instead.
+	 */
+	public static function fallback_populate_username_password() {
+		// If we don't have anything to pull from, return early.
+		if ( ! isset( $_SERVER['REMOTE_USER'] ) && ! isset( $_SERVER['REDIRECT_REMOTE_USER'] ) ) {
+			return;
+		}
+
+		// If either PHP_AUTH key is already set, do nothing.
+		if ( isset( $_SERVER['PHP_AUTH_USER'] ) || isset( $_SERVER['PHP_AUTH_PW'] ) ) {
+			return;
+		}
+
+		// From our prior conditional, one of these must be set.
+		$header = isset( $_SERVER['REMOTE_USER'] ) ? $_SERVER['REMOTE_USER'] : $_SERVER['REDIRECT_REMOTE_USER'];
+
+		// Test to make sure the pattern matches expected.
+		if ( ! preg_match( '%^Basic [a-z\d/+]*={0,2}$%i', $header ) ) {
+			return;
+		}
+
+		// Removing `Basic ` the token would start six characters in.
+		$token               = substr( $header, 6 );
+		$userpass            = base64_decode( $token );
+		list( $user, $pass ) = explode( ':', $userpass );
+
+		// Now shove them in the proper keys where we're expecting later on.
+		$_SERVER['PHP_AUTH_USER'] = $user;
+		$_SERVER['PHP_AUTH_PW']   = $pass;
+
+		return array( $user, $pass );
+	}
+
+	/**
+	 * Check if the current request is an API request
+	 * for which we should check the HTTP Auth headers.
+	 *
+	 * @return boolean
+	 */
+	public static function is_api_request() {
+		// Process the authentication only after the APIs have been initialized.
+		return ( ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) );
+	}
+
+	/**
 	 * Filter the user to authenticate.
 	 *
 	 * @since 0.1-dev
@@ -303,12 +355,15 @@ class Application_Passwords {
 	 * @return mixed
 	 */
 	public static function authenticate( $input_user, $username, $password ) {
-		$api_request = ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) || ( defined( 'REST_REQUEST' ) && REST_REQUEST );
-		if ( ! apply_filters( 'application_password_is_api_request', $api_request ) ) {
+		if ( ! apply_filters( 'application_password_is_api_request', self::is_api_request() ) ) {
 			return $input_user;
 		}
 
-		$user = get_user_by( 'login',  $username );
+		$user = get_user_by( 'login', $username );
+
+		if ( ! $user && is_email( $username ) ) {
+			$user = get_user_by( 'email', $username );
+		}
 
 		// If the login name is invalid, short circuit.
 		if ( ! $user ) {
@@ -336,12 +391,162 @@ class Application_Passwords {
 				$item['last_ip']   = $_SERVER['REMOTE_ADDR'];
 				$hashed_passwords[ $key ] = $item;
 				update_user_meta( $user->ID, self::USERMETA_KEY_APPLICATION_PASSWORDS, $hashed_passwords );
+
+				do_action( 'application_password_did_authenticate', $user, $item );
+
 				return $user;
 			}
 		}
 
 		// By default, return what we've been passed.
 		return $input_user;
+	}
+
+	/**
+	 * Registers the hidden admin page to handle auth.
+	 */
+	public static function admin_menu() {
+		add_submenu_page( null, __( 'Approve Application' ), null, 'exist', 'auth_app', array( __CLASS__, 'auth_app_page' ) );
+	}
+
+	/**
+	 * Page for authorizing applications.
+	 */
+	public static function auth_app_page() {
+		$app_name    = ! empty( $_GET['app_name'] ) ? $_GET['app_name'] : ''; // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		$success_url = ! empty( $_GET['success_url'] ) ? $_GET['success_url'] : null; // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		$reject_url  = ! empty( $_GET['reject_url'] ) ? $_GET['reject_url'] : $success_url; // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		$user        = wp_get_current_user();
+
+		wp_enqueue_script( 'auth-app', plugin_dir_url( __FILE__ ) . 'auth-app.js', array(), APPLICATION_PASSWORDS_VERSION, true );
+		wp_localize_script(
+			'auth-app',
+			'authApp',
+			array(
+				'root'       => esc_url_raw( rest_url() ),
+				'namespace'  => '2fa/v1',
+				'nonce'      => wp_create_nonce( 'wp_rest' ),
+				'user_id'    => $user->ID,
+				'user_login' => $user->user_login,
+				'success'    => $success_url,
+				'reject'     => $reject_url ? $reject_url : admin_url(),
+				'strings'    => array(
+					// translators: application, password.
+					'new_pass' => esc_html_x( 'Your new password for %1$s is: %2$s', 'application, password' ),
+				),
+			)
+		);
+		?>
+		<div class="wrap">
+			<h1><?php esc_html_e( 'Authorize Application' ); ?></h1>
+
+			<div class="card js-auth-app-card">
+				<h2 class="title"><?php esc_html_e( 'An application would like to connect to your account.' ); ?></h2>
+				<?php if ( $app_name ) : ?>
+					<p>
+					<?php
+					// translators: application name.
+					printf( esc_html__( 'Would you like to give the application identifying itself as %1$s access to your account?  You should only do this if you trust the app in question.' ), '<strong>' . esc_html( $app_name ) . '</strong>' );
+					?>
+					</p>
+				<?php else : ?>
+					<p><?php esc_html_e( 'Would you like to give this application access to your account?  You should only do this if you trust the app in question.' ); ?></p>
+				<?php endif; ?>
+				<form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+					<?php wp_nonce_field( 'authorize_application_password' ); ?>
+					<input type="hidden" name="action" value="authorize_application_password" />
+					<input type="hidden" name="success_url" value="<?php echo esc_url( $success_url ); ?>" />
+					<input type="hidden" name="reject_url" value="<?php echo esc_url( $reject_url ); ?>" />
+
+					<label for="app_name"><?php esc_html_e( 'Application Title:' ); ?></label>
+					<input type="text" id="app_name" name="app_name" value="<?php echo esc_attr( $app_name ); ?>" placeholder="<?php esc_attr_e( 'Name this connection&hellip;' ); ?>" required />
+
+					<p><?php submit_button( __( 'Yes, I approve of this connection.' ), 'primary', 'approve', false ); ?>
+						<br /><em>
+						<?php
+						if ( $success_url ) {
+							printf(
+								// translators: url.
+								esc_html_x( 'You will be sent to %1$s', '%1$s is a url' ),
+								'<strong><kbd>' . esc_html(
+									add_query_arg(
+										array(
+											'username' => $user->user_login,
+											'password' => '[------]',
+										),
+										$success_url
+									)
+								) . '</kbd></strong>'
+							);
+						} else {
+							esc_html_e( 'You will be given a password to manually enter into the application in question.' );
+						}
+						?>
+						</em>
+					</p>
+
+					<p><?php submit_button( __( 'No, I do not approve of this connection.' ), 'secondary', 'reject', false ); ?>
+						<br /><em>
+						<?php
+						if ( $reject_url ) {
+							printf(
+								// translators: url.
+								esc_html_x( 'You will be sent to %1$s', '%1$s is a url' ),
+								'<strong><kbd>' . esc_html(
+									add_query_arg(
+										array(
+											'success' => 'false',
+										),
+										$reject_url
+									)
+								) . '</kbd></strong>'
+							);
+						} else {
+							esc_html_e( 'You will be returned to the WordPress Dashboard, and we will never speak of this again.' );
+						}
+						?>
+						</em>
+					</p>
+
+				</form>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Handle non-JS submissions via traditional posting.
+	 */
+	public static function authorize_application_password() {
+		check_admin_referer( 'authorize_application_password' );
+
+		$success_url = $_POST['success_url'];
+		$reject_url  = $_POST['reject_url'];
+		$app_name    = $_POST['app_name'];
+		$redirect    = admin_url();
+
+		if ( isset( $_POST['reject'] ) ) {
+			if ( $reject_url ) {
+				// Explicitly not using wp_safe_redirect b/c sends to arbitrary domain.
+				$redirect = esc_url_raw( add_query_arg( 'success', 'false', $reject_url ) );
+			}
+		} elseif ( isset( $_POST['approve'] ) ) {
+			list( $new_password, $new_item ) = self::create_new_application_password( get_current_user_id(), $app_name );
+			if ( empty( $success_url ) ) {
+				wp_die( '<h1>' . esc_html__( 'Your New Application Password:' ) . '</h1><h3><kbd>' . esc_html( self::chunk_password( $new_password ) ) . '</kbd></h3>' );
+			}
+			$redirect = add_query_arg(
+				array(
+					'username' => wp_get_current_user()->user_login,
+					'password' => $new_password,
+				),
+				$success_url
+			);
+		}
+
+		wp_redirect( $redirect ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+		exit;
+
 	}
 
 	/**
@@ -357,17 +562,23 @@ class Application_Passwords {
 	 * @param WP_User $user WP_User object of the logged-in user.
 	 */
 	public static function show_user_profile( $user ) {
-		wp_enqueue_style( 'application-passwords-css', plugin_dir_url( __FILE__ ) . 'application-passwords.css', array() );
-		wp_enqueue_script( 'application-passwords-js', plugin_dir_url( __FILE__ ) . 'application-passwords.js', array() );
-		wp_localize_script( 'application-passwords-js', 'appPass', array(
-			'root'       => esc_url_raw( rest_url() ),
-			'namespace'  => '2fa/v1',
-			'nonce'      => wp_create_nonce( 'wp_rest' ),
-			'user_id'    => $user->ID,
-			'text'       => array(
-				'no_credentials' => __( 'Due to a potential server misconfiguration, it seems that HTTP Basic Authorization may not work for the REST API on this site: `Authorization` headers are not being sent to WordPress by the web server.' ),
-			),
-		) );
+		wp_enqueue_style( 'application-passwords-css', plugin_dir_url( __FILE__ ) . 'application-passwords.css', array(), APPLICATION_PASSWORDS_VERSION );
+		wp_enqueue_script( 'application-passwords-js', plugin_dir_url( __FILE__ ) . 'application-passwords.js', array(), APPLICATION_PASSWORDS_VERSION, true );
+		wp_localize_script(
+			'application-passwords-js',
+			'appPass',
+			array(
+				'root'      => esc_url_raw( rest_url() ),
+				'namespace' => '2fa/v1',
+				'nonce'     => wp_create_nonce( 'wp_rest' ),
+				'user_id'   => $user->ID,
+				'text'      => array(
+					'no_credentials'       => __( 'Due to a potential server misconfiguration, it seems that HTTP Basic Authorization may not work for the REST API on this site: `Authorization` headers are not being sent to WordPress by the web server. <a href="https://github.com/georgestephanis/application-passwords/wiki/Basic-Authorization-Header----Missing">You can learn more about this problem, and a possible solution, on our GitHub Wiki.</a>' ),
+					'revoke_password'      => esc_attr__( 'Are you sure you want to revoke this password? This action cannot be undone.' ),
+					'revoke_all_passwords' => esc_attr__( 'Are you sure you want to revoke all passwords? This action cannot be undone.' ),
+				),
+			)
+		);
 
 		?>
 		<div class="application-passwords hide-if-no-js" id="application-passwords-section">
@@ -396,6 +607,7 @@ class Application_Passwords {
 						<div class="new-application-password-content">
 							<?php
 							printf(
+								// translators: application, password.
 								esc_html_x( 'Your new password for %1$s is: %2$s', 'application, password' ),
 								'<strong>{{ data.name }}</strong>',
 								'<kbd>{{ data.password }}</kbd>'
@@ -413,6 +625,7 @@ class Application_Passwords {
 			<tr data-slug="{{ data.slug }}">
 				<td class="name column-name has-row-actions column-primary" data-colname="<?php esc_attr_e( 'Name' ); ?>">
 					{{ data.name }}
+					<button type="button" class="toggle-row"><span class="screen-reader-text"><?php esc_html_e( 'Show more details' ); ?></span></button>
 				</td>
 				<td class="created column-created" data-colname="<?php esc_attr_e( 'Created' ); ?>">
 					{{ data.created }}
@@ -430,7 +643,7 @@ class Application_Passwords {
 		</script>
 
 		<script type="text/html" id="tmpl-application-password-notice">
-			<div class="notice notice-{{ data.type }}"><p>{{ data.message }}</p></div>
+			<div class="notice notice-{{ data.type }}"><p>{{{ data.message }}}</p></div>
 		</script>
 		<?php
 	}
@@ -522,7 +735,7 @@ class Application_Passwords {
 	}
 
 	/**
-	 * Generate a unique repeateable slug from the hashed password, name, and when it was created.
+	 * Generate a unique repeatable slug from the hashed password, name, and when it was created.
 	 *
 	 * @since 0.1-dev
 	 *

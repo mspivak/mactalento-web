@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.0
+ * @version 	1.4.1
  * 
  * Responsive WooCommerce CSS Rules
  * Created by CMSMasters
@@ -12,128 +12,84 @@
 	1.	Medium Monitor
 	2.	Tablet Monitor
 	3.	Small Tablet Monitor
-	4.	Phone Monitor
+	4.	Tablet Monitor 600
+	5.	Phone Monitor
 
 -------------------------------------------------------------------------*/
-
-
-/*-------------------------------------------------------------------------*/
-/*	1. Medium Monitor
-/*-------------------------------------------------------------------------*/
-@media only screen and (min-width: 1024px) and (max-width: 1440px) {
-  .cmsms_woo.fullwidth .cmsms_products .product .product_outer .product_inner .cmsms_product_footer > a,
-  .cmsms_products_shortcode .columns-4 .cmsms_products .product .product_outer .product_inner .cmsms_product_footer > a,
-  .cmsms_selected_products_shortcode .columns-4 .cmsms_products .product .product_outer .product_inner .cmsms_product_footer > a {
-    padding-left: 3px;
-    padding-right: 0;
+@media only screen {
+  /*-------------------------------------------------------------------------*/
+  /* Large Monitor
+	/*-------------------------------------------------------------------------*/
+  /*-------------------------------------------------------------------------*/
+  /* Tablet Monitor
+	/*-------------------------------------------------------------------------*/
+  /*-------------------------------------------------------------------------*/
+  /* Small Tablet Monitor
+	/*-------------------------------------------------------------------------*/
+  /*-------------------------------------------------------------------------*/
+  /* Tablet Monitor 600
+	/*-------------------------------------------------------------------------*/
+  /*-------------------------------------------------------------------------*/
+  /* Phone Monitor
+	/*-------------------------------------------------------------------------*/
+}
+@media only screen and (min-width: 1440px) {
+  ul.order_details {
+    -webkit-flex-wrap: nowrap;
+    -moz-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
   }
-  .cmsms_woo.fullwidth .cmsms_products .product .product_outer .product_inner .cmsms_product_footer > a:before,
-  .cmsms_products_shortcode .columns-4 .cmsms_products .product .product_outer .product_inner .cmsms_product_footer > a:before,
-  .cmsms_selected_products_shortcode .columns-4 .cmsms_products .product .product_outer .product_inner .cmsms_product_footer > a:before {
-    margin-right: 5px;
+  ul.order_details li {
+    width: 100%;
   }
 }
-/*-------------------------------------------------------------------------*/
-/*	2.	Tablet Monitor
-/*-------------------------------------------------------------------------*/
 @media only screen and (max-width: 1024px) {
   .cmsms_dynamic_cart {
     display: none;
     visibility: hidden;
+    opacity: 1;
   }
-  .cmsms_woo.fullwidth .cmsms_products .product {
-    width: 46%;
+  .cmsms_products.columns-6 .product {
+    width: 29.33%;
   }
-  .cmsms_woo.fullwidth .cmsms_products .product:nth-child(4n+1) {
+  .cmsms_products.columns-6 .product:nth-child(6n+1) {
     clear: none;
   }
-  .cmsms_woo.fullwidth .cmsms_products .product:nth-child(2n+1) {
+  .cmsms_products.columns-6 .product:nth-child(3n+1) {
     clear: left;
   }
-  .cmsms_products_shortcode .columns-4 .cmsms_products .product,
-  .cmsms_selected_products_shortcode .columns-4 .cmsms_products .product {
-    width: 46%;
+  .cmsms_products.columns-5 .product {
+    width: 29.33%;
   }
-  .cmsms_products_shortcode .columns-4 .cmsms_products .product:nth-child(4n+1),
-  .cmsms_selected_products_shortcode .columns-4 .cmsms_products .product:nth-child(4n+1) {
+  .cmsms_products.columns-5 .product:nth-child(5n+1) {
     clear: none;
   }
-  .cmsms_products_shortcode .columns-4 .cmsms_products .product:nth-child(2n+1),
-  .cmsms_selected_products_shortcode .columns-4 .cmsms_products .product:nth-child(2n+1) {
+  .cmsms_products.columns-5 .product:nth-child(3n+1) {
     clear: left;
+  }
+  .cmsms_products.columns-4 .product {
+    width: 46%;
+  }
+  .cmsms_products.columns-4 .product:nth-child(4n+1) {
+    clear: none;
+  }
+  .cmsms_products.columns-4 .product:nth-child(2n+1) {
+    clear: left;
+  }
+  #header .cmsms_dynamic_cart_link {
+    display: block;
+    visibility: visible;
+  }
+  .enable_header_centered #header .cmsms_dynamic_cart_link {
+    display: block;
+    float: none;
+    margin: 0;
+    height: auto;
+    text-align: center;
   }
 }
-/*-------------------------------------------------------------------------*/
-/*	3.	Small Tablet Monitor
-/*-------------------------------------------------------------------------*/
 @media only screen and (max-width: 767px) {
-  .cmsms_woo.fullwidth .cmsms_products .product,
-  .cmsms_woo.r_sidebar .cmsms_products .product,
-  .cmsms_woo.l_sidebar .cmsms_products .product {
-    width: 96%;
-    float: none;
-    clear: both;
-  }
-  .cmsms_woo.fullwidth .cmsms_products .product:nth-child(4n+1),
-  .cmsms_woo.r_sidebar .cmsms_products .product:nth-child(4n+1),
-  .cmsms_woo.l_sidebar .cmsms_products .product:nth-child(4n+1),
-  .cmsms_woo.fullwidth .cmsms_products .product:nth-child(3n+1),
-  .cmsms_woo.r_sidebar .cmsms_products .product:nth-child(3n+1),
-  .cmsms_woo.l_sidebar .cmsms_products .product:nth-child(3n+1),
-  .cmsms_woo.fullwidth .cmsms_products .product:nth-child(2n+1),
-  .cmsms_woo.r_sidebar .cmsms_products .product:nth-child(2n+1),
-  .cmsms_woo.l_sidebar .cmsms_products .product:nth-child(2n+1),
-  .cmsms_woo.fullwidth .cmsms_products .product:nth-child(n),
-  .cmsms_woo.r_sidebar .cmsms_products .product:nth-child(n),
-  .cmsms_woo.l_sidebar .cmsms_products .product:nth-child(n) {
-    clear: both;
-  }
-  .cmsms_products_shortcode .columns-4 .cmsms_products .product,
-  .cmsms_selected_products_shortcode .columns-4 .cmsms_products .product,
-  .cmsms_products_shortcode .columns-3 .cmsms_products .product,
-  .cmsms_selected_products_shortcode .columns-3 .cmsms_products .product,
-  .cmsms_products_shortcode .columns-2 .cmsms_products .product,
-  .cmsms_selected_products_shortcode .columns-2 .cmsms_products .product,
-  .cmsms_products_shortcode .columns-1 .cmsms_products .product,
-  .cmsms_selected_products_shortcode .columns-1 .cmsms_products .product {
-    width: 96%;
-    float: none;
-    clear: both;
-  }
-  .cmsms_products_shortcode .columns-4 .cmsms_products .product:nth-child(4n+1),
-  .cmsms_selected_products_shortcode .columns-4 .cmsms_products .product:nth-child(4n+1),
-  .cmsms_products_shortcode .columns-3 .cmsms_products .product:nth-child(4n+1),
-  .cmsms_selected_products_shortcode .columns-3 .cmsms_products .product:nth-child(4n+1),
-  .cmsms_products_shortcode .columns-2 .cmsms_products .product:nth-child(4n+1),
-  .cmsms_selected_products_shortcode .columns-2 .cmsms_products .product:nth-child(4n+1),
-  .cmsms_products_shortcode .columns-1 .cmsms_products .product:nth-child(4n+1),
-  .cmsms_selected_products_shortcode .columns-1 .cmsms_products .product:nth-child(4n+1),
-  .cmsms_products_shortcode .columns-4 .cmsms_products .product:nth-child(3n+1),
-  .cmsms_selected_products_shortcode .columns-4 .cmsms_products .product:nth-child(3n+1),
-  .cmsms_products_shortcode .columns-3 .cmsms_products .product:nth-child(3n+1),
-  .cmsms_selected_products_shortcode .columns-3 .cmsms_products .product:nth-child(3n+1),
-  .cmsms_products_shortcode .columns-2 .cmsms_products .product:nth-child(3n+1),
-  .cmsms_selected_products_shortcode .columns-2 .cmsms_products .product:nth-child(3n+1),
-  .cmsms_products_shortcode .columns-1 .cmsms_products .product:nth-child(3n+1),
-  .cmsms_selected_products_shortcode .columns-1 .cmsms_products .product:nth-child(3n+1),
-  .cmsms_products_shortcode .columns-4 .cmsms_products .product:nth-child(2n+1),
-  .cmsms_selected_products_shortcode .columns-4 .cmsms_products .product:nth-child(2n+1),
-  .cmsms_products_shortcode .columns-3 .cmsms_products .product:nth-child(2n+1),
-  .cmsms_selected_products_shortcode .columns-3 .cmsms_products .product:nth-child(2n+1),
-  .cmsms_products_shortcode .columns-2 .cmsms_products .product:nth-child(2n+1),
-  .cmsms_selected_products_shortcode .columns-2 .cmsms_products .product:nth-child(2n+1),
-  .cmsms_products_shortcode .columns-1 .cmsms_products .product:nth-child(2n+1),
-  .cmsms_selected_products_shortcode .columns-1 .cmsms_products .product:nth-child(2n+1),
-  .cmsms_products_shortcode .columns-4 .cmsms_products .product:nth-child(n),
-  .cmsms_selected_products_shortcode .columns-4 .cmsms_products .product:nth-child(n),
-  .cmsms_products_shortcode .columns-3 .cmsms_products .product:nth-child(n),
-  .cmsms_selected_products_shortcode .columns-3 .cmsms_products .product:nth-child(n),
-  .cmsms_products_shortcode .columns-2 .cmsms_products .product:nth-child(n),
-  .cmsms_selected_products_shortcode .columns-2 .cmsms_products .product:nth-child(n),
-  .cmsms_products_shortcode .columns-1 .cmsms_products .product:nth-child(n),
-  .cmsms_selected_products_shortcode .columns-1 .cmsms_products .product:nth-child(n) {
-    clear: both;
-  }
   .col2-set > *,
   .cart-collaterals > * {
     width: 96%;
@@ -144,6 +100,13 @@
   .col2-set > *:last-child,
   .cart-collaterals > *:last-child {
     margin-bottom: 0;
+  }
+  #header .cmsms_dynamic_cart_link {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+    margin: 0;
+    height: auto;
   }
   #order_review .shop_table th,
   #order_review .shop_table td {
@@ -261,18 +224,40 @@
     border-bottom-width: 0;
     border-bottom-style: solid;
   }
-  ul.order_details li {
-    width: 50%;
-  }
   .shop_table.order_details th,
   .shop_table.order_details td {
     padding-left: 10px;
   }
 }
-/*-------------------------------------------------------------------------*/
-/*	4.	Phone Monitor
-/*-------------------------------------------------------------------------*/
+@media only screen and (max-width: 600px) {
+  .cmsms_products.columns-6 .product,
+  .cmsms_products.columns-5 .product,
+  .cmsms_products.columns-3 .product {
+    width: 96%;
+    float: none;
+  }
+  .cmsms_products.columns-6 .product:nth-child(n),
+  .cmsms_products.columns-5 .product:nth-child(n),
+  .cmsms_products.columns-3 .product:nth-child(n) {
+    clear: both;
+  }
+}
 @media only screen and (max-width: 540px) {
+  .cmsms_products.columns-6 .product,
+  .cmsms_products.columns-5 .product,
+  .cmsms_products.columns-4 .product,
+  .cmsms_products.columns-3 .product,
+  .cmsms_products.columns-2 .product {
+    width: 96%;
+    float: none;
+  }
+  .cmsms_products.columns-6 .product:nth-child(n),
+  .cmsms_products.columns-5 .product:nth-child(n),
+  .cmsms_products.columns-4 .product:nth-child(n),
+  .cmsms_products.columns-3 .product:nth-child(n),
+  .cmsms_products.columns-2 .product:nth-child(n) {
+    clear: both;
+  }
   .form-row,
   .shipping_calculator .shipping-calculator-form .form-row {
     width: 96%;

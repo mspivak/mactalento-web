@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.1.3
+ * @version		1.3.8
  * 
  * Template Name: Sitemap
  * Created by CMSMasters
@@ -26,7 +26,7 @@ if ($cmsms_layout == 'r_sidebar') {
 } elseif ($cmsms_layout == 'l_sidebar') {
 	echo '<div class="content entry fr" role="main">' . "\n\t";
 } else {
-	echo '<div class="middle_content entry" role="main">' . "\n\t";
+	echo '<div class="middle_content entry" role="main">';
 }
 
 echo '<div class="cmsms_sitemap_wrap">' . "\n";
@@ -52,12 +52,12 @@ if (have_posts()) : the_post();
 		((is_singular('project')) ? ' project_page' : '') . 
 		((is_singular('profile')) ? ' profile_page' : '') . 
 		'">' . "\n\n" . 
-			'<div class="middle_content entry" role="main">' . "\n\t";
+			'<div class="middle_content entry" role="main">';
 	}
 	
 	
 	wp_link_pages(array( 
-		'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'cmsmasters') . ':</strong>', 
+		'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . esc_html__('Pages', 'econature') . ':</strong>', 
 		'after' => '</div>' . "\n", 
 		'link_before' => ' [ ', 
 		'link_after' => ' ] ' 
@@ -66,7 +66,7 @@ endif;
 
 
 if ($cmsms_option[CMSMS_SHORTNAME . '_sitemap_nav']) { 
-	echo '<h1>' .  __('Website Pages', 'cmsmasters') . '</h1>';
+	echo '<h3 class="cmsms_h1_font_style">' .  esc_html__('Website Pages', 'econature') . '</h3>';
 	
 	wp_nav_menu(array( 
 		'theme_location' => 'primary', 
@@ -79,7 +79,7 @@ if ($cmsms_option[CMSMS_SHORTNAME . '_sitemap_nav']) {
 
 if ($cmsms_option[CMSMS_SHORTNAME . '_sitemap_categs']) {
 	echo '<div class="cmsms_divider solid"></div>' . 
-	'<h1>' . __('Blog Archives by Categories', 'cmsmasters') . '</h1>' . 
+	'<h3 class="cmsms_h1_font_style>' . esc_html__('Blog Archives by Categories', 'econature') . '</h3>' . 
 	'<ul class="cmsms_sitemap_category">';
 	
 	wp_list_categories(array( 
@@ -99,11 +99,11 @@ if ($cmsms_option[CMSMS_SHORTNAME . '_sitemap_tags']) {
 	));
 	
 	echo '<div class="cmsms_divider solid"></div>' . 
-	'<h1>' . __('Blog Archives by Tags', 'cmsmasters') . '</h1>' . 
+	'<h3 class="cmsms_h1_font_style>' . esc_html__('Blog Archives by Tags', 'econature') . '</h3>' . 
 	'<ul class="cmsms_sitemap_archive">';
 	
 	foreach ((array) $tags as $tag) {
-		echo '<li><a href="' . get_tag_link($tag->term_id) . '" rel="tag" title="' . $tag->name . '">' . $tag->name . '</a> (' . $tag->count . ')</li>';
+		echo '<li><a href="' . esc_url(get_tag_link($tag->term_id)) . '" rel="tag" title="' . esc_attr($tag->name) . '">' . $tag->name . '</a> (' . $tag->count . ')</li>';
 	}
 	
 	echo '</ul>';
@@ -112,7 +112,7 @@ if ($cmsms_option[CMSMS_SHORTNAME . '_sitemap_tags']) {
 
 if ($cmsms_option[CMSMS_SHORTNAME . '_sitemap_month']) {
 	echo '<div class="cmsms_divider solid"></div>' . 
-	'<h1>' . __('Blog Archives by Month', 'cmsmasters') . '</h1>' . 
+	'<h3 class="cmsms_h1_font_style>' . esc_html__('Blog Archives by Month', 'econature') . '</h3>' . 
 	'<ul class="cmsms_sitemap_archive">';
 	
 	wp_get_archives(array( 
@@ -128,7 +128,7 @@ if ($cmsms_option[CMSMS_SHORTNAME . '_sitemap_month']) {
 
 if ($cmsms_option[CMSMS_SHORTNAME . '_sitemap_pj_categs']) {
 	echo '<div class="cmsms_divider solid"></div>' . 
-	'<h1>' . __('Portfolio Archives by Categories', 'cmsmasters') . '</h1>' . 
+	'<h3 class="cmsms_h1_font_style>' . esc_html__('Portfolio Archives by Categories', 'econature') . '</h3>' . 
 	'<ul class="cmsms_sitemap_category">';
 	
 	wp_list_categories(array( 
@@ -144,7 +144,7 @@ if ($cmsms_option[CMSMS_SHORTNAME . '_sitemap_pj_categs']) {
 
 if ($cmsms_option[CMSMS_SHORTNAME . '_sitemap_pj_tags']) {
 	echo '<div class="cmsms_divider solid"></div>' . 
-	'<h1>' . __('Portfolio Archives by Tags', 'cmsmasters') . '</h1>' . 
+	'<h3 class="cmsms_h1_font_style>' . esc_html__('Portfolio Archives by Tags', 'econature') . '</h3>' . 
 	'<ul class="cmsms_sitemap_archive">';
 	
 	wp_list_categories(array( 

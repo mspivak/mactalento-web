@@ -1,12 +1,14 @@
 <?php
 /**
  * Plugin Name: Application Passwords
- * Plugin URI: http://github.com/georgestephanis/application-passwords/
- * Description: A prototype framework to add application passwords to core.
+ * Plugin URI: https://github.com/WordPress/application-passwords
+ * Description: Creates unique passwords for applications to authenticate users without revealing their main passwords.
  * Author: George Stephanis
- * Version: 0.1-dev
- * Author URI: http://stephanis.info
+ * Version: 0.1.3
+ * Author URI: https://github.com/georgestephanis
  */
+
+define( 'APPLICATION_PASSWORDS_VERSION', '0.1.3' );
 
 /**
  * Include the application passwords system.

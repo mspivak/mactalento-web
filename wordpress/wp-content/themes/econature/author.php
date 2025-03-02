@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.1.3
+ * @version		1.3.8
  * 
  * Blog Archive by Author Page Template
  * Created by CMSMasters
@@ -24,7 +24,7 @@ if ($cmsms_layout == 'r_sidebar') {
 } elseif ($cmsms_layout == 'l_sidebar') {
 	echo '<div class="content entry fr" role="main">' . "\n\t";
 } else {
-	echo '<div class="middle_content entry" role="main">' . "\n\t";
+	echo '<div class="middle_content entry" role="main">';
 }
 
 cmsms_author_box();
@@ -33,7 +33,7 @@ echo '<br /><br />' . "\n" .
 '<div class="blog">' . "\n";
 
 if (!have_posts()) : 
-	echo '<h2>' . __('No posts found', 'cmsmasters') . '</h2>';
+	echo '<h2>' . esc_html__('No posts found', 'econature') . '</h2>';
 else : 
 	while (have_posts()) : the_post();
 		if (get_post_format() != '') {
@@ -44,7 +44,7 @@ else :
 	endwhile;
 	
 	
-	echo pagination();
+	echo cmsms_pagination();
 endif;
 
 echo '</div>' . "\n" . 

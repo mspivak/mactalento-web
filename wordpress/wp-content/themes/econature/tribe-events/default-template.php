@@ -9,7 +9,7 @@
  * @package TribeEventsCalendar
  *
  * @cmsms_package 	EcoNature
- * @cmsms_version 	1.1.3
+ * @cmsms_version 	1.3.8
  *
  */
 
@@ -33,7 +33,7 @@ if ($cmsms_layout == 'r_sidebar') {
 } elseif ($cmsms_layout == 'l_sidebar') {
 	echo '<div class="content entry fr" role="main">' . "\n\t";
 } else {
-	echo '<div class="middle_content entry" role="main">' . "\n\t";
+	echo '<div class="middle_content entry" role="main">';
 }
 
 

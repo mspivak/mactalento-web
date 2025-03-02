@@ -1,7 +1,7 @@
-/**
+﻿/**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.0
+ * @version 	1.3.1
  * 
  * Icon Lightbox jQuery Plugin
  * Created by CMSMasters
@@ -68,8 +68,12 @@
 				
 				obj.methods.icons = cmsms_composer_icons();
 				
+				obj.methods.fontsCount = 0;
 				
-				obj.methods.fields = '';
+				
+				obj.methods.container = '';
+				
+				obj.methods.firstField = '';
 				
 				
 				obj.methods.buildObj();
@@ -141,10 +145,24 @@
 				}
 				
 				
-				obj.methods.fields += obj.methods.generateField(data.val);
+				obj.methods.container += obj.methods.generateContainer(data.val);
+				
+				obj.methods.firstField += obj.methods.generateFirstField(data.val);
 				
 				
-				obj.methods.body.find('#cmsmsLightBox_' + obj.methods.uniqID).find('.cmsmsLightBoxContInMid').append(obj.methods.fields);
+				obj.methods.body.find('#cmsmsLightBox_' + obj.methods.uniqID).find('.cmsmsLightBoxContInMid').append(obj.methods.container);
+				
+				obj.methods.body.find('#cmsmsLightBox_' + obj.methods.uniqID).find('input.cmsms_icon_value').before(obj.methods.firstField);
+				
+				
+				for (var font in obj.methods.icons) {
+					if (obj.methods.fontsCount !== 0) {
+						obj.methods.generateField(font, data.val);
+					}
+					
+					
+					obj.methods.fontsCount += 1;
+				}
 				
 				
 				obj.methods.body.find('#cmsmsLightBox_' + obj.methods.uniqID).removeClass('preloadBox');
@@ -154,7 +172,7 @@
 					privateMethods.attachGeneratedEvents();
 				}, 100);
 			}, 
-			generateField : function (val) { 
+			generateContainer : function (val) { 
 				var fieldContent = '';
 				
 				
@@ -165,27 +183,25 @@
 				fieldContent += '<div class="icons_list_parent">' + 
 					'<a href="#" class="cmsms_icon_cancel admin-icon-remove"' + ((val !== '') ? '' : ' style="display:none;"') + '>' + cmsms_admin_lightbox.deselect + '</a>' + 
 					'<div class="cmsms_icon_search">' + 
-						'<label>' + cmsms_admin_lightbox.find_icons + ':</label>' + 
+						'<label>' + cmsms_admin_lightbox.find_icons + ':<span>(' + cmsms_admin_lightbox.min_length + ')</span></label>' + 
 						'<input type="text" name="cmsms_icon_search" />' + 
 					'</div>' + 
 					'<div class="cl" />';
 				
 				
+				fieldContent += '<label for="cmsms_icon_font_select" class="cmsms_icon_font_label">' + cmsms_admin_lightbox.choose_font + ':</label>' + 
+				'<select name="cmsms_icon_font_select" class="cmsms_icon_font_select">';
+				
+				
 				for (var font in obj.methods.icons) {
-					fieldContent += '<h3>' + font.slice(0, 1).toUpperCase() + font.slice(1) + '</h3>' + 
-					'<ul>';
-					
-					
-					for (var k in obj.methods.icons[font]) {
-						fieldContent += '<li' + ((obj.methods.icons[font][k] === val) ? ' class="active"' : '') + '><a class="' + obj.methods.icons[font][k] + '" data-code="' + k + '" title="' + k + '" /></li>';
-					}
-					
-					
-					fieldContent += '</ul>';
+					fieldContent += '<option value="' + font + '">' + font.slice(0, 1).toUpperCase() + font.slice(1) + '</option>';
 				}
 				
 				
-				fieldContent += '<input type="hidden" id="icon_' + obj.methods.uniqID + '" name="icon_' + obj.methods.uniqID + '" value="' + val + '" class="cmsms_icon_value" />'  + 
+				fieldContent += '</select>';
+				
+				
+				fieldContent += '<input type="hidden" id="icon_' + obj.methods.uniqID + '" name="icon_' + obj.methods.uniqID + '" value="' + val + '" class="cmsms_icon_value" />' + 
 				'</div>';
 				
 				
@@ -195,6 +211,54 @@
 				
 				
 				return fieldContent;
+			}, 
+			generateFirstField : function (val) { 
+				var fieldContent = '', 
+					counter = 0;
+				
+				
+				for (var font in obj.methods.icons) {
+					if (counter === 0) {
+						fieldContent += '<div class="cmsms_icon_font cmsms_icon_font_' + font + '" style="display: block;">' + 
+						'<h3>' + font.slice(0, 1).toUpperCase() + font.slice(1) + '</h3>' + 
+						'<ul>';
+						
+						
+						for (var k in obj.methods.icons[font]) {
+							fieldContent += '<li' + ((obj.methods.icons[font][k] === val) ? ' class="active"' : '') + '><span class="' + obj.methods.icons[font][k] + '" data-code="' + k + '" title="' + k + '" /></li>';
+						}
+						
+						
+						fieldContent += '</ul>' + 
+						'</div>';
+					}
+					
+					
+					counter += 1;
+				}
+				
+				
+				return fieldContent;
+			}, 
+			generateField : function (font, val) { 
+				var fieldContent = '';
+				
+				
+				fieldContent += '<div class="cmsms_icon_font cmsms_icon_font_' + font + '">' + 
+				'<h3>' + font.slice(0, 1).toUpperCase() + font.slice(1) + '</h3>' + 
+				'<ul>';
+				
+				
+				for (var k in obj.methods.icons[font]) {
+					fieldContent += '<li' + ((obj.methods.icons[font][k] === val) ? ' class="active"' : '') + '><span class="' + obj.methods.icons[font][k] + '" data-code="' + k + '" title="' + k + '" /></li>';
+				}
+				
+				
+				fieldContent += '</ul>' + 
+				'</div>';
+				
+				
+				obj.methods.body.find('#cmsmsLightBox_' + obj.methods.uniqID).find('input.cmsms_icon_value').before(fieldContent);
 			}, 
 			saveContent : function (id) { 
 				var icon_value = '';
@@ -351,12 +415,17 @@
 			}, 
 			attachGeneratedEvents : function () { 
 				// Icons Filter
-				$('#cmsmsLightBox_' + obj.methods.uniqID + ' .cmsms_icon_search > input[type="text"]').bind('input', function () { 
-					var val = $(this).val();
+				$('#cmsmsLightBox_' + obj.methods.uniqID + ' .cmsms_icon_search > input[type="text"]').on('input', function () { 
+					var val = $(this).val(), 
+						parent = $(this).parents('.icons_list_parent'), 
+						font = parent.find('.cmsms_icon_font_select').val();
 					
 					
-					if (val !== '') {
-						$(this).parents('.icons_list_parent').find('> ul > li > a').each(function () { 
+					parent.find('.cmsms_icon_font').hide();
+					
+					
+					if (val !== '' && val.length > 1) {
+						parent.find('ul > li > span').each(function () { 
 							var code = $(this).data('code');
 							
 							
@@ -366,15 +435,33 @@
 								$(this).parent().css('display', 'none');
 							}
 						} );
+						
+						
+						parent.find('.cmsms_icon_font').show();
 					} else {
-						$(this).parents('.icons_list_parent').find('> ul > li').removeAttr('style');
+						parent.find('.cmsms_icon_font_' + font).show();
+						
+						
+						parent.find('ul > li').removeAttr('style');
 					}
 				} );
 				
+				// Icon Font Choose
+				$('#cmsmsLightBox_' + obj.methods.uniqID + ' .cmsms_icon_font_select').on('change', function () { 
+					var font = $(this).val(), 
+						parent = $(this).parents('.icons_list_parent');
+					
+					
+					parent.find('.cmsms_icon_font').hide();
+					
+					
+					parent.find('.cmsms_icon_font_' + font).show();
+				} );
+				
 				// Icon Choose
-				$('#cmsmsLightBox_' + obj.methods.uniqID + ' .icons_list_parent > ul > li > a').bind('click', function () { 
+				$('#cmsmsLightBox_' + obj.methods.uniqID + ' .icons_list_parent ul > li > span').on('click', function () { 
 					var parentLi = $(this).parent(), 
-						li = $(this).parents('.icons_list_parent').find('> ul > li'), 
+						li = $(this).parents('.icons_list_parent').find('ul > li'), 
 						cancel = $(this).parents('.icons_list_parent').find('> a.cmsms_icon_cancel'), 
 						hidden = $(this).parents('.icons_list_parent').find('> input.cmsms_icon_value');
 					
@@ -405,8 +492,8 @@
 				} );
 				
 				// Icon Cancel
-				$('#cmsmsLightBox_' + obj.methods.uniqID + ' .icons_list_parent > a.cmsms_icon_cancel').bind('click', function () { 
-					var li = $(this).parents('.icons_list_parent').find('> ul > li'), 
+				$('#cmsmsLightBox_' + obj.methods.uniqID + ' .icons_list_parent > a.cmsms_icon_cancel').on('click', function () { 
+					var li = $(this).parents('.icons_list_parent').find('ul > li'), 
 						hidden = $(this).parents('.icons_list_parent').find('> input.cmsms_icon_value');
 					
 					

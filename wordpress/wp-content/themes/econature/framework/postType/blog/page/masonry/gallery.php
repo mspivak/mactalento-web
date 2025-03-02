@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.4.1
  * 
  * Blog Page Masonry Gallery Post Format Template
  * Created by CMSMasters
@@ -46,7 +46,7 @@ $uniqid = uniqid();
 
 <!--_________________________ Start Gallery Article _________________________ -->
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('cmsms_masonry_type'); ?> data-category="<?php echo $post_categs; ?>">
+<article id="post-<?php the_ID(); ?>" <?php post_class('cmsms_masonry_type'); ?> data-category="<?php echo esc_attr($post_categs); ?>">
 	<span class="cmsms_post_format_img <?php 
 			if (is_sticky()) {
 				echo ' cmsms-icon-attach-6';
@@ -61,7 +61,7 @@ $uniqid = uniqid();
 		?>
 				<script type="text/javascript">
 					jQuery(document).ready(function () {
-						jQuery('.cmsms_slider_<?php echo $uniqid; ?>').owlCarousel( { 
+						jQuery('.cmsms_slider_<?php echo esc_attr($uniqid); ?>').owlCarousel( { 
 							singleItem : 		true, 
 							transitionStyle : 	false, 
 							rewindNav : 		true, 
@@ -79,12 +79,12 @@ $uniqid = uniqid();
 						} );
 					} );
 				</script>
-				<div id="cmsms_owl_carousel_<?php the_ID(); ?>" class="cmsms_slider_<?php echo $uniqid; ?> cmsms_owl_slider">
+				<div id="cmsms_owl_carousel_<?php the_ID(); ?>" class="cmsms_slider_<?php echo esc_attr($uniqid); ?> cmsms_owl_slider">
 				<?php 
 					foreach ($cmsms_post_images as $cmsms_post_image) {
 						echo '<div>' . 
 							'<figure>' . 
-								wp_get_attachment_image($cmsms_post_image, 'blog-masonry-thumb', false, array( 
+								wp_get_attachment_image(strstr($cmsms_post_image, '|', true), 'blog-masonry-thumb', false, array( 
 									'class' => 	'full-width', 
 									'alt' => 	cmsms_title(get_the_ID(), false), 
 									'title' => 	cmsms_title(get_the_ID(), false) 

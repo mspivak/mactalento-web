@@ -8,28 +8,22 @@
  * @package TribeEventsCalendar
  *
  * @cmsms_package 	EcoNature
- * @cmsms_version 	1.1.0
+ * @cmsms_version 	1.4.1
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
-<?php 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 global $post;
 
-$venue_details = array();
+$venue_details = tribe_get_venue_details();
 
-if ($venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
-	$venue_details[] = $venue_name;	
-}
-
-if ($venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
-	$venue_details[] = $venue_address;	
-}
 // Venue microformats
-$has_venue = ( $venue_details ) ? ' vcard': '';
-$has_venue_address = ( $venue_address ) ? ' location': '';
+$has_venue         = ( $venue_details ) ? ' vcard' : '';
+$has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : '';
 ?>
 
 <!-- Event Image -->
@@ -52,7 +46,7 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 		<?php echo tribe_event_distance(); ?>
 
 		<h2 class="tribe-events-map-event-title tribe-events-list-event-title summary">
-			<a class="url" href="<?php echo tribe_get_event_link() ?>" title="<?php the_title() ?>" rel="bookmark">
+			<a class="url" href="<?php echo esc_url( tribe_get_event_link() ); ?>" title="<?php the_title() ?>" rel="bookmark">
 				<?php the_title() ?>
 			</a>
 		</h2>
@@ -62,7 +56,7 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 	
 	<!-- Event Meta -->
 	<?php do_action( 'tribe_events_before_the_meta' ) ?>
-	<div class="tribe-events-event-meta <?php echo $has_venue . $has_venue_address; ?>">
+	<div class="tribe-events-event-meta <?php echo esc_attr($has_venue . $has_venue_address); ?>">
 
 		<!-- Schedule & Recurrence Details -->
 		<div class="updated published time-details">
@@ -84,7 +78,7 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 	<?php do_action( 'tribe_events_before_the_content' ) ?>
 	<div class="tribe-events-map-event-description tribe-events-list-event-description tribe-events-content description entry-summary">
 		<?php echo tribe_events_get_the_excerpt() ?>
-		<a href="<?php echo tribe_get_event_link() ?>" class="tribe-events-read-more" rel="bookmark"><?php _e( 'Find out more', 'tribe-events-calendar' ) ?> &raquo;</a>
+		<a href="<?php echo esc_url( tribe_get_event_link() ); ?>" class="tribe-events-read-more" rel="bookmark"><?php esc_html_e( 'Find out more', 'econature' ) ?> &raquo;</a>
 	</div><!-- .tribe-events-map-event-description -->
 	<?php do_action( 'tribe_events_after_the_content' ) ?>
 </div>

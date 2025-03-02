@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.1
+ * @version 	1.4.1
  * 
  * Theme Secondary Color Schemes Rules
  * Created by CMSMasters
@@ -25,7 +25,7 @@ function cmsms_theme_colors_secondary() {
 	$custom_css = "/**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.1
+ * @version 	1.4.1
  * 
  * Theme Secondary Color Schemes Rules
  * Created by CMSMasters
@@ -48,7 +48,8 @@ function cmsms_theme_colors_secondary() {
 	{$rule}.cmsms_products .product .product_outer .product_inner .cmsms_product_cat a, 
 	{$rule}.cmsms_products .product .product_outer .product_inner .cmsms_product_info .price del, 
 	{$rule}.cmsms_products .product .product_outer .product_inner .cmsms_product_footer > a, 
-	{$rule}.cmsms_single_product .cmsms_product_right_column .price del, 
+	{$rule}.cmsms_single_product .cmsms_product_right_column .price del,
+	{$rule}.select2-container .select2-selection--single .select2-selection__rendered, 
 	{$rule}#order_review .shop_table td.product-name, 
 	{$rule}#order_review .shop_table td.product-name *, 
 	{$rule}.shop_table.order_details td.product-name, 
@@ -86,17 +87,25 @@ function cmsms_theme_colors_secondary() {
 	{$rule}.widget_shopping_cart_content .cart_list li .quantity .amount, 
 	{$rule}.widget_shopping_cart_content .total .amount, 
 	{$rule}.product_list_widget li > a:hover, 
-	{$rule}.product_list_widget li .amount {
+	{$rule}.product_list_widget li .amount, 
+	{$rule}.woocommerce-store-notice .woocommerce-store-notice__dismiss-link, 
+	{$rule}.cmsms_products .product.product-category a:hover .woocommerce-loop-category__title, 
+	{$rule}.cmsms_products .product.product-category .count {
 		" . cmsms_color_css('color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_link']) . "
 	}
 	
-	{$rule}.onsale {
+	{$rule}.onsale, 
+	{$rule}.woocommerce-store-notice {
 		" . cmsms_color_css('background-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_link']) . "
 	}
 	/* Finish Primary Color */
 	
 	
 	/* Start Highlight Color */
+	{$rule}.woocommerce-MyAccount-navigation ul > li.is-active a {
+		" . cmsms_color_css('color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_hover']) . "
+	}
+	
 	{$rule}.input-checkbox + label:after, 
 	{$rule}.input-radio + label:after, 
 	{$rule}.shipping_method + label:after {
@@ -116,7 +125,7 @@ function cmsms_theme_colors_secondary() {
 	{$rule}.cart_totals table tr.order-total th, 
 	{$rule}#order_review .shop_table tr.cart-subtotal th, 
 	{$rule}#order_review .shop_table tr.cart-subtotal td, 
-	{$rule}ul.order_details li > span, 
+	{$rule}ul.order_details li, 
 	{$rule}.shop_table.order_details tfoot tr:first-child th, 
 	{$rule}.shop_table.order_details tfoot tr:first-child td, 
 	{$rule}.widget_shopping_cart_content .cart_list li a, 
@@ -130,6 +139,8 @@ function cmsms_theme_colors_secondary() {
 		" . cmsms_color_css('background-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_heading']) . "
 	}
 	
+	{$rule}.select2-container.select2-container--open .select2-selection--single,
+	{$rule}.select2-container.select2-container--focus .select2-selection--single, 
 	{$rule}.cmsms_single_product .cmsms_product_images .cmsms_product_thumbs .cmsms_product_thumb:hover {
 		" . cmsms_color_css('border-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_heading']) . "
 	}
@@ -138,7 +149,10 @@ function cmsms_theme_colors_secondary() {
 	
 	/* Start Main Background Color */
 	{$rule}.onsale, 
-	{$rule}.out-of-stock {
+	{$rule}.out-of-stock, 
+	{$rule}.woocommerce-store-notice, 
+	{$rule}.woocommerce-store-notice p a, 
+	{$rule}.woocommerce-store-notice p a:hover {
 		" . cmsms_color_css('color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_bg']) . "
 	}
 	
@@ -148,7 +162,9 @@ function cmsms_theme_colors_secondary() {
 	{$rule}#order_review #payment, 
 	{$rule}.cmsms_dynamic_cart .widget_shopping_cart_content, 
 	{$rule}.cmsms_added_product_info, 
-	{$rule}.widget_price_filter .price_slider_wrapper .price_slider {
+	{$rule}.widget_price_filter .price_slider_wrapper .price_slider, 
+	{$rule}.woocommerce-store-notice .woocommerce-store-notice__dismiss-link, 
+	{$rule}ul.order_details li > strong {
 		" . cmsms_color_css('background-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_bg']) . "
 	}
 	
@@ -176,7 +192,7 @@ function cmsms_theme_colors_secondary() {
 	{$rule}#order_review .shop_table tr.order-total th, 
 	{$rule}#order_review .shop_table tr.order-total td, 
 	{$rule}#order_review #payment .payment_methods .payment_box, 
-	{$rule}ul.order_details li > span, 
+	{$rule}ul.order_details li, 
 	{$rule}.shop_table.order_details tfoot tr:first-child th, 
 	{$rule}.shop_table.order_details tfoot tr:last-child th, 
 	{$rule}.shop_table.order_details tfoot tr:first-child td, 
@@ -215,6 +231,8 @@ function cmsms_theme_colors_secondary() {
 	{$rule}.cmsms_single_product .cmsms_woo_tabs .shop_attributes td, 
 	{$rule}.cmsms_single_product .cmsms_woo_tabs #reviews #comments .commentlist, 
 	{$rule}.cmsms_single_product .cmsms_woo_tabs #reviews #comments .commentlist .comment .comment_container .comment-text, 
+	{$rule}.select2-container .select2-selection--single, 
+	{$rule}body .select2-dropdown,
 	{$rule}.woocommerce-message, 
 	{$rule}.woocommerce-info, 
 	{$rule}.shop_table, 
@@ -232,7 +250,7 @@ function cmsms_theme_colors_secondary() {
 	{$rule}#order_review #payment .payment_methods .payment_box, 
 	{$rule}ul.order_details, 
 	{$rule}ul.order_details li, 
-	{$rule}ul.order_details li > span, 
+	{$rule}ul.order_details li > strong, 
 	{$rule}.cmsms_dynamic_cart .cmsms_dynamic_cart_button, 
 	{$rule}.cmsms_dynamic_cart .widget_shopping_cart_content, 
 	{$rule}.cmsms_added_product_info, 
@@ -241,7 +259,9 @@ function cmsms_theme_colors_secondary() {
 	{$rule}.widget_price_filter .price_slider_wrapper .price_slider, 
 	{$rule}.product_list_widget li, 
 	{$rule}.product_list_widget li img, 
-	{$rule}.quantity .text {
+	{$rule}.quantity .text, 
+	{$rule}.woocommerce-EditAccountForm fieldset, 
+	{$rule}.cmsms_products .product.product-category .woocommerce-loop-category__title {
 		" . cmsms_color_css('border-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_border']) . "
 	}
 	
@@ -262,7 +282,7 @@ function cmsms_theme_colors_secondary() {
 		}
 
 
-		if (class_exists('TribeEvents')) {
+		if (class_exists('Tribe__Events__Main')) {
 			$custom_css .= "
 /***************** Start {$title} Events Color Scheme Rules ******************/
 
@@ -271,8 +291,10 @@ function cmsms_theme_colors_secondary() {
 	{$rule}#tribe-events-content.tribe-events-single .cmsms_single_event_header .cmsms_single_event_header_left .tribe-events-schedule > h6.tribe-events-cost, 
 	{$rule}.recurringinfo, 
 	{$rule}.tribe-events-countdown-widget .tribe-countdown-time .tribe-countdown-timer .tribe-countdown-number .tribe-countdown-under, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-events-has-events div, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-events-has-events * {
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-events-has-events div, 
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-events-has-events *,
+	{$rule}#tribe-events-bar #tribe-bar-views ul.tribe-bar-views-list li:hover,
+	{$rule}#tribe-events-bar #tribe-bar-views ul.tribe-bar-views-list li.tribe-bar-active {
 		" . cmsms_color_css('color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_color']) . "
 	}
 	
@@ -304,14 +326,19 @@ function cmsms_theme_colors_secondary() {
 	{$rule}#tribe-mobile-container .tribe-mobile-day .tribe-events-mobile .tribe-events-event-body .time-details, 
 	{$rule}.tribe-events-countdown-widget .tribe-countdown-text a:hover, 
 	{$rule}.tribe-events-venue-widget .tribe-venue-widget-wrapper .tribe-venue-widget-venue .tribe-venue-widget-venue-name a:hover, 
-	{$rule}.widget .vcalendar .vevent .entry-title a:hover, 
-	{$rule}.widget .vcalendar .vevent .cmsms_widget_event_info, 
+	{$rule}.widget .vevent .entry-title a:hover, 
+	{$rule}.widget.tribe-events-list-widget .tribe-event-title a:hover, 
+	{$rule}.widget .vevent .cmsms_widget_event_info, 
+	{$rule}.widget.tribe-this-week-events-widget .duration, 
 	{$rule}.widget .tribe-events-widget-link a:hover, 
-	{$rule}.widget .vcalendar .vevent .cmsms_widget_event_venue_info_loc .cmsms_widget_event_venue_info a:hover, 
-	{$rule}.widget .vcalendar .vevent .cmsms_widget_event_venue_info_loc .cmsms_widget_event_venue_loc a, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-events-has-events:hover *, 
+	{$rule}.widget.tribe-events-list-widget .tribe-event-duration, 
+	{$rule}.widget.tribe-this-week-events-widget .tribe-events-viewmore a:hover, 
+	{$rule}.widget .vevent .cmsms_widget_event_venue_info_loc .cmsms_widget_event_venue_info a:hover, 
+	{$rule}.widget .vevent .cmsms_widget_event_venue_info_loc .cmsms_widget_event_venue_loc a, 
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-events-has-events:hover *, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info .tribe-mini-calendar-event-venue a:hover {
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info .tribe-mini-calendar-event-venue a:hover,
+	{$rule}#tribe-events-bar #tribe-bar-views ul.tribe-bar-views-list li {
 		" . cmsms_color_css('color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_link']) . "
 	}
 	
@@ -329,9 +356,10 @@ function cmsms_theme_colors_secondary() {
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-header .tribe-grid-content-wrap .column a:hover, 
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-event:hover > div:first-child, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar th.tribe-mini-calendar-dayofweek, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-events-has-events div .tribe-mini-calendar-day-link:before, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-events-present, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-date span.list-daynumber, 
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-events-has-events div .tribe-mini-calendar-day-link:before, 
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-events-present, 
+	{$rule}.widget .list-date span.list-daynumber, 
+	{$rule}.tribe-this-week-events-widget .this-week-today .tribe-this-week-widget-header-date,
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .tribe-mini-calendar-nav div .tribe-mini-calendar-nav-link:hover {
 		" . cmsms_color_css('background-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_link']) . "
 	}
@@ -349,9 +377,6 @@ function cmsms_theme_colors_secondary() {
 	
 	
 	/* Start Highlight Color */
-	{$rule}.tribe-events-sub-nav li a:hover {
-		" . cmsms_color_css('background-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_hover']) . "
-	}
 	
 	@media only screen and (max-width: 767px) {
 		{$rule}#main #tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td.tribe-events-has-events:before {
@@ -371,7 +396,7 @@ function cmsms_theme_colors_secondary() {
 	{$rule}#tribe-events-bar .tribe-bar-filters .tribe-bar-filters-inner .tribe-bar-submit label, 
 	{$rule}#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*=\"tribe-events-daynum-\"], 
 	{$rule}#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*=\"tribe-events-daynum-\"] a, 
-	{$rule}.tribe-events-tooltip .tribe-events-event-body .duration, 
+	{$rule}.tribe-events-tooltip .tribe-events-event-body .tribe-event-duration, 
 	{$rule}#tribe-events-footer > a, 
 	{$rule}#tribe-events-content.tribe-events-list .tribe-events-list-separator-month, 
 	{$rule}#tribe-mobile-container .tribe-mobile-day .tribe-mobile-day-heading, 
@@ -391,11 +416,14 @@ function cmsms_theme_colors_secondary() {
 	{$rule}.tribe-events-countdown-widget .tribe-countdown-time .tribe-countdown-timer .tribe-countdown-colon, 
 	{$rule}.tribe-events-venue-widget .tribe-venue-widget-wrapper .tribe-venue-widget-venue .tribe-venue-widget-venue-name, 
 	{$rule}.tribe-events-venue-widget .tribe-venue-widget-wrapper .tribe-venue-widget-venue .tribe-venue-widget-venue-name a, 
-	{$rule}.widget .vcalendar .vevent .entry-title, 
-	{$rule}.widget .vcalendar .vevent .entry-title a, 
+	{$rule}.widget.tribe-events-list-widget .tribe-event-title, 
+	{$rule}.widget.tribe-events-list-widget .tribe-event-title a, 
+	{$rule}.widget .vevent .entry-title, 
+	{$rule}.widget .vevent .entry-title a, 
 	{$rule}.widget .tribe-events-widget-link a, 
-	{$rule}.widget .vcalendar .vevent .cmsms_widget_event_venue_info_loc .cmsms_widget_event_venue_info a, 
-	{$rule}.widget .vcalendar .vevent .cmsms_widget_event_venue_info_loc .cmsms_widget_event_venue_loc a:hover, 
+	{$rule}.widget.tribe-this-week-events-widget .tribe-events-viewmore a, 
+	{$rule}.widget .vevent .cmsms_widget_event_venue_info_loc .cmsms_widget_event_venue_info a, 
+	{$rule}.widget .vevent .cmsms_widget_event_venue_info_loc .cmsms_widget_event_venue_loc a:hover, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info .tribe-mini-calendar-event-venue, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info .tribe-mini-calendar-event-venue a {
 		" . cmsms_color_css('color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_heading']) . "
@@ -405,15 +433,13 @@ function cmsms_theme_colors_secondary() {
 	{$rule}#tribe-events-content.tribe-events-month table.tribe-events-calendar thead th, 
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-header, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .tribe-mini-calendar-nav div, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-mini-calendar-today, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-date span.list-dayname {
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-mini-calendar-today, 
+	{$rule}.widget .list-date span.list-dayname {
 		" . cmsms_color_css('background-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_heading']) . "
 	}
 	
-	{$rule}.tribe-events-sub-nav li a:hover,
 	{$rule}.tribe-events-sub-nav li a span:before, 
-	{$rule}.tribe-events-sub-nav li a span:after, 
-	{$rule}.tribe-events-sub-nav li a:hover {
+	{$rule}.tribe-events-sub-nav li a span:after {
 		" . cmsms_color_css('border-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_heading']) . "
 	}
 	
@@ -440,37 +466,35 @@ function cmsms_theme_colors_secondary() {
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-header .tribe-grid-content-wrap .column, 
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-header .tribe-grid-content-wrap .column a, 
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-event:hover > div:first-child a, 
+	{$rule}.tribe-this-week-events-widget .this-week-today .tribe-this-week-widget-header-date, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .tribe-mini-calendar-nav div, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar th.tribe-mini-calendar-dayofweek, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-events-present *, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-events-present:hover *, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-mini-calendar-today *, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-mini-calendar-today:hover *, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-date span.list-dayname, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-date span.list-daynumber {
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-events-present *, 
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-events-present:hover *, 
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-mini-calendar-today *, 
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-mini-calendar-today:hover *, 
+	{$rule}.widget .list-date span.list-dayname, 
+	{$rule}.widget .list-date span.list-daynumber {
 		" . cmsms_color_css('color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_bg']) . "
 	}
 	
 	{$rule}#tribe-events-bar #tribe-bar-views .tribe-bar-views-inner ul.tribe-bar-views-list li.tribe-bar-views-option a, 
 	{$rule}#tribe-events-bar #tribe-bar-views.tribe-bar-views-open .tribe-bar-views-inner label.button .cmsms_next_arrow,
 	{$rule}#tribe-events-bar #tribe-bar-views .tribe-bar-views-inner label.button:hover .cmsms_next_arrow,
-	{$rule}.tribe-events-sub-nav li a:hover span, 
 	{$rule}#tribe-events-content.tribe-events-month table.tribe-events-calendar, 
 	{$rule}.tribe-events-tooltip, 
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .tribe-mini-calendar-nav div .tribe-mini-calendar-nav-link span, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-events-present div .tribe-mini-calendar-day-link:before, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-mini-calendar-today div .tribe-mini-calendar-day-link:before {
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-events-present div .tribe-mini-calendar-day-link:before, 
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-mini-calendar-today div .tribe-mini-calendar-day-link:before {
 		" . cmsms_color_css('background-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_bg']) . "
 	}
 	
 	{$rule}#tribe-events-bar #tribe-bar-views .tribe-bar-views-inner label.button:hover .cmsms_next_arrow:before, 
 	{$rule}#tribe-events-bar #tribe-bar-views.tribe-bar-views-open .tribe-bar-views-inner label.button .cmsms_next_arrow:before, 
 	{$rule}#tribe-events-bar #tribe-bar-views.tribe-bar-views-open .tribe-bar-views-inner label.button .cmsms_next_arrow:after,
-	{$rule}#tribe-events-bar #tribe-bar-views .tribe-bar-views-inner label.button:hover .cmsms_next_arrow:after,
-	{$rule}.tribe-events-sub-nav li a:hover span:before, 
-	{$rule}.tribe-events-sub-nav li a:hover span:after, 
+	{$rule}#tribe-events-bar #tribe-bar-views .tribe-bar-views-inner label.button:hover .cmsms_next_arrow:after, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .tribe-mini-calendar-nav div .tribe-mini-calendar-nav-link:before, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .tribe-mini-calendar-nav div .tribe-mini-calendar-nav-link span:before, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .tribe-mini-calendar-nav div .tribe-mini-calendar-nav-link span:after {
@@ -518,8 +542,8 @@ function cmsms_theme_colors_secondary() {
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-allday, 
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-grid-wrapper .tribe-grid-body .tribe-week-grid-hours div, 
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-event > div:first-child, 
-	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-today, 
-	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-events-othermonth {
+	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-grid-wrapper .tribe-week-today, 
+	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-events-othermonth {
 		" . cmsms_color_css('background-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_alternate']) . "
 	}
 	
@@ -537,6 +561,7 @@ function cmsms_theme_colors_secondary() {
 	}
 	
 	{$rule}#tribe-events-content.tribe-events-day .tribe-events-day-time-slot > h5,
+	{$rule}.widget.tribe-this-week-events-widget .tribe-this-week-widget-day,
 	{$rule}#tribe-events-content.tribe-events-list .tribe-events-list-separator-month, 
 	{$rule}#tribe-events-bar #tribe-bar-views .tribe-bar-views-inner ul.tribe-bar-views-list li.tribe-bar-views-option a, 
 	{$rule}#tribe-events-content.tribe-events-single .cmsms_single_event_header, 
@@ -557,14 +582,23 @@ function cmsms_theme_colors_secondary() {
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .slimScrollDiv, 
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-content-wrap .column, 
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-allday, 
+	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-grid-wrapper, 
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-grid-wrapper .tribe-week-grid-outer-wrap .tribe-week-grid-inner-wrap .tribe-week-grid-block div, 
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-grid-wrapper .tribe-grid-body .tribe-week-grid-hours div, 
 	{$rule}#tribe-mobile-container .tribe-mobile-day .tribe-events-mobile, 
-	{$rule}.widget .vcalendar .vevent,
+	{$rule}.widget .vevent,
+	{$rule}.tribe-events-list-widget ol li, 
+	{$rule}.tribe-events-adv-list-widget ol li,
+	{$rule}.tribe-events-sub-nav li a:hover span:before, 
+	{$rule}.tribe-events-sub-nav li a:hover span:after,
 	{$rule}#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-event > div:first-child,
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar th, 
 	{$rule}.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar td {
 		" . cmsms_color_css('border-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_border']) . "
+	}
+	
+	{$rule}.tribe-events-sub-nav li a:hover span {
+		" . cmsms_color_css('background-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_border']) . "
 	}
 	
 	{$rule}.tribe-events-tooltip:before {
@@ -659,6 +693,7 @@ function cmsms_theme_colors_secondary() {
 	.header_mid_outer .header_mid_inner .search_wrap .search_bar_wrap button[type=submit][class^=\"cmsms-icon-\"],
 	.header_mid_outer .header_mid_inner .search_wrap .search_bar_wrap button[type=submit][class*=\" cmsms-icon-\"],
 	.header_mid_outer .header_mid_inner .search_wrap .search_but,
+	.header_mid_outer .cmsms_dynamic_cart_link .cmsms_dynamic_cart_button, 
 	.header_mid .search_bar_wrap button[type=submit][class^=\"cmsms-icon-\"],
 	.header_mid .search_bar_wrap button[type=submit][class*=\" cmsms-icon-\"],
 	.header_bot .search_bar_wrap button[type=submit][class^=\"cmsms-icon-\"],
@@ -679,10 +714,12 @@ function cmsms_theme_colors_secondary() {
 	.header_mid input[type=text]:focus,
 	.header_mid input[type=email]:focus,
 	.header_mid input[type=password]:focus,
+	.header_mid input[type=tel]:focus,
 	.header_mid textarea:focus,
 	.header_top input[type=text]:focus,
 	.header_top input[type=email]:focus,
 	.header_top input[type=password]:focus,
+	.header_top input[type=tel]:focus,
 	.header_top textarea:focus {
 		" . cmsms_color_css('border-color', $cmsms_option[CMSMS_SHORTNAME . '_header_link']) . "
 	}
@@ -720,11 +757,13 @@ function cmsms_theme_colors_secondary() {
 	.header_mid input[type=number]:focus,
 	.header_mid input[type=email]:focus,
 	.header_mid input[type=password]:focus,
+	.header_mid input[type=tel]:focus,
 	.header_mid textarea:focus,
 	.header_bot input[type=text]:focus,
 	.header_bot input[type=number]:focus,
 	.header_bot input[type=email]:focus,
 	.header_bot input[type=password]:focus,
+	.header_bot input[type=tel]:focus,
 	.header_bot textarea:focus,
 	.header_mid_outer,
 	.header_bot_outer,
@@ -757,6 +796,7 @@ function cmsms_theme_colors_secondary() {
 	.header_mid input[type=number],
 	.header_mid input[type=email],
 	.header_mid input[type=password],
+	.header_mid input[type=tel],
 	.header_mid input[type=submit],
 	.header_mid button,
 	.header_mid textarea,
@@ -766,6 +806,7 @@ function cmsms_theme_colors_secondary() {
 	.header_bot input[type=number],
 	.header_bot input[type=email],
 	.header_bot input[type=password],
+	.header_bot input[type=tel],
 	.header_bot input[type=submit],
 	.header_bot button,
 	.header_bot textarea,
@@ -861,6 +902,7 @@ function cmsms_theme_colors_secondary() {
 	.header_mid input[type=number],
 	.header_mid input[type=email],
 	.header_mid input[type=password],
+	.header_mid input[type=tel],
 	.header_mid input[type=submit],
 	.header_mid button,
 	.header_mid textarea,
@@ -870,6 +912,7 @@ function cmsms_theme_colors_secondary() {
 	.header_bot input[type=number],
 	.header_bot input[type=email],
 	.header_bot input[type=password],
+	.header_bot input[type=tel],
 	.header_bot input[type=submit],
 	.header_bot button,
 	.header_bot textarea,
@@ -1059,6 +1102,7 @@ function cmsms_theme_colors_secondary() {
 	.header_top input[type=number]:focus,
 	.header_top input[type=email]:focus,
 	.header_top input[type=password]:focus,
+	.header_top input[type=tel]:focus,
 	.header_top textarea:focus {
 		" . cmsms_color_css('border-color', $cmsms_option[CMSMS_SHORTNAME . '_header_top_link']) . "
 	}
@@ -1112,6 +1156,7 @@ function cmsms_theme_colors_secondary() {
 	.header_top input[type=number]:focus,
 	.header_top input[type=email]:focus,
 	.header_top input[type=password]:focus,
+	.header_top input[type=tel]:focus,
 	.header_top textarea:focus,
 	.header_top_outer {
 		" . cmsms_color_css('background-color', $cmsms_option[CMSMS_SHORTNAME . '_header_top_bg']) . "
@@ -1124,6 +1169,7 @@ function cmsms_theme_colors_secondary() {
 	.header_top input[type=number],
 	.header_top input[type=email],
 	.header_top input[type=password],
+	.header_top input[type=tel],
 	.header_top input[type=submit],
 	.header_top button,
 	.header_top textarea,
@@ -1182,6 +1228,7 @@ function cmsms_theme_colors_secondary() {
 	.header_top input[type=number],
 	.header_top input[type=email],
 	.header_top input[type=password],
+	.header_top input[type=tel],
 	.header_top input[type=submit],
 	.header_top button,
 	.header_top textarea,
@@ -1247,6 +1294,6 @@ function cmsms_theme_colors_secondary() {
 ";
 	
 	
-	return $custom_css;
+	return apply_filters('cmsms_theme_colors_secondary_filter', $custom_css);
 }
 

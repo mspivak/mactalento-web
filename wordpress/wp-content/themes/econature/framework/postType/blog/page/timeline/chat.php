@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.7
  * 
  * Blog Page Timeline Chat Post Format Template
  * Created by CMSMasters
@@ -38,7 +38,7 @@ $more = (in_array('more', $cmsms_post_metadata) || is_home()) ? true : false;
 		cmsms_post_format_chat();
 		
 		
-		echo '<h1 class="entry-title dn">' . cmsms_title(get_the_ID(), false) . '</h1>';
+		echo '<h3 class="entry-title dn cmsms_h1_font_style">' . cmsms_title(get_the_ID(), false) . '</h3>';
 		
 		
 		if ($likes || $comments || $author || $categories || $tags) {

@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.0.0
+ * @version 	1.4.6
  * 
  * Website WooCommerce Functions
  * Created by CMSMasters
@@ -11,39 +11,36 @@
 
 
 /* Woocommerce Dynamic Cart */
-
 function cmsms_woocommerce_cart_dropdown() {
-	global $woocommerce; 
-	
-	$cart_subtotal = $woocommerce->cart->get_cart_subtotal();
-	$link = $woocommerce->cart->get_cart_url();
-
-	
-	$output = '';
-	$output .= '<div class="cmsms_dynamic_cart">' .  
-		'<a href="javascript:void(0);" class="cmsms_dynamic_cart_button cmsms-icon-basket"></a>' . 
+	echo '<div class="cmsms_dynamic_cart">' . 
+		'<a href="javascript:void(0);" class="cmsms_dynamic_cart_button cmsms-icon-basket-3"></a>' . 
 		'<div class="widget_shopping_cart_content"></div>' . 
 	'</div>';
+}
 
-	echo $output;
+
+/* Woocommerce Header Cart Link */
+function cmsms_woocommerce_cart_link() {
+	echo '<div class="cmsms_dynamic_cart_link">' . 
+		'<a href="' . esc_url(wc_get_cart_url()) . '" class="cmsms_dynamic_cart_button cmsms-icon-basket-3"></a>' . 
+	'</div>';
 }
 
 
 /* Woocommerce Add to Cart Button */
-
 function cmsms_woocommerce_add_to_cart_button() {
 	global $product;
 	
 	
 	if (
 		$product->is_purchasable() && 
-		$product->product_type == 'simple' && 
+		$product->is_type( 'simple' ) && 
 		$product->is_in_stock()
 	) {
-		echo '<a href="' . esc_url($product->add_to_cart_url()) . '" data-product_id="' . esc_attr($product->id) . '" data-product_sku="' . esc_attr($product->get_sku()) . '" class="add_to_cart_button cmsms_add_to_cart_button product_type_simple cmsms-icon-basket">' . __('Add to Cart', 'cmsmasters') . '</a>';
+		echo '<a href="' . esc_url($product->add_to_cart_url()) . '" data-product_id="' . esc_attr($product->get_id()) . '" data-product_sku="' . esc_attr($product->get_sku()) . '" class="add_to_cart_button cmsms_add_to_cart_button product_type_simple ajax_add_to_cart cmsms-icon-basket">' . esc_html__('Add to Cart', 'econature') . '</a>';
 	}
 	
-	echo '<a href="' . get_permalink($product->id) . '" data-product_id="' . esc_attr($product->id) . '" data-product_sku="' . esc_attr($product->get_sku()) . '" class="cmsms_details_button cmsms-icon-menu">' . __('Show Details', 'cmsmasters') . '</a>';
+	echo '<a href="' . esc_url(get_permalink($product->get_id())) . '" data-product_id="' . esc_attr($product->get_id()) . '" data-product_sku="' . esc_attr($product->get_sku()) . '" class="cmsms_details_button cmsms-icon-menu">' . esc_html__('Show Details', 'econature') . '</a>';
 }
 
 
@@ -66,7 +63,7 @@ function cmsms_woocommerce_rating($icon_trans = '', $icon_color = '', $in_review
 	
 	
 	$out = "
-<div class=\"cmsms_star_rating\" itemprop=\"{$itemprop}\" itemscope itemtype=\"http://schema.org/{$itemtype}\" title=\"" . sprintf(__('Rated %s out of 5', 'cmsmasters'), $rating) . "\">
+<div class=\"cmsms_star_rating\" itemprop=\"{$itemprop}\" itemscope itemtype=\"//schema.org/{$itemtype}\" title=\"" . sprintf(esc_html__('Rated %s out of 5', 'econature'), $rating) . "\">
 <div class=\"cmsms_star_trans_wrap\">
 	<span class=\"{$icon_trans} cmsms_star\"></span>
 	<span class=\"{$icon_trans} cmsms_star\"></span>
@@ -83,26 +80,41 @@ function cmsms_woocommerce_rating($icon_trans = '', $icon_color = '', $in_review
 		<span class=\"{$icon_color} cmsms_star\"></span>
 	</div>
 </div>
-<span class=\"rating dn\"><strong itemprop=\"ratingValue\">" . esc_html($rating) . "</strong> " . __('out of 5', 'cmsmasters') . "</span>
+<span class=\"rating dn\"><strong itemprop=\"ratingValue\">" . esc_html($rating) . "</strong> " . esc_html__('out of 5', 'econature') . "</span>
 </div>
 ";
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}
 }
 
 
-
-if ( version_compare( WOOCOMMERCE_VERSION, "2.1" ) >= 0 ) {
-	add_filter( 'woocommerce_enqueue_styles', '__return_false' );
-} else {
-	define( 'WOOCOMMERCE_USE_CSS', false );
+function cmsms_woocommerce_demo_store($html, $notice) {
+	return '<div class="woocommerce-store-notice demo_store">' . 
+		'<a href="#" class="cmsms-icon-cancel-5 woocommerce-store-notice__dismiss-link"></a>' . 
+		'<p>' . wp_kses_post($notice) . '</p>' . 
+	'</div>';
 }
 
+add_filter('woocommerce_demo_store', 'cmsms_woocommerce_demo_store', 10, 2);
 
-add_theme_support( 'woocommerce' );
+remove_action('wp_footer', 'woocommerce_demo_store');
+add_action('cmsms_after_main', 'woocommerce_demo_store');
+
+
+function cmsms_woocommerce_support() {
+    add_theme_support('woocommerce', array( 
+		'thumbnail_image_width' => 540, 
+		'single_image_width' => 600 
+	));
+}
+
+add_action('after_setup_theme', 'cmsms_woocommerce_support');
+
+
+add_filter('woocommerce_enqueue_styles', '__return_false');
 

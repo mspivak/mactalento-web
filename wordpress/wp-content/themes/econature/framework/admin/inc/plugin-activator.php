@@ -2,83 +2,99 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.3
+ * @version 	1.4.7
  * 
- * TGM-Plugin-Activation 2.4.1
+ * TGM-Plugin-Activation 2.6.1
  * Created by CMSMasters
  * 
  */
 
 
-locate_template('/framework/class/class-tgm-plugin-activation.php', true, true);
+locate_template('framework/class/class-tgm-plugin-activation.php', true);
 
 
 function cmsms_register_theme_plugins() { 
 	$plugins = array( 
 		array( 
-			'name'					=> 'CMSMasters Content Composer', 
+			'name'					=> esc_html__('CMSMasters Content Composer', 'econature'), 
 			'slug'					=> 'cmsms-content-composer', 
 			'source'				=> get_template_directory_uri() . '/framework/admin/inc/plugins/cmsms-content-composer.zip', 
 			'required'				=> true, 
-			'version'				=> '1.2.3', 
-			'force_activation'		=> true, 
+			'version'				=> '1.4.3', 
+			'force_activation'		=> false, 
 			'force_deactivation' 	=> true 
 		), 
 		array( 
-			'name'					=> 'CMSMasters Mega Menu', 
+			'name'					=> esc_html__('CMSMasters Mega Menu', 'econature'), 
 			'slug'					=> 'cmsms-mega-menu', 
 			'source'				=> get_template_directory_uri() . '/framework/admin/inc/plugins/cmsms-mega-menu.zip', 
 			'required'				=> true, 
-			'version'				=> '1.1.0', 
+			'version'				=> '1.1.2', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> true 
 		), 
 		array( 
-			'name'					=> 'CMSMasters Contact Form Builder', 
-			'slug'					=> 'cmsms-contact-form-builder', 
-			'source'				=> get_template_directory_uri() . '/framework/admin/inc/plugins/cmsms-contact-form-builder.zip', 
-			'required'				=> false, 
-			'version'				=> '1.2.4', 
+			'name'					=> esc_html__('CMSMasters Importer', 'econature'), 
+			'slug'					=> 'cmsmasters-importer', 
+			'source'				=> get_template_directory() . '/framework/admin/inc/plugins/cmsmasters-importer.zip', 
+			'required'				=> true, 
+			'version'				=> '1.0.4', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> true 
 		), 
 		array( 
-			'name' 					=> 'LayerSlider WP', 
+			'name' 					=> esc_html__('LayerSlider WP', 'econature'), 
 			'slug' 					=> 'LayerSlider', 
 			'source'				=> get_template_directory_uri() . '/framework/admin/inc/plugins/LayerSlider.zip', 
 			'required'				=> false, 
-			'version'				=> '5.2.0b1', 
+			'version'				=> '6.11.2', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> false 
 		), 
 		array( 
-			'name' 					=> 'Revolution Slider', 
+			'name' 					=> esc_html__('Revolution Slider', 'econature'), 
 			'slug' 					=> 'revslider', 
 			'source'				=> get_template_directory_uri() . '/framework/admin/inc/plugins/revslider.zip', 
 			'required'				=> false, 
-			'version'				=> '4.5.9', 
+			'version'				=> '6.2.20', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> false 
 		), 
 		array( 
-			'name' 					=> 'WooCommerce', 
+			'name'					=> esc_html__('Envato Market', 'econature'), 
+			'slug'					=> 'envato-market', 
+			'source'				=> 'https://envato.github.io/wp-envato-market/dist/envato-market.zip', 
+			'required'				=> false 
+		), 
+		array( 
+			'name'					=> esc_html__('GDPR Cookie Consent', 'econature'), 
+			'slug'					=> 'cookie-law-info', 
+			'required'				=> false 
+		), 
+		array( 
+			'name' 					=> esc_html__('WooCommerce', 'econature'), 
 			'slug' 					=> 'woocommerce', 
 			'required'				=> false 
 		), 
 		array( 
-			'name' 					=> 'Contact Form 7', 
+			'name' 					=> esc_html__('The Events Calendar', 'econature'), 
+			'slug' 					=> 'the-events-calendar', 
+			'required'				=> false 
+		), 
+		array( 
+			'name' 					=> esc_html__('Contact Form 7', 'econature'), 
 			'slug' 					=> 'contact-form-7', 
 			'required' 				=> false 
 		), 
 		array( 
-			'name' 					=> 'WordPress SEO by Yoast', 
-			'slug' 					=> 'wordpress-seo', 
-			'required' 				=> false 
+			'name' 					=> esc_html__('PayPal Donations', 'econature'),  
+			'slug' 					=> 'paypal-donations', 
+			'required'				=> false 
 		), 
 		array( 
-			'name' 					=> 'The Events Calendar', 
-			'slug' 					=> 'the-events-calendar', 
-			'required'				=> false 
+			'name' 					=> esc_html__('WordPress SEO by Yoast', 'econature'), 
+			'slug' 					=> 'wordpress-seo', 
+			'required' 				=> false 
 		) 
 	);
 	
@@ -87,30 +103,10 @@ function cmsms_register_theme_plugins() {
 		'id' => 				'cmsmasters', 
 		'default_path' => 		'', 
 		'menu' => 				'theme-required-plugins', 
-		'has_notices' => 		true, 
-		'dismissable' => 		true, 
-		'dismiss_msg' => 		'', 
-		'is_automatic' => 		false, 
-		'message' => 			'', 
-		'strings' => 			array( 
-			'page_title' => 						__('Theme Required Plugins', 'cmsmasters'), 
-			'menu_title' => 						__('Theme Plugins', 'cmsmasters'), 
-			'installing' => 						__('Installing Plugin: %s', 'cmsmasters'), 
-			'oops' => 								__('Something went wrong with the plugin API.', 'cmsmasters'), 
-			'notice_can_install_required' => 		_n_noop('This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.', 'cmsmasters'), 
-			'notice_can_install_recommended' => 	_n_noop('This theme recommends the following plugin: %1$s.', 'This theme recommends the following plugins: %1$s.', 'cmsmasters'), 
-			'notice_cannot_install' => 				_n_noop('Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.', 'cmsmasters'), 
-			'notice_can_activate_required' => 		_n_noop('The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.', 'cmsmasters'), 
-			'notice_can_activate_recommended' => 	_n_noop('The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.', 'cmsmasters'), 
-			'notice_cannot_activate' => 			_n_noop('Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.', 'cmsmasters'), 
-			'notice_ask_to_update' => 				_n_noop('The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.', 'cmsmasters'), 
-			'notice_cannot_update' => 				_n_noop('Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.', 'cmsmasters'), 
-			'install_link' => 						_n_noop('Begin installing plugin', 'Begin installing plugins', 'cmsmasters'), 
-			'activate_link' => 						_n_noop('Begin activating plugin', 'Begin activating plugins', 'cmsmasters'), 
-			'return' => 							__('Return to Theme Required Plugins', 'cmsmasters'), 
-			'plugin_activated' => 					__('Plugin activated successfully.', 'cmsmasters'), 
-			'complete' => 							__('All plugins installed and activated successfully. %s', 'cmsmasters'), 
-			'nag_type' => 							'updated' 
+		'strings' => array( 
+			'page_title' => 	esc_html__('Theme Required & Recommended Plugins', 'econature'), 
+			'menu_title' => 	esc_html__('Theme Plugins', 'econature'), 
+			'return' => 		esc_html__('Return to Theme Required & Recommended Plugins', 'econature') 
 		) 
 	);
 	

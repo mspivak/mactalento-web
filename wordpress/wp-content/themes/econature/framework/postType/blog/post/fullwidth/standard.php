@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.1
  * 
  * Blog Post Full Width Standard Post Format Template
  * Created by CMSMasters
@@ -15,12 +15,19 @@ $cmsms_option = cmsms_get_global_options();
 
 $cmsms_post_title = get_post_meta(get_the_ID(), 'cmsms_post_title', true);
 
+$cmsms_post_image_show = get_post_meta(get_the_ID(), 'cmsms_post_image_show', true);
+
 ?>
 
 <!--_________________________ Start Standard Article _________________________ -->
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 <?php 
+	if (!post_password_required() && has_post_thumbnail() && $cmsms_post_image_show != 'true') {
+		cmsms_thumb(get_the_ID(), 'full-masonry-thumb', false, 'img_' . get_the_ID(), false, false, false, true, false);
+	}
+	
+	
 	if ($cmsms_post_title == 'true') {
 		echo '<header class="cmsms_post_header entry-header">' . 
 			'<span class="cmsms_post_format_img cmsms-icon-desktop-3"></span>';
@@ -34,7 +41,7 @@ $cmsms_post_title = get_post_meta(get_the_ID(), 'cmsms_post_title', true);
 		the_content();
 		
 		wp_link_pages(array( 
-			'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'cmsmasters') . ':</strong>', 
+			'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'econature') . ':</strong>', 
 			'after' => '</div>', 
 			'link_before' => ' [ ', 
 			'link_after' => ' ] ' 

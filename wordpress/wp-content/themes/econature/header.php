@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.3
+ * @version 	1.4.6
  * 
  * Website Header Template
  * Created by CMSMasters
@@ -24,40 +24,20 @@ global $woocommerce;
 <!--<![endif]-->
 <head>
 <meta charset="<?php bloginfo('charset'); ?>" />
-<meta property="og:image" content="<?php bloginfo('template_url'); ?>/img/logo_facebook.jpg" />  
-<?php echo ($cmsms_option[CMSMS_SHORTNAME . '_responsive']) ? '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />' . "\n" : ''; ?>
+<?php 
+if ($cmsms_option[CMSMS_SHORTNAME . '_responsive']) {
+	echo '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />';
+}
+?>
 <?php if (version_compare(get_bloginfo('version'), '4.1', '<')) : ?>
 <title><?php wp_title(); ?></title>
 <?php endif; ?>
 <?php cmsms_favicon(); ?>
 
-<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="profile" href="//gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
 <?php 
-// echo '<link rel="stylesheet/less" href="' . get_template_directory_uri() . '/css/style.less" type="text/css" media="screen" />' . "\n" . 
-// '<link rel="stylesheet/less" href="' . get_template_directory_uri() . '/css/adaptive.less" type="text/css" media="screen" />' . "\n" . 
-// '<link rel="stylesheet/less" href="' . get_template_directory_uri() . '/css/cmsms-woo-style.less" type="text/css" media="screen" />' . "\n" . 
-// '<link rel="stylesheet/less" href="' . get_template_directory_uri() . '/css/cmsms-woo-adaptive.less" type="text/css" media="screen" />' . "\n" . 
-// '<link rel="stylesheet/less" href="' . get_template_directory_uri() . '/css/cmsms-events-style.less" type="text/css" media="screen" />' . "\n" . 
-// '<link rel="stylesheet/less" href="' . get_template_directory_uri() . '/css/cmsms-events-adaptive.less" type="text/css" media="screen" />' . "\n";
-?>
-
-<?php 
-$ua = $_SERVER['HTTP_USER_AGENT'];
-
-$checker = array( 
-	'ios' => 			preg_match('/iPhone|iPod|iPad/', $ua), 
-	'blackberry' => 	preg_match('/BlackBerry/', $ua), 
-	'android' => 		preg_match('/Android/', $ua), 
-	'mac' => 			preg_match('/Macintosh/', $ua), 
-	'chrome' => 		preg_match('/Chrome/', $ua), 
-	'safari' => 		preg_match('/Safari/', $ua), 
-	'ie' => 			preg_match('/MSIE/', $ua), 
-	'ie11' => 			preg_match('/Trident/', $ua) 
-);
-
-
 if (is_singular() && get_option('thread_comments')) {
 	wp_enqueue_script('comment-reply');
 }
@@ -114,54 +94,8 @@ wp_head();
 <body <?php body_class($body_classes); ?>>
 	
 <!-- _________________________ Start Page _________________________ -->
-<section id="page" class="<?php 
-if ( 
-	!$checker['ios'] && 
-	!$checker['blackberry'] && 
-	!$checker['android'] && 
-	!$checker['mac'] 
-) { 
-	echo 'csstransition '; 
-}
-
-if ($checker['chrome']) { 
-	echo 'chrome_only '; 
-}
-
-if ($checker['safari'] && !$checker['chrome']) { 
-	echo 'safari_only '; 
-}
-
-if ($checker['ie'] || $checker['ie11']) { 
-	echo 'ie_only '; 
-}
-
-echo 'cmsms_' . $cmsms_option[CMSMS_SHORTNAME . '_theme_layout'] . ' ';
-
-if ($cmsms_option[CMSMS_SHORTNAME . '_fixed_header']) {
-	echo 'fixed_header ';
-}
-
-if ($cmsms_option[CMSMS_SHORTNAME . '_fixed_footer'] && $cmsms_option[CMSMS_SHORTNAME . '_footer_type'] == 'default') {
-	echo 'fixed_footer ';
-}
-
-if ($cmsms_option[CMSMS_SHORTNAME . '_header_top_line']) {
-	echo 'enable_header_top ';
-}
-
-if ($cmsms_option[CMSMS_SHORTNAME . '_header_styles'] != 'default') {
-	echo 'enable_header_bottom ';
-}
-
-if ($cmsms_option[CMSMS_SHORTNAME . '_header_styles'] == 'r_nav') {
-	echo 'enable_header_right ';
-}
-
-if ($cmsms_option[CMSMS_SHORTNAME . '_header_styles'] == 'c_nav') {
-	echo 'enable_header_centered ';
-}
-?>hfeed site">
+<section id="page" class="<?php cmsms_get_page_classes($cmsms_option); ?>hfeed site">
+	<span class="cmsms_responsive_width"></span>
 
 <?php 
 if (class_exists('woocommerce')) {
@@ -175,7 +109,7 @@ if (class_exists('woocommerce')) {
 <!-- _________________________ Start Header _________________________ -->
 <header id="header">
 	<?php if ($cmsms_option[CMSMS_SHORTNAME . '_header_top_line']) { ?>
-		<div class="header_top" data-height="<?php echo $cmsms_option[CMSMS_SHORTNAME . '_header_top_height']; ?>">
+		<div class="header_top" data-height="<?php echo esc_attr($cmsms_option[CMSMS_SHORTNAME . '_header_top_height']); ?>">
 			<div class="header_top_outer">
 				<div class="header_top_inner">
 				<?php 
@@ -227,10 +161,18 @@ if (class_exists('woocommerce')) {
 			</div>
 		</div>
 	<?php } ?>
-	<div class="header_mid" data-height="<?php echo $cmsms_option[CMSMS_SHORTNAME . '_header_mid_height']; ?>">
+	<div class="header_mid" data-height="<?php echo esc_attr($cmsms_option[CMSMS_SHORTNAME . '_header_mid_height']); ?>">
 		<div class="header_mid_outer">
 			<div class="header_mid_inner">
+			
+			<div class="logo_wrap"><?php cmsms_logo(); ?></div>
+			
 			<?php 
+			if (class_exists('woocommerce')) {
+				cmsms_woocommerce_cart_link(); 
+			}
+			
+			
 			if (
 				$cmsms_option[CMSMS_SHORTNAME . '_header_search'] && 
 				$cmsms_option[CMSMS_SHORTNAME . '_header_styles'] != 'c_nav'
@@ -276,8 +218,6 @@ if (class_exists('woocommerce')) {
 			}
 			?>
 			
-			<div class="logo_wrap"><?php cmsms_logo(); ?></div>
-			
 			<?php if ($cmsms_option[CMSMS_SHORTNAME . '_header_styles'] == 'default') { ?>
 				<div class="resp_nav_wrap">
 					<div class="resp_nav_wrap_inner">
@@ -306,7 +246,7 @@ if (class_exists('woocommerce')) {
 		</div>
 	</div>
 <?php if ($cmsms_option[CMSMS_SHORTNAME . '_header_styles'] != 'default') { ?>
-	<div class="header_bot" data-height="<?php echo $cmsms_option[CMSMS_SHORTNAME . '_header_bot_height']; ?>">
+	<div class="header_bot" data-height="<?php echo esc_attr($cmsms_option[CMSMS_SHORTNAME . '_header_bot_height']); ?>">
 		<div class="header_bot_outer">
 			<div class="header_bot_inner">
 				<div class="resp_nav_wrap">

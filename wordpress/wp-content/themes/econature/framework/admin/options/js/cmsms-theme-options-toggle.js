@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.0.0
+ * @version 	1.3.1
  * 
  * Post, Page, Project & Profile Options Toggles Scripts
  * Created by CMSMasters
@@ -50,37 +50,39 @@
 		} else if ($('#post-formats-select input.post-format:checked').val() === 'audio') {
 			$('#cmsms_post_audio').show();
 		} else {
+			$('#cmsms_post_standard').show();
+			
 			$('#cmsms_project_images').show();
 		}
 		
 		/* Post Format Change */
 		$('#post-formats-select input.post-format').bind('change', function () { 
 			if ($(this).val() === 'aside') {
-				$('#cmsms_post_quote, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_images, #cmsms_project_video').hide();
+				$('#cmsms_post_quote, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_images, #cmsms_project_video, #cmsms_post_standard').hide();
 				
 				$('#cmsms_post_aside').show();
 			} else if ($(this).val() === 'status') {
-				$('#cmsms_post_quote, #cmsms_post_aside, #cmsms_post_chat, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_images, #cmsms_project_video').hide();
+				$('#cmsms_post_quote, #cmsms_post_aside, #cmsms_post_chat, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_images, #cmsms_project_video, #cmsms_post_standard').hide();
 				
 				$('#cmsms_post_status').show();
 			} else if ($(this).val() === 'chat') {
-				$('#cmsms_post_quote, #cmsms_post_aside, #cmsms_post_status, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_images, #cmsms_project_video').hide();
+				$('#cmsms_post_quote, #cmsms_post_aside, #cmsms_post_status, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_images, #cmsms_project_video, #cmsms_post_standard').hide();
 				
 				$('#cmsms_post_chat').show();
 			} else if ($(this).val() === 'quote') {
-				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_images, #cmsms_project_video').hide();
+				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_images, #cmsms_project_video, #cmsms_post_standard').hide();
 				
 				$('#cmsms_post_quote').show();
 			} else if ($(this).val() === 'link') {
-				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_quote, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_images, #cmsms_project_video').hide();
+				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_quote, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_images, #cmsms_project_video, #cmsms_post_standard').hide();
 				
 				$('#cmsms_post_link').show();
 			} else if ($(this).val() === 'image') {
-				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_quote, #cmsms_post_link, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_images, #cmsms_project_video').hide();
+				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_quote, #cmsms_post_link, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_images, #cmsms_project_video, #cmsms_post_standard').hide();
 				
 				$('#cmsms_post_image').show();
 			} else if ($(this).val() === 'gallery') {
-				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_quote, #cmsms_post_link, #cmsms_post_image, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_video').hide();
+				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_quote, #cmsms_post_link, #cmsms_post_image, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_video, #cmsms_post_standard').hide();
 				
 				$('#cmsms_post_gallery').show();
 				
@@ -88,7 +90,7 @@
 			
 				$('#cmsms_project_images .cmsms_tr_radio').show();
 			} else if ($(this).val() === 'video') {
-				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_quote, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_audio, #cmsms_project_images').hide();
+				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_quote, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_audio, #cmsms_project_images, #cmsms_post_standard').hide();
 				
 				$('#cmsms_post_video').show();
 				
@@ -107,11 +109,13 @@
 					$('#cmsms_project_video_links-repeatable').closest('tr').show();
 				}
 			} else if ($(this).val() === 'audio') {
-				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_quote, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_project_images, #cmsms_project_video').hide();
+				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_quote, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_project_images, #cmsms_project_video, #cmsms_post_standard').hide();
 				
 				$('#cmsms_post_audio').show();
 			} else {
 				$('#cmsms_post_aside, #cmsms_post_status, #cmsms_post_chat, #cmsms_post_quote, #cmsms_post_link, #cmsms_post_image, #cmsms_post_gallery, #cmsms_post_video, #cmsms_post_audio, #cmsms_project_video').hide();
+				
+				$('#cmsms_post_standard').show();
 				
 				$('#cmsms_project_images').show();
 			

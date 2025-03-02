@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.0
  * 
  * Images Page Template
  * Created by CMSMasters
@@ -23,9 +23,9 @@ if (have_posts()) : the_post();
 	$metadata = wp_get_attachment_metadata();
 	
 	echo '<footer class="entry-meta">'; 
-		edit_post_link(__('Edit Media', 'cmsmasters'), '<span class="edit-link fr">', '</span>');
+		edit_post_link(__('Edit Media', 'econature'), '<span class="edit-link fr">', '</span>');
 		
-		echo '<p>' . __('Published', 'cmsmasters') . ' <abbr class="published" title="' . get_the_date() . '">' . get_the_date() . '</abbr> ' . __('at', 'cmsmasters') . ' ' . $metadata['width'] . '&times;' . $metadata['height'] . ' ' . __('in', 'cmsmasters') . ' ' . '<a href="' . esc_url(get_permalink($post->post_parent)) . '" title="' . cmsms_title($post->post_parent, false) . '">' . cmsms_title($post->post_parent, false) . '</a>.</p>' . 
+		echo '<p>' . __('Published', 'econature') . ' <abbr class="published" title="' . get_the_date() . '">' . get_the_date() . '</abbr> ' . __('at', 'econature') . ' ' . $metadata['width'] . '&times;' . $metadata['height'] . ' ' . __('in', 'econature') . ' ' . '<a href="' . esc_url(get_permalink($post->post_parent)) . '" title="' . cmsms_title($post->post_parent, false) . '">' . cmsms_title($post->post_parent, false) . '</a>.</p>' . 
 	'</footer>' . 
 	'<br />' . 
 	'<div class="tac">' . 
@@ -35,8 +35,8 @@ if (have_posts()) : the_post();
 	'<br />';
 ?>
 		<div class="navigation" role="navigation">
-			<div class="fl"><?php previous_image_link(false, __('&larr; Previous', 'cmsmasters')); ?></div>
-			<div class="fr"><?php next_image_link(false, __('Next &rarr;', 'cmsmasters')); ?></div>
+			<div class="fl"><?php previous_image_link(false, __('&larr; Previous', 'econature')); ?></div>
+			<div class="fr"><?php next_image_link(false, __('Next &rarr;', 'econature')); ?></div>
 			<div class="cl"></div>
 			<br />
 		</div>

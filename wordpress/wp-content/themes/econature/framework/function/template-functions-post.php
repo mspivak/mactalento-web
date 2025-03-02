@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.1
+ * @version		1.4.1
  * 
  * Template Functions for Blog & Post
  * Created by CMSMasters
@@ -12,17 +12,27 @@
 
 /* Get Posts Heading Function */
 function cmsms_post_heading($cmsms_id, $tag = 'h1', $show = true) { 
+	$h1_tag_class = '';
+	
+	
+	if ($tag == 'h1') {
+		$tag = 'h3';
+		
+		$h1_tag_class = ' cmsms_h1_font_style';
+	}
+	
+	
 	$out = '<header class="cmsms_post_header entry-header">' . 
-		'<' . $tag . ' class="cmsms_post_title entry-title">' . 
+		'<' . $tag . ' class="cmsms_post_title entry-title' . $h1_tag_class . '">' . 
 			'<a href="' . get_permalink() . '">' . cmsms_title($cmsms_id, false) . '</a>' . 
 		'</' . $tag . '>' . 
 	'</header>';
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -30,15 +40,25 @@ function cmsms_post_heading($cmsms_id, $tag = 'h1', $show = true) {
 
 /* Get Posts Heading Without Link Function */
 function cmsms_post_title_nolink($cmsms_id, $tag = 'h1', $show = true) { 
-	$out = '<' . $tag . ' class="cmsms_post_title entry-title">' . 
+	$h1_tag_class = '';
+	
+	
+	if ($tag == 'h1') {
+		$tag = 'h3';
+		
+		$h1_tag_class = ' cmsms_h1_font_style';
+	}
+	
+	
+	$out = '<' . $tag . ' class="cmsms_post_title entry-title' . $h1_tag_class . '">' . 
 		cmsms_title($cmsms_id, false) . 
 	'</' . $tag . '>';
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -80,9 +100,9 @@ function cmsms_post_date($template_type = 'page', $layout_type = 'default', $sho
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -92,8 +112,8 @@ function cmsms_post_date($template_type = 'page', $layout_type = 'default', $sho
 function cmsms_post_author($template_type = 'page', $show = true) {
 	if ($template_type == 'page') {
 		$out = '<span class="cmsms_post_user_name">' . 
-			__('By', 'cmsmasters') . ' ' . 
-			'<a href="' . get_author_posts_url(get_the_author_meta('ID')) . '" title="' . __('Posts by', 'cmsmasters') . ' ' . get_the_author_meta('display_name') . '" class="vcard author"><span class="fn" rel="author">' . get_the_author_meta('display_name') . '</span></a>' . 
+			__('By', 'econature') . ' ' . 
+			'<a href="' . get_author_posts_url(get_the_author_meta('ID')) . '" title="' . __('Posts by', 'econature') . ' ' . get_the_author_meta('display_name') . '" class="vcard author" rel="author"><span class="fn">' . get_the_author_meta('display_name') . '</span></a>' . 
 		'</span>';
 	} elseif ($template_type == 'post') {
 		$cmsms_option = cmsms_get_global_options();
@@ -101,17 +121,17 @@ function cmsms_post_author($template_type = 'page', $show = true) {
 		
 		if ($cmsms_option[CMSMS_SHORTNAME . '_blog_post_author']) {
 			$out .= '<span class="cmsms_post_user_name">' . 
-				__('By', 'cmsmasters') . ' ' . 
-				'<a href="' . get_author_posts_url(get_the_author_meta('ID')) . '" title="' . __('Posts by', 'cmsmasters') . ' ' . get_the_author_meta('display_name') . '" class="vcard author"><span class="fn" rel="author">' . get_the_author_meta('display_name') . '</span></a>' . 
+				__('By', 'econature') . ' ' . 
+				'<a href="' . get_author_posts_url(get_the_author_meta('ID')) . '" title="' . __('Posts by', 'econature') . ' ' . get_the_author_meta('display_name') . '" class="vcard author" rel="author"><span class="fn">' . get_the_author_meta('display_name') . '</span></a>' . 
 			'</span>';
 		}
 	}
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -122,7 +142,7 @@ function cmsms_post_category($template_type = 'page', $show = true) {
 	if (get_the_category()) {
 		if ($template_type == 'page') {
 			$out = '<span class="cmsms_post_category">' . 
-				__('In', 'cmsmasters') . ' ' . 
+				__('In', 'econature') . ' ' . 
 				get_the_category_list(', ') . 
 			'</span>';
 		} elseif ($template_type == 'post') {
@@ -131,7 +151,7 @@ function cmsms_post_category($template_type = 'page', $show = true) {
 			
 			if ($cmsms_option[CMSMS_SHORTNAME . '_blog_post_cat']) {
 				$out .= '<span class="cmsms_post_category">' . 
-					__('In', 'cmsmasters') . ' ' . 
+					__('In', 'econature') . ' ' . 
 					get_the_category_list(', ') . 
 				'</span>';
 			}
@@ -139,9 +159,9 @@ function cmsms_post_category($template_type = 'page', $show = true) {
 		
 		
 		if ($show) {
-			echo $out;
+			echo wp_kses_post($out);
 		} else {
-			return $out;
+			return wp_kses_post($out);
 		}
 	}
 }
@@ -153,7 +173,7 @@ function cmsms_post_tags($template_type = 'page', $show = true) {
 	if (get_the_tags()) {
 		if ($template_type == 'page') {
 			$out = '<span class="cmsms_post_tags">' . 
-				get_the_tag_list(__('Tags', 'cmsmasters') . ' ', ', ', '') . 
+				get_the_tag_list(__('Tags', 'econature') . ' ', ', ', '') . 
 			'</span>';
 		} else if ($template_type == 'post') {
 			$cmsms_option = cmsms_get_global_options();
@@ -161,16 +181,16 @@ function cmsms_post_tags($template_type = 'page', $show = true) {
 			
 			if ($cmsms_option[CMSMS_SHORTNAME . '_blog_post_tag']) {
 				$out .= '<span class="cmsms_post_tags">' . 
-					get_the_tag_list(__('Tags', 'cmsmasters') . ' ', ', ', '') . 
+					get_the_tag_list(__('Tags', 'econature') . ' ', ', ', '') . 
 				'</span>';
 			}
 		}
 		
 		
 		if ($show) {
-			echo $out;
+			echo wp_kses_post($out);
 		} else {
-			return $out;
+			return wp_kses_post($out);
 		}
 	}
 }
@@ -185,7 +205,7 @@ function cmsms_post_exc_cont($show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}
@@ -208,7 +228,7 @@ function cmsms_post_like($template_type = 'page', $show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}
@@ -220,19 +240,19 @@ function cmsms_post_like($template_type = 'page', $show = true) {
 function cmsms_post_comments($template_type = 'page', $show = true) {
 	if (comments_open()) {
 		if ($template_type == 'page') {
-			$out = '<a class="cmsms_post_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'cmsmasters') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>';
+			$out = '<a class="cmsms_post_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'econature') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>';
 		} elseif ($template_type == 'post') {
 			$cmsms_option = cmsms_get_global_options();
 			$out = '';
 			
 			if ($cmsms_option[CMSMS_SHORTNAME . '_blog_post_comment']) {
-				$out = '<a class="cmsms_post_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'cmsmasters') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>';
+				$out = '<a class="cmsms_post_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'econature') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>';
 			}
 		}
 		
 		
 		if ($show) {
-			echo $out;
+			echo cmsms_return_content($out);
 		} else {
 			return $out;
 		}
@@ -247,7 +267,7 @@ function cmsms_post_more($cmsms_id, $show = true) {
 	
 	
 	if ($cmsms_post_read_more == '') {
-		$cmsms_post_read_more = __('Read More', 'cmsmasters');
+		$cmsms_post_read_more = __('Read More', 'econature');
 	}
 	
 	
@@ -255,9 +275,9 @@ function cmsms_post_more($cmsms_id, $show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -291,7 +311,7 @@ function cmsms_post_format_chat($show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}

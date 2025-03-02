@@ -9,18 +9,15 @@
  * @package TribeEventsCalendar
  *
  * @cmsms_package 	EcoNature
- * @cmsms_version 	1.1.3
+ * @cmsms_version 	1.4.1
  *
  */
-?>
 
-<?php
 
 $filters = tribe_events_get_filters();
 $views   = tribe_events_get_views();
 
-global $wp;
-$current_url = esc_url_raw(add_query_arg(urlencode($wp->query_string), '', home_url($wp->request)));
+$current_url = tribe_events_get_current_filter_url();
 
 
 do_action('tribe_events_bar_before_template'); 
@@ -30,7 +27,7 @@ do_action('tribe_events_bar_before_template');
 		
 		<!-- Mobile Filters Toggle -->
 		<div id="tribe-bar-collapse-toggle" <?php if (count($views) == 1) { ?> class="tribe-bar-collapse-toggle-full-width"<?php } ?>>
-			<?php _e('Find Events', 'tribe-events-calendar'); ?><span class="tribe-bar-toggle-arrow"></span>
+			<?php printf( __( 'Find %s', 'econature' ), tribe_get_event_label_plural() ); ?><span class="tribe-bar-toggle-arrow"></span>
 		</div>
 		
 		
@@ -39,13 +36,13 @@ do_action('tribe_events_bar_before_template');
 				<div class="tribe-bar-filters-inner tribe-clearfix">
 					<?php foreach ($filters as $filter) : ?>
 						<div class="<?php echo esc_attr($filter['name']); ?>-filter">
-							<label class="label-<?php echo esc_attr($filter['name']); ?>" for="<?php echo esc_attr($filter['name']); ?>"><?php echo $filter['caption']; ?></label>
-							<?php echo $filter['html']; ?>
+							<label class="label-<?php echo esc_attr($filter['name']); ?>" for="<?php echo esc_attr($filter['name']); ?>"><?php echo esc_html($filter['caption']); ?></label>
+							<?php echo cmsms_return_content($filter['html']); ?>
 						</div>
 					<?php endforeach; ?>
 					<div class="tribe-bar-submit">
 						<label>&nbsp;</label>
-						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php _e('Find Events', 'tribe-events-calendar'); ?>" />
+						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php printf( __( 'Find %s', 'econature' ), tribe_get_event_label_plural() ); ?>" />
 					</div>
 				</div>
 			</div>
@@ -56,12 +53,12 @@ do_action('tribe_events_bar_before_template');
 		<?php if (count($views) > 1) { ?>
 		<div id="tribe-bar-views">
 			<div class="tribe-bar-views-inner tribe-clearfix">
-				<h3 class="tribe-events-visuallyhidden"><?php _e('Event Views Navigation', 'tribe-events-calendar'); ?></h3>
-				<label class="button"><?php _e('View As', 'tribe-events-calendar'); ?><span class="cmsms_next_arrow"></span></label>
+				<h3 class="tribe-events-visuallyhidden"><?php esc_html_e('Event Views Navigation', 'econature'); ?></h3>
+				<label class="button"><?php esc_html_e('View As', 'econature'); ?><span class="cmsms_next_arrow"></span></label>
 				<select class="tribe-bar-views-select tribe-no-param" name="tribe-bar-view">
 					<?php foreach ($views as $view) : ?>
-						<option <?php echo tribe_is_view($view['displaying']) ? 'selected' : 'tribe-inactive'; ?> value="<?php echo $view['url']; ?>" data-view="<?php echo $view['displaying']; ?>">
-							<?php echo $view['anchor']; ?>
+						<option <?php echo tribe_is_view($view['displaying']) ? 'selected' : 'tribe-inactive'; ?> value="<?php echo esc_attr($view['url']); ?>" data-view="<?php echo esc_attr($view['displaying']); ?>">
+							<?php echo cmsms_return_content($view['anchor']); ?>
 						</option>
 					<?php endforeach; ?>
 				</select>

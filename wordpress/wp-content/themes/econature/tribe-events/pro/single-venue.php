@@ -17,13 +17,20 @@
  * @package TribeEventsCalendarPro
  *
  * @cmsms_package 	EcoNature
- * @cmsms_version 	1.1.0
+ * @cmsms_version 	1.4.1
  *
  */
  
-if ( !defined('ABSPATH') ) { die('-1'); }
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 $venue_id = get_the_ID();
+$full_address = tribe_get_full_address();
+$telephone    = tribe_get_phone();
+$website_link = tribe_get_venue_website_link();
+global $wp_query;
 
 
 while ( have_posts() ) : the_post(); ?>
@@ -39,19 +46,41 @@ while ( have_posts() ) : the_post(); ?>
 			
 			<div class="tribe-events-event-meta">
 				<!-- Venue Meta -->
-				<?php
-				do_action('tribe_events_single_venue_before_the_meta');
-				echo tribe_get_meta_group('tribe_event_venue');
-				do_action('tribe_events_single_venue_after_the_meta');
-				?>
+				<?php do_action( 'tribe_events_single_venue_before_the_meta' ) ?>
+
+				<div class="venue-address">
+
+					<?php if ( $full_address ) : ?>
+					<address class="tribe-events-address">
+						<span class="location">
+							<?php echo wp_kses( $full_address, 'post' ); ?>
+						</span>
+					</address>
+					<?php endif; ?>
+
+					<?php if ( $telephone ): ?>
+						<span class="tel">
+							<?php echo esc_html( $telephone ); ?>
+						</span>
+					<?php endif; ?>
+
+					<?php if ( $website_link ): ?>
+						<span class="url">
+							<?php echo wp_kses( $website_link, 'post' ); ?>
+						</span>
+					<?php endif; ?>
+
+				</div><!-- .venue-address -->
+
+				<?php do_action( 'tribe_events_single_venue_after_the_meta' ) ?>
 			</div>
 		</div>
 		<div class="cmsms_events_venue_header_right clearfix">
 			<h6 class="tribe-events-back">
-				<a class="cmsms-icon-calendar-8" href="<?php echo tribe_get_events_link(); ?>" rel="bookmark"><?php _e('Back to Events', 'tribe-events-calendar-pro'); ?></a>
+				<a class="cmsms-icon-calendar-8" href="<?php echo esc_url( tribe_get_events_link() ); ?>" rel="bookmark"><?php printf( __( 'Back to %s', 'econature' ), tribe_get_event_label_plural() ); ?></a>
 			</h6>
 			<?php 
-			if (tribe_show_google_map_link()) {
+			if (tribe_show_google_map_link() && tribe_address_exists()) {
 				echo tribe_get_meta('tribe_event_venue_gmap_link');
 			}
 			?>
@@ -59,16 +88,16 @@ while ( have_posts() ) : the_post(); ?>
 	</div>
 	<div class="tribe-events-venue-meta vcard tribe-clearfix">
 		<?php 
-		if (has_post_thumbnail() || tribe_embed_google_map()) {
+		if (has_post_thumbnail() || (tribe_embed_google_map() && tribe_address_exists())) {
 			echo '<div class="cmsms_events_venue_meta_inner">';
 				if (has_post_thumbnail()) {
-					echo '<div class="cmsms_events_venue_meta_img' . (!tribe_embed_google_map() ? ' cmsms_events_venue_meta_full_width' : '') . '">' . 
+					echo '<div class="cmsms_events_venue_meta_img' . ((tribe_embed_google_map() && tribe_address_exists()) ? '' : ' cmsms_events_venue_meta_full_width') . '">' . 
 						tribe_event_featured_image(null, 'project-thumb') . 
 					'</div>';
 				}
 				
 				
-				if (tribe_embed_google_map()) {
+				if (tribe_embed_google_map() && tribe_address_exists()) {
 					echo '<div class="cmsms_events_venue_meta_map' . (!has_post_thumbnail() ? ' cmsms_events_venue_meta_full_width' : '') . '">' . 
 						'<div class="tribe-events-map-wrap">' . 
 							tribe_get_embedded_map( $venue_id, '100%', '0px' ) . 
@@ -88,13 +117,13 @@ while ( have_posts() ) : the_post(); ?>
 	</div><!-- .tribe-events-event-meta -->
 
 	<!-- Upcoming event list -->
+	<?php do_action( 'tribe_events_single_venue_before_upcoming_events' ) ?>
+
 	<?php
-	do_action('tribe_events_single_venue_before_upcoming_events');
-		// Use the 'tribe_events_single_venue_posts_per_page' to filter the 
-	 	// number of events to display beneath the venue info on the venue page.
+	// Use the tribe_events_single_venuer_posts_per_page to filter the number of events to get here.
+	echo tribe_venue_upcoming_events( $venue_id ); ?>
+
+	<?php do_action( 'tribe_events_single_venue_after_upcoming_events' ) ?>
 	
-	echo tribe_include_view_list( array('venue' => $venue_id, 'eventDisplay' => 'list', 'posts_per_page' => apply_filters( 'tribe_events_single_venue_posts_per_page', 100 ) ) );
-	do_action('tribe_events_single_venue_after_upcoming_events');
-	?>	
 </div><!-- .tribe-events-venue -->
 <?php endwhile; ?>

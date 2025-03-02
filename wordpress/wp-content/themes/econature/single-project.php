@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.8
  * 
  * Single Project Template
  * Created by CMSMasters
@@ -10,10 +10,9 @@
  */
 
 
-$cmsms_option = cmsms_get_global_options();
-
-
 get_header();
+
+$cmsms_option = cmsms_get_global_options();
 
 
 $project_tags = get_the_terms(get_the_ID(), 'pj-tags');
@@ -25,7 +24,7 @@ $cmsms_project_more_posts = get_post_meta(get_the_ID(), 'cmsms_project_more_post
 
 echo '<!--_________________________ Start Content _________________________ -->' . "\n" . 
 
-'<div class="middle_content entry" role="main">' . "\n\t";
+'<div class="middle_content entry" role="main">';
 
 if (have_posts()) : the_post();
 	echo '<div class="portfolio opened-article">' . "\n";
@@ -36,14 +35,14 @@ if (have_posts()) : the_post();
 		get_template_part('framework/postType/portfolio/post/standard');
 	}
 	
-
+	
 	if ($cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_nav_box']) {
 		cmsms_prev_next_posts();
 	}
 	
 	
 	if ($cmsms_project_author_box == 'true') {
-		cmsms_author_box(__('About author', 'cmsmasters'), 'h3');
+		cmsms_author_box(esc_html__('About author', 'econature'), 'h3');
 	}
 	
 	

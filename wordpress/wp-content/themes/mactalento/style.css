@@ -1,0 +1,103 @@
+/*
+Theme Name: MacTalento (OceanWP Child Theme)
+Theme URI: https://oceanwp.org/
+Description: OceanWP WordPress theme. Sample child theme.
+Author: OceanWP
+Author URI: https://oceanwp.org/
+Template: oceanwp
+Version: 1.0
+*/
+
+/* Parent stylesheet should be loaded from functions.php not using @import */
+
+.elementor-button.elementor-size-xl {
+	border-radius: 35px !important;
+}
+
+header.page-header:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 213px;
+    height: 19px;
+    background: transparent url(https://www.mactalento.com/wp-content/uploads/2021/01/barras-red.svg) no-repeat;
+    visibility: visible !important;
+    left: 0;
+    bottom: -10px;
+}
+
+.single .entry-title {
+	letter-spacing:0;
+	border-bottom-color: #ddd;
+}
+
+/* WooCommerce */
+.single-product #main, .woocommerce-page #main {
+	background-color: #f2f2f2;
+}
+
+.woocommerce ul.products li.product .woo-entry-inner {
+	padding-bottom: 2rem;
+}
+.woocommerce ul.products li.product .woo-entry-inner li.image-wrap .woo-entry-image img {
+    width: 100%;
+}
+.woocommerce ul.products .product-inner {
+    background-color: white;
+}
+.woocommerce ul.products li.product {
+	padding-bottom: 6rem;
+}
+.woocommerce ul.products li.product li.category {
+    text-transform: uppercase;
+    font-style: normal;
+    letter-spacing: 1px;
+}
+.woocommerce ul.products li.product li.category, .woocommerce ul.products li.product li.title h2, .woocommerce ul.products li.product .woo-entry-inner li.price-wrap {
+    margin-left: 2rem;
+}
+.woocommerce ul.products li.product li.title {
+	margin: 0;
+}
+.woocommerce ul.products li.product li.title a {
+    font-size: 2rem;	
+}
+.woocommerce ul.products li.product li.price-wrap {	margin-bottom: 20px;}
+.woocommerce ul.products li.product .price {
+	font-size: 2rem;
+	font-weight: 800;
+}
+.woocommerce ul.products li.product .button, .woocommerce ul.products li.product .product-inner .added_to_cart {
+    background-color: #FEBE4B;
+    color: #FFFFFF;
+    border: 0;
+	border-radius: 30px;
+    font-size: 16px;
+	font-weight: 700;
+	padding: 12px 24px;
+	transition: all .3s;
+	letter-spacing: 0;
+	margin-left: 2rem;
+	margin-top:1rem;
+}
+.woocommerce ul.products li.product .button:hover, .woocommerce ul.products li.product .product-inner .added_to_cart:hover {
+	background-color: #3bc8d2;
+}
+
+.woocommerce div.product p.price {font-weight: 700;}
+.woocommerce div.product .woocommerce-tabs .panel h2:first-child, .woocommerce .related.products h2 {
+	font-size: 4rem;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a {
+  border-color: #FEBE4B !important;
+	color: #FEBE4B !important;
+	border-top: 0;
+}
+.woocommerce-product-gallery__image.flex-active-slide {
+	background-color: white;
+	text-align: center;
+}
+
+.woocommerce-Price-currencySymbol {
+	margin-right: 0.25rem;
+}

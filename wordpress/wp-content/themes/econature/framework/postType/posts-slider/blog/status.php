@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.0
  * 
  * Posts Slider Status Post Format Template
  * Created by CMSMasters
@@ -42,7 +42,7 @@ $cmsms_post_status_text = get_post_meta(get_the_ID(), 'cmsms_post_status_text', 
 				'</div>';
 			}
 		} else {
-			echo '<p class="cmsms_slider_post_content">' . __('There is no excerpt because this is a protected post.', 'cmsmasters') . '</p>';
+			echo '<p class="cmsms_slider_post_content">' . __('There is no excerpt because this is a protected post.', 'econature') . '</p>';
 		}
 		
 		

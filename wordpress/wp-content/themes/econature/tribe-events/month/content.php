@@ -9,11 +9,14 @@
  * @package TribeEventsCalendar
  *
  * @cmsms_package 	EcoNature
- * @cmsms_version 	1.1.0
+ * @cmsms_version 	1.2.2
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+} ?>
 
 <div id="tribe-events-content" class="tribe-events-month">
 	
@@ -33,7 +36,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	<?php do_action( 'tribe_events_after_header' ) ?>
 
 	<!-- Notices -->
-	<?php tribe_events_the_notices() ?>
+	<?php tribe_the_notices() ?>
 
 	<!-- Month Grid -->
 	<?php tribe_get_template_part( 'month/loop', 'grid' ) ?>

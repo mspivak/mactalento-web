@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.4.1
  * 
  * Template Functions for Shortcodes
  * Created by CMSMasters
@@ -15,26 +15,36 @@
  */
 
 /* Get Posts Slider Heading Function */
-function cmsms_slider_post_heading($cmsms_id, $type = 'post', $tag = 'h1', $show = true, $link_redirect = false, $link_url = false) { 
+function cmsms_slider_post_heading($cmsms_id, $type = 'post', $tag = 'h1', $show = true, $link_redirect = false, $link_url = false, $link_target = false) { 
+	$h1_tag_class = '';
+	
+	
+	if ($tag == 'h1') {
+		$tag = 'h3';
+		
+		$h1_tag_class = ' cmsms_h1_font_style';
+	}
+	
+	
 	if ($type == 'post') {
 		$out = '<header class="cmsms_slider_post_header entry-header">' . 
-			'<' . $tag . ' class="cmsms_slider_post_title entry-title">' . 
+			'<' . $tag . ' class="cmsms_slider_post_title entry-title' . $h1_tag_class . '">' . 
 				'<a href="' . get_permalink() . '">' . cmsms_title($cmsms_id, false) . '</a>' . 
 			'</' . $tag . '>' . 
 		'</header>';
 	} elseif ($type == 'project') {
 		$out = '<header class="cmsms_slider_project_header entry-header">' . 
-			'<' . $tag . ' class="cmsms_slider_project_title entry-title">' . 
-				'<a href="' . (($link_redirect == 'true' && $link_url != '') ? $link_url : get_permalink()) . '">' . cmsms_title($cmsms_id, false) . '</a>' . 
+			'<' . $tag . ' class="cmsms_slider_project_title entry-title' . $h1_tag_class . '">' . 
+				'<a href="' . (($link_redirect == 'true' && $link_url != '') ? $link_url : get_permalink()) . '"' . ($link_target == 'true' ? ' target="_blank"' : '') . '>' . cmsms_title($cmsms_id, false) . '</a>' . 
 			'</' . $tag . '>' . 
 		'</header>';
 	}
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -54,7 +64,7 @@ function cmsms_slider_post_exc_cont($type = 'post', $show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}
@@ -82,9 +92,9 @@ function cmsms_slider_post_date($type = 'post', $show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -94,21 +104,21 @@ function cmsms_slider_post_date($type = 'post', $show = true) {
 function cmsms_slider_post_author($type = 'post', $show = true) {
 	if ($type == 'post') {
 		$out = '<span class="cmsms_slider_post_user_name">' . 
-			__('By', 'cmsmasters') . ' ' . 
-			'<a href="' . get_author_posts_url(get_the_author_meta('ID')) . '" title="' . __('Posts by', 'cmsmasters') . ' ' . get_the_author_meta('display_name') . '" class="vcard author"><span class="fn" rel="author">' . get_the_author_meta('display_name') . '</span></a>' . 
+			__('By', 'econature') . ' ' . 
+			'<a href="' . get_author_posts_url(get_the_author_meta('ID')) . '" title="' . __('Posts by', 'econature') . ' ' . get_the_author_meta('display_name') . '" class="vcard author" rel="author"><span class="fn">' . get_the_author_meta('display_name') . '</span></a>' . 
 		'</span>';
 	} elseif ($type == 'project') {
 		$out = '<span class="cmsms_slider_project_user_name">' . 
-			__('By', 'cmsmasters') . ' ' . 
-			'<a href="' . get_author_posts_url(get_the_author_meta('ID')) . '" title="' . __('Posts by', 'cmsmasters') . ' ' . get_the_author_meta('display_name') . '" class="vcard author"><span class="fn" rel="author">' . get_the_author_meta('display_name') . '</span></a>' . 
+			__('By', 'econature') . ' ' . 
+			'<a href="' . get_author_posts_url(get_the_author_meta('ID')) . '" title="' . __('Posts by', 'econature') . ' ' . get_the_author_meta('display_name') . '" class="vcard author" rel="author"><span class="fn">' . get_the_author_meta('display_name') . '</span></a>' . 
 		'</span>';
 	}
 	
 	
 	if ($show) {
-		echo $out;
+		echo wp_kses_post($out);
 	} else {
-		return $out;
+		return wp_kses_post($out);
 	}
 }
 
@@ -119,7 +129,7 @@ function cmsms_slider_post_category($type = 'post', $cmsms_id = false, $taxonomy
 	if (get_the_category() || get_the_terms($cmsms_id, $taxonomy)) {
 		if ($type == 'post') {
 			$out = '<span class="cmsms_slider_post_category">' . 
-				__('In ', 'cmsmasters') . 
+				__('In ', 'econature') . 
 				get_the_category_list(', ') . 
 			'</span>';
 		} elseif ($type == 'project') {
@@ -130,9 +140,9 @@ function cmsms_slider_post_category($type = 'post', $cmsms_id = false, $taxonomy
 		
 		
 		if ($show) {
-			echo $out;
+			echo wp_kses_post($out);
 		} else {
-			return $out;
+			return wp_kses_post($out);
 		}
 	}
 }
@@ -149,7 +159,7 @@ function cmsms_slider_post_like($type = 'post', $show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}
@@ -161,14 +171,14 @@ function cmsms_slider_post_like($type = 'post', $show = true) {
 function cmsms_slider_post_comments($type = 'post', $show = true) {
 	if (comments_open()) {
 		if ($type == 'post') {
-			$out = '<a class="cmsms_slider_post_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'cmsmasters') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>';
+			$out = '<a class="cmsms_slider_post_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'econature') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>';
 		} elseif ($type == 'project') {
-			$out = '<a class="cmsms_slider_project_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'cmsmasters') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>';
+			$out = '<a class="cmsms_slider_project_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'econature') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>';
 		}
 		
 		
 		if ($show) {
-			echo $out;
+			echo cmsms_return_content($out);
 		} else {
 			return $out;
 		}
@@ -205,7 +215,7 @@ function cmsms_slider_post_format_chat($show = true) {
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}

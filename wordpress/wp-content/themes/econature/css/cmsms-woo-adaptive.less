@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.2
+ * @version 	1.4.1
  * 
  * Responsive WooCommerce CSS Rules
  * Created by CMSMasters
@@ -12,217 +12,26 @@
 
 /*-------------------------------------------------------------------------
 
-	0.	LESS Variables + Functions
 	1.	Medium Monitor
 	2.	Tablet Monitor
 	3.	Small Tablet Monitor
-	4.	Phone Monitor
+	4.	Tablet Monitor 600
+	5.	Phone Monitor
 
 -------------------------------------------------------------------------*/
 
-
-
-/*-------------------------------------------------------------------------*/
-/*	0.	LESS Variables & Functions	*/
-/*-------------------------------------------------------------------------*/
-
-/***************** Variables ******************/
-
-@input_pad:11px;
-
-@line_height_pad:20px;
-@blocks_hor_pad:20px;
-
-@col_mar:2%;
-
-@resp_blocks_pad:56.25%;
-
-@preloader_pad:100%;
-
-@cont_vert_pad:30px;
-
-@monitor_large: ~'(min-width: 1440px)';
-@monitor_tablet: ~'(max-width: 1024px)';
-@monitor_tablet_950: ~'(max-width: 950px)';
-@monitor_tablet_small: ~'(max-width: 767px)';
-@monitor_tablet_600: ~'(max-width: 600px)';
-@monitor_phone: ~'(max-width: 540px)';
-@monitor_phone_small: ~'(max-width: 320px)';
-
-@monitor_medium: ~'(min-width: 1024px) and (max-width: 1440px)';
-@tablet_ipad: ~'(min-width: 768px) and (max-width: 1024px)';
-@tablet_small: ~'(min-width: 541px) and (max-width: 767px)';
-
-
-/***************** Functions ******************/
-.fl () {
-	float:left;
-}
-
-.fr () {
-	float:right;
-}
-
-.dn () {
-	display:none;
-}
-
-.tal () {
-	text-align:left;
-}
-
-.tac () {
-	text-align:center;
-}
-
-.tar () {
-	text-align:right;
-}
-
-.cl () {
-	clear:both;
-}
-
-.ovh () {
-	overflow:hidden;
-}
-
-.m0a () {
-	margin:0 auto;
-}
-
-.bd (@w:1px; @t:solid) {
-	border-width:@w;
-	border-style:@t;
-}
-
-.bdt (@w:1px; @t:solid) {
-	border-top-width:@w;
-	border-top-style:@t;
-}
-
-.bdb (@w:1px; @t:solid) {
-	border-bottom-width:@w;
-	border-bottom-style:@t;
-}
-
-.bdr (@w:1px; @t:solid) {
-	border-right-width:@w;
-	border-right-style:@t;
-}
-
-.bdl (@w:1px; @t:solid) {
-	border-left-width:@w;
-	border-left-style:@t;
-}
-
-.color_white_opacity (@op:.5) {
-	color:rgba(255, 255, 255, @op);
-}
-
-.bg_white_opacity (@op:.5) {
-	background-color:rgba(255, 255, 255, @op);
-}
-
-.fullwidth_in_block () {
-	width:100%;
-	height:100%;
-	position:absolute;
-	top:0;
-	left:0;
-}
-
-.op (@op:.5) {
-	opacity:@op;
-}
-
-.cl_after () {
-	content:'.';
-	display:block;
-	clear:both;
-	height:0;
-	visibility:hidden;
-	overflow:hidden;
-}
-
-.pos_abs (@w:1em; @h:1em; @l:0; @r:0; @t:0; @b:0) {
-	width:@w;
-	height:@h;
-	margin:auto !important;
-	position:absolute;
-	left:@l;
-	right:@r;
-	top:@t;
-	bottom:@b;
-}
-
-.bdbx () {
-	-webkit-box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	box-sizing:border-box;
-}
-
-.ctbx () {
-	-webkit-box-sizing:content-box;
-	-moz-box-sizing:content-box;
-	box-sizing:content-box;
-}
-
-.bdrs (@radius:5px) {
-	-webkit-border-radius:@radius;
-	border-radius:@radius;
-}
-
-.bxsh (@x:0; @y:0; @blur:5px; @spred:0; @alpha:.05) {
-	-webkit-box-shadow:@x @y @blur @spred rgba(0, 0, 0, @alpha);
-	box-shadow:@x @y @blur @spred rgba(0, 0, 0, @alpha);
-}
-
-.bxshi (@x:0; @y:0; @blur:5px; @spred:0; @alpha:.05) {
-	-webkit-box-shadow:inset @x @y @blur @spred rgba(0, 0, 0, @alpha);
-	box-shadow:inset @x @y @blur @spred rgba(0, 0, 0, @alpha);
-}
-
-.bxsh_none () {
-	-webkit-box-shadow:none;
-	box-shadow:none;
-}
-
-.trans(@trans:0) when not (@trans = 0) {
-    -webkit-transition:@trans;
-    -moz-transition:@trans;
-    -ms-transition:@trans;
-    -o-transition:@trans;
-    transition:@trans;
-}
-
-
+@import "general.less";
 
 @media only screen {
 	/*-------------------------------------------------------------------------*/
-	/*	1. Medium Monitor
+	/* Large Monitor
 	/*-------------------------------------------------------------------------*/
-	@media @monitor_medium {
-		.cmsms_woo.fullwidth, 
-		.cmsms_products_shortcode .columns-4, 
-		.cmsms_selected_products_shortcode .columns-4 {
-			.cmsms_products {
-				.product {
-					.product_outer {
-						.product_inner {
-							.cmsms_product_footer {
-								> a {
-									padding-left:3px;
-									padding-right:0;
-									
-									&:before {
-										margin-right:5px;
-									}
-								}
-							}
-						}
-					}
-				}
+	@media @monitor_large {
+		ul.order_details {
+			.flex_wrap(nowrap);
+			
+			li {
+				width:100%;
 			}
 		}
 	}
@@ -230,48 +39,63 @@
 	
 	
 	/*-------------------------------------------------------------------------*/
-	/*	2.	Tablet Monitor
+	/* Tablet Monitor
 	/*-------------------------------------------------------------------------*/
 	@media @monitor_tablet {
 		.cmsms_dynamic_cart {
 			display:none;
 			visibility:hidden;
+			.op(1);
 		}
 		
-		.cmsms_woo {
-			&.fullwidth {
-				.cmsms_products {
-					.product {
-						width:round((100% / 2) - (@col_mar * 2), 2);
-						
-						&:nth-child(4n+1) {
-							clear:none;
-						}
-						
-						&:nth-child(2n+1) {
-							clear:left;
-						}
-					}
-				}
+		.cmsms_products.columns-6 .product {
+			width:round((100% / 3) - (@col_mar * 2), 2);
+			
+			&:nth-child(6n+1) {
+				clear:none;
+			}
+			
+			&:nth-child(3n+1) {
+				clear:left;
 			}
 		}
 		
-		.cmsms_products_shortcode, 
-		.cmsms_selected_products_shortcode {
-			.columns-4 {
-				.cmsms_products {
-					.product {
-						width:round((100% / 2) - (@col_mar * 2), 2);
-						
-						&:nth-child(4n+1) {
-							clear:none;
-						}
-						
-						&:nth-child(2n+1) {
-							clear:left;
-						}
-					}
-				}
+		.cmsms_products.columns-5 .product {
+			width:round((100% / 3) - (@col_mar * 2), 2);
+			
+			&:nth-child(5n+1) {
+				clear:none;
+			}
+			
+			&:nth-child(3n+1) {
+				clear:left;
+			}
+		}
+		
+		.cmsms_products.columns-4 .product {
+			width:round((100% / 2) - (@col_mar * 2), 2);
+			
+			&:nth-child(4n+1) {
+				clear:none;
+			}
+			
+			&:nth-child(2n+1) {
+				clear:left;
+			}
+		}
+		
+		#header .cmsms_dynamic_cart_link {
+			display:block;
+			visibility:visible;
+		}
+		
+		.enable_header_centered #header {
+			.cmsms_dynamic_cart_link {
+				display:block;
+				float:none;
+				margin:0;
+				height:auto;
+				.tac;
 			}
 		}
 	}
@@ -279,53 +103,9 @@
 	
 	
 	/*-------------------------------------------------------------------------*/
-	/*	3.	Small Tablet Monitor
+	/* Small Tablet Monitor
 	/*-------------------------------------------------------------------------*/
 	@media @monitor_tablet_small {
-		.cmsms_woo {
-			&.fullwidth, 
-			&.r_sidebar, 
-			&.l_sidebar {
-				.cmsms_products {
-					.product {
-						width:round(100% - (@col_mar * 2), 2);
-						float:none;
-						.cl;
-						
-						&:nth-child(4n+1), 
-						&:nth-child(3n+1), 
-						&:nth-child(2n+1), 
-						&:nth-child(n) {
-							.cl;
-						}
-					}
-				}
-			}
-		}
-		
-		.cmsms_products_shortcode, 
-		.cmsms_selected_products_shortcode {
-			.columns-4, 
-			.columns-3, 
-			.columns-2, 
-			.columns-1 {
-				.cmsms_products {
-					.product {
-						width:round(100% - (@col_mar * 2), 2);
-						float:none;
-						.cl;
-						
-						&:nth-child(4n+1), 
-						&:nth-child(3n+1), 
-						&:nth-child(2n+1), 
-						&:nth-child(n) {
-							.cl;
-						}
-					}
-				}
-			}
-		}
-		
 		.col2-set, 
 		.cart-collaterals {
 			> * {
@@ -337,6 +117,16 @@
 				&:last-child {
 					margin-bottom:0;
 				}
+			}
+		}
+		
+		#header {
+			.cmsms_dynamic_cart_link {
+				display:inline-block;
+				vertical-align:middle;
+				float:none;
+				margin:0;
+				height:auto;
 			}
 		}
 		
@@ -484,12 +274,6 @@
 			}
 		}
 		
-		ul.order_details {
-			li {
-				width:50%;
-			}
-		}
-		
 		.shop_table.order_details {
 			th, 
 			td {
@@ -501,9 +285,40 @@
 	
 	
 	/*-------------------------------------------------------------------------*/
-	/*	4.	Phone Monitor
+	/* Tablet Monitor 600
+	/*-------------------------------------------------------------------------*/
+	@media @monitor_tablet_600 {
+		.cmsms_products.columns-6 .product, 
+		.cmsms_products.columns-5 .product, 
+		.cmsms_products.columns-3 .product {
+			width:round(100% - (@col_mar * 2), 2);
+			float:none;
+			
+			&:nth-child(n) {
+				.cl;
+			}
+		}
+	}
+	
+	
+	
+	/*-------------------------------------------------------------------------*/
+	/* Phone Monitor
 	/*-------------------------------------------------------------------------*/
 	@media @monitor_phone {
+		.cmsms_products.columns-6 .product, 
+		.cmsms_products.columns-5 .product, 
+		.cmsms_products.columns-4 .product, 
+		.cmsms_products.columns-3 .product, 
+		.cmsms_products.columns-2 .product {
+			width:round(100% - (@col_mar * 2), 2);
+			float:none;
+			
+			&:nth-child(n) {
+				.cl;
+			}
+		}
+		
 		.form-row, 
 		.shipping_calculator .shipping-calculator-form .form-row {
 			width:round(100% - (@col_mar * 2), 2);

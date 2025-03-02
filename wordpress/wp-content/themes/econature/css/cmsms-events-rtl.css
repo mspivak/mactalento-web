@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.0
+ * @version 	1.2.2
  * 
  * Events RTL Rules
  * Created by CMSMasters
@@ -515,6 +515,15 @@ table.tribe-events-tickets .tickets_nostock {
 	text-align: center;
 }
 
+#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-scroller > .scroller-content {
+	right: 0 !important;
+	left: -17px !important;
+}
+
+#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-scroller > .scroller-pane {
+	right: auto;
+	left: 0;
+}
 
 
 /*-------------------------------------------------------------------------*/
@@ -726,22 +735,22 @@ ul.tribe-related-events > li .tribe-related-events-thumbnail .cmsms_events_img_p
 	right: 0;
 }
 
-.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td div {
+.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td div {
 	text-align: center;
 }
 
-.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td.tribe-events-has-events div .tribe-mini-calendar-day-link:before {
+.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td.tribe-events-has-events div .tribe-mini-calendar-day-link:before {
 	left: 0;
 	right: 0;
 }
 
-.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-date {
+.widget .list-date {
 	margin-left: 10px;
 	margin-right: 0;
 	float: right;
 }
 
-.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-date span {
+.widget .list-date span {
 	text-align: center;
 }
 

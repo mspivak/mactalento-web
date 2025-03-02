@@ -5,14 +5,16 @@
  * Please see single-event.php in this directory for detailed instructions on how to use and modify these templates.
  *
  * @cmsms_package 	EcoNature
- * @cmsms_version 	1.1.0
+ * @cmsms_version 	1.4.1
  *
  */
 
 ?>
 
 <script type="text/html" id="tribe_tmpl_month_mobile_day_header">
-	<div class="tribe-mobile-day" data-day="[[=date]]">[[ if(date_name.length) { ]]<h3 class="tribe-mobile-day-heading">Events for <span>[[=raw date_name]]</span></h3>[[ } ]]</div>
+	<div class="tribe-mobile-day" data-day="[[=date]]">[[ if(date_name.length) { ]]
+		<h3 class="tribe-mobile-day-heading"><?php printf( __( '%s for', 'econature' ), tribe_get_event_label_plural() ); ?> <span>[[=raw date_name]]</span></h3>[[ } ]]
+	</div>
 </script>
 
 <script type="text/html" id="tribe_tmpl_month_mobile">
@@ -29,15 +31,12 @@
 		</h2>
 		<div class="tribe-events-event-body">
 			<div class="updated published time-details">
-				<span class="date-start dtstart">[[=startTime]] </span>
-				[[ if(endTime.length) { ]]
-				-<span class="date-end dtend"> [[=endTime]]</span>
-				[[ } ]]
+				<span class="date-start dtstart">[[=dateDisplay]] </span>
 			</div>
 			[[ if(excerpt.length) { ]]
 			<p class="entry-summary description">[[=raw excerpt]]</p>
 			[[ } ]]
-			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark">Find out more »</a>
+			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark"><?php esc_html_e( 'Find out more', 'econature' ); ?> &raquo;</a>
 		</div>
 	</div>
 </script>

@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.4.1
  * 
  * Blog Page Masonry Link Post Format Template
  * Created by CMSMasters
@@ -29,7 +29,7 @@ $cmsms_post_link_text = get_post_meta(get_the_ID(), 'cmsms_post_link_text', true
 $cmsms_post_link_address = get_post_meta(get_the_ID(), 'cmsms_post_link_address', true);
 
 if ($cmsms_post_link_text == '') {
-	$cmsms_post_link_text = __('Enter link text', 'cmsmasters');
+	$cmsms_post_link_text = __('Enter link text', 'econature');
 }
 
 if ($cmsms_post_link_address == '') {
@@ -53,7 +53,7 @@ if ($post_sort_categs != '') {
 
 <!--_________________________ Start Link Article _________________________ -->
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('cmsms_masonry_type'); ?> data-category="<?php echo $post_categs; ?>">
+<article id="post-<?php the_ID(); ?>" <?php post_class('cmsms_masonry_type'); ?> data-category="<?php echo esc_attr($post_categs); ?>">
 	<span class="cmsms_post_format_img <?php 
 			if (is_sticky()) {
 				echo ' cmsms-icon-attach-6';

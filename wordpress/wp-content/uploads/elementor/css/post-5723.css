@@ -1,0 +1,8 @@
+.elementor-5723 .elementor-element.elementor-element-4f2692a > .elementor-container > .elementor-row > .elementor-column > .elementor-column-wrap > .elementor-widget-wrap{align-content:center;align-items:center;}.elementor-5723 .elementor-element.elementor-element-4f2692a{transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;margin-top:3rem;margin-bottom:3rem;padding:6rem 0rem 6rem 0rem;}.elementor-5723 .elementor-element.elementor-element-4f2692a > .elementor-background-overlay{transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-5723 .elementor-element.elementor-element-318cc5b > .elementor-element-populated > .elementor-widget-wrap{padding:0rem 0rem 0rem 0rem;}.elementor-5723 .elementor-element.elementor-element-58e3144 img{box-shadow:10px 10px 0px 0px #FEBE4B;}.elementor-5723 .elementor-element.elementor-element-326724b > .elementor-element-populated > .elementor-widget-wrap{padding:6rem 0rem 3rem 9rem;}.elementor-5723 .elementor-element.elementor-element-2cb6ef2{color:#FFFFFF;}.elementor-5723 .elementor-element.elementor-element-bfd8c2f{margin-top:6rem;margin-bottom:6rem;}.elementor-5723 .elementor-element.elementor-element-6853379{text-align:center;}@media(max-width:767px){.elementor-5723 .elementor-element.elementor-element-4f2692a{margin-top:6rem;margin-bottom:0rem;}.elementor-5723 .elementor-element.elementor-element-326724b > .elementor-element-populated > .elementor-widget-wrap{padding:6rem 3rem 0rem 6rem;}}/* Start custom CSS for section, class: .elementor-element-4f2692a */#agile {
+    background: linear-gradient(90deg, #FFFFFF 10%, #3BC8D2 0);
+    }
+@media (min-width: 700px) {
+#agile {
+    background: linear-gradient(90deg, #FFFFFF 45%, #3BC8D2 0);
+    }
+}/* End custom CSS */

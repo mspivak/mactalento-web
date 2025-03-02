@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.8
  * 
  * Single Profile Template
  * Created by CMSMasters
@@ -10,10 +10,9 @@
  */
 
 
-$cmsms_option = cmsms_get_global_options();
-
-
 get_header();
+
+$cmsms_option = cmsms_get_global_options();
 
 
 $cmsms_profile_sharing_box = get_post_meta(get_the_ID(), 'cmsms_profile_sharing_box', true);
@@ -21,7 +20,7 @@ $cmsms_profile_sharing_box = get_post_meta(get_the_ID(), 'cmsms_profile_sharing_
 
 echo '<!--_________________________ Start Content _________________________ -->' . "\n" . 
 
-'<div class="middle_content entry" role="main">' . "\n\t";
+'<div class="middle_content entry" role="main">';
 
 
 if (have_posts()) : the_post();
@@ -37,7 +36,7 @@ if (have_posts()) : the_post();
 	
 	
 	if ($cmsms_profile_sharing_box == 'true') {
-		cmsms_sharing_box(__('Share this profile?', 'cmsmasters'), 'h3');
+		cmsms_sharing_box(esc_html__('Share this profile?', 'econature'), 'h3');
 	}
 
 	comments_template(); 

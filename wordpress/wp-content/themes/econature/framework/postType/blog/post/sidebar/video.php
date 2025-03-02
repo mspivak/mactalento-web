@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.0
  * 
  * Blog Post with Sidebar Video Post Format Template
  * Created by CMSMasters
@@ -84,7 +84,7 @@ $cmsms_post_video_links = get_post_meta(get_the_ID(), 'cmsms_post_video_links', 
 		the_content();
 		
 		wp_link_pages(array( 
-			'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'cmsmasters') . ':</strong>', 
+			'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'econature') . ':</strong>', 
 			'after' => '</div>', 
 			'link_before' => ' [ ', 
 			'link_after' => ' ] ' 

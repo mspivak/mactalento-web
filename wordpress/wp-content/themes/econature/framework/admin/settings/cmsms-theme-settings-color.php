@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.0
  * 
  * Admin Panel Colors Options
  * Created by CMSMasters
@@ -34,7 +34,7 @@ function cmsms_options_color_sections() {
 	$sections = array();
 	
 	
-	$sections[$tab . '_section'] = $schemes[$tab] . ' ' . __('Color Scheme Options', 'cmsmasters');
+	$sections[$tab . '_section'] = $schemes[$tab] . ' ' . __('Color Scheme Options', 'econature');
 	
 	
 	return $sections;
@@ -60,8 +60,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_color', 
-			'title' => __('Text Font Color', 'cmsmasters'), 
-			'desc' => __('Font color for header text', 'cmsmasters'), 
+			'title' => __('Text Font Color', 'econature'), 
+			'desc' => __('Font color for header text', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['hover'] 
 		);
@@ -69,8 +69,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_link', 
-			'title' => __('Primary Font Color', 'cmsmasters'), 
-			'desc' => __('Font color for header headings, links, etc', 'cmsmasters'), 
+			'title' => __('Primary Font Color', 'econature'), 
+			'desc' => __('Font color for header headings, links, etc', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['color'] 
 		);
@@ -78,8 +78,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_hover', 
-			'title' => __('Rollover Font Color', 'cmsmasters'), 
-			'desc' => __('Font color for header links rollovers, etc', 'cmsmasters'), 
+			'title' => __('Rollover Font Color', 'econature'), 
+			'desc' => __('Font color for header links rollovers, etc', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['hover'] 
 		);
@@ -87,8 +87,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_bg', 
-			'title' => __('Background Color', 'cmsmasters'), 
-			'desc' => __('Header block background color', 'cmsmasters'), 
+			'title' => __('Background Color', 'econature'), 
+			'desc' => __('Header block background color', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['bg'] 
 		);
@@ -96,8 +96,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_hover_bg', 
-			'title' => __('Rollover Background Color', 'cmsmasters'), 
-			'desc' => __('Background color for main navigation top level links rollovers and some other elements', 'cmsmasters'), 
+			'title' => __('Rollover Background Color', 'econature'), 
+			'desc' => __('Background color for main navigation top level links rollovers and some other elements', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['hover_bg'] 
 		);
@@ -105,8 +105,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_border', 
-			'title' => __('Border Color', 'cmsmasters'), 
-			'desc' => __('Color for borders in header block', 'cmsmasters'), 
+			'title' => __('Border Color', 'econature'), 
+			'desc' => __('Color for borders in header block', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['border'] 
 		);
@@ -114,8 +114,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_link', 
-			'title' => __('Dropdown Links Color', 'cmsmasters'), 
-			'desc' => __('Links color for header main navigation dropdown', 'cmsmasters'), 
+			'title' => __('Dropdown Links Color', 'econature'), 
+			'desc' => __('Links color for header main navigation dropdown', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['dropdown_link'] 
 		);
@@ -123,8 +123,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_hover', 
-			'title' => __('Dropdown Rollover Font Color', 'cmsmasters'), 
-			'desc' => __('Font color for header links rollovers in main navigation dropdown, etc', 'cmsmasters'), 
+			'title' => __('Dropdown Rollover Font Color', 'econature'), 
+			'desc' => __('Font color for header links rollovers in main navigation dropdown, etc', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['dropdown_hover'] 
 		);
@@ -132,8 +132,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_bg', 
-			'title' => __('Dropdown Background Color', 'cmsmasters'), 
-			'desc' => __('Header block background color for main navigation dropdown', 'cmsmasters'), 
+			'title' => __('Dropdown Background Color', 'econature'), 
+			'desc' => __('Header block background color for main navigation dropdown', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['dropdown_bg'] 
 		);
@@ -141,8 +141,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_hover_bg', 
-			'title' => __('Dropdown Rollover Background Color', 'cmsmasters'), 
-			'desc' => __('Background color for main navigation dropdown links rollovers and some other elements', 'cmsmasters'), 
+			'title' => __('Dropdown Rollover Background Color', 'econature'), 
+			'desc' => __('Background color for main navigation dropdown links rollovers and some other elements', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['dropdown_hover_bg'] 
 		);
@@ -150,8 +150,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_border', 
-			'title' => __('Dropdown Border Color', 'cmsmasters'), 
-			'desc' => __('Color for borders for main navigation dropdown in header block ', 'cmsmasters'), 
+			'title' => __('Dropdown Border Color', 'econature'), 
+			'desc' => __('Color for borders for main navigation dropdown in header block ', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['dropdown_border'] 
 		);
@@ -159,8 +159,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_shadow', 
-			'title' => __('Dropdown Shadow', 'cmsmasters'), 
-			'desc' => __('show', 'cmsmasters'), 
+			'title' => __('Dropdown Shadow', 'econature'), 
+			'desc' => __('show', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 1 
 		);
@@ -168,7 +168,7 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_shadow_opacity', 
-			'title' => __('Dropdown Shadow Opacity', 'cmsmasters'), 
+			'title' => __('Dropdown Shadow Opacity', 'econature'), 
 			'desc' => '', 
 			'type' => 'number', 
 			'std' => '2', 
@@ -179,8 +179,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_color', 
-			'title' => __('Content Font Color', 'cmsmasters'), 
-			'desc' => __('Font color for header top main content, headings, links, etc', 'cmsmasters'), 
+			'title' => __('Content Font Color', 'econature'), 
+			'desc' => __('Font color for header top main content, headings, links, etc', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['color'] 
 		);
@@ -188,8 +188,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_link', 
-			'title' => __('Primary Font Color', 'cmsmasters'), 
-			'desc' => __('Font color for header top headings, links, etc', 'cmsmasters'), 
+			'title' => __('Primary Font Color', 'econature'), 
+			'desc' => __('Font color for header top headings, links, etc', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['color'] 
 		);
@@ -197,8 +197,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_hover', 
-			'title' => __('Rollover Font Color', 'cmsmasters'), 
-			'desc' => __('Font color for header top links rollovers, etc', 'cmsmasters'), 
+			'title' => __('Rollover Font Color', 'econature'), 
+			'desc' => __('Font color for header top links rollovers, etc', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['hover'] 
 		);
@@ -206,8 +206,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_bg', 
-			'title' => __('Background Color', 'cmsmasters'), 
-			'desc' => __('Header top block background color', 'cmsmasters'), 
+			'title' => __('Background Color', 'econature'), 
+			'desc' => __('Header top block background color', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['bg'] 
 		);
@@ -215,8 +215,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_border', 
-			'title' => __('Border Color', 'cmsmasters'), 
-			'desc' => __('Color for borders in header top block', 'cmsmasters'), 
+			'title' => __('Border Color', 'econature'), 
+			'desc' => __('Color for borders in header top block', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['border'] 
 		);
@@ -224,8 +224,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_link', 
-			'title' => __('Dropdown Links Color', 'cmsmasters'), 
-			'desc' => __('Links color for header top main navigation dropdown', 'cmsmasters'), 
+			'title' => __('Dropdown Links Color', 'econature'), 
+			'desc' => __('Links color for header top main navigation dropdown', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['dropdown_link'] 
 		);
@@ -233,8 +233,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_hover', 
-			'title' => __('Dropdown Rollover Font Color', 'cmsmasters'), 
-			'desc' => __('Font color for header top links rollovers in main navigation dropdown, etc', 'cmsmasters'), 
+			'title' => __('Dropdown Rollover Font Color', 'econature'), 
+			'desc' => __('Font color for header top links rollovers in main navigation dropdown, etc', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['dropdown_hover'] 
 		);
@@ -242,8 +242,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_bg', 
-			'title' => __('Dropdown Background Color', 'cmsmasters'), 
-			'desc' => __('Header top block background color for main navigation dropdown', 'cmsmasters'), 
+			'title' => __('Dropdown Background Color', 'econature'), 
+			'desc' => __('Header top block background color for main navigation dropdown', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['dropdown_bg'] 
 		);
@@ -251,8 +251,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_border', 
-			'title' => __('Dropdown Border Color', 'cmsmasters'), 
-			'desc' => __('Color for borders for main navigation dropdown in header top block ', 'cmsmasters'), 
+			'title' => __('Dropdown Border Color', 'econature'), 
+			'desc' => __('Color for borders for main navigation dropdown in header top block ', 'econature'), 
 			'type' => 'rgba', 
 			'std' => $defaults[$tab]['dropdown_border'] 
 		);
@@ -260,8 +260,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_shadow', 
-			'title' => __('Dropdown Shadow', 'cmsmasters'), 
-			'desc' => __('show', 'cmsmasters'), 
+			'title' => __('Dropdown Shadow', 'econature'), 
+			'desc' => __('show', 'econature'), 
 			'type' => 'checkbox', 
 			'std' => 1 
 		);
@@ -269,7 +269,7 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_dropdown_shadow_opacity', 
-			'title' => __('Dropdown Shadow Opacity', 'cmsmasters'), 
+			'title' => __('Dropdown Shadow Opacity', 'econature'), 
 			'desc' => '', 
 			'type' => 'number', 
 			'std' => '80', 
@@ -280,8 +280,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_color', 
-			'title' => __('Main Content Font Color', 'cmsmasters'), 
-			'desc' => __('Font color for main content', 'cmsmasters'), 
+			'title' => __('Main Content Font Color', 'econature'), 
+			'desc' => __('Font color for main content', 'econature'), 
 			'type' => 'rgba', 
 			'std' => (isset($defaults[$tab])) ? $defaults[$tab]['color'] : $defaults['default']['color'] 
 		);
@@ -289,8 +289,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_link', 
-			'title' => __('Primary Color', 'cmsmasters'), 
-			'desc' => __('Color for links and some other elements (e.g. buttons, icon boxes, ets.)', 'cmsmasters'), 
+			'title' => __('Primary Color', 'econature'), 
+			'desc' => __('Color for links and some other elements (e.g. buttons, icon boxes, ets.)', 'econature'), 
 			'type' => 'rgba', 
 			'std' => (isset($defaults[$tab])) ? $defaults[$tab]['link'] : $defaults['default']['link'] 
 		);
@@ -298,8 +298,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_hover', 
-			'title' => __('Highlight Color', 'cmsmasters'), 
-			'desc' => __('Color for links rollovers, etc', 'cmsmasters'), 
+			'title' => __('Highlight Color', 'econature'), 
+			'desc' => __('Color for links rollovers, etc', 'econature'), 
 			'type' => 'rgba', 
 			'std' => (isset($defaults[$tab])) ? $defaults[$tab]['hover'] : $defaults['default']['hover'] 
 		);
@@ -307,8 +307,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_heading', 
-			'title' => __('Headings Color', 'cmsmasters'), 
-			'desc' => __('Color for headings and some other elements', 'cmsmasters'), 
+			'title' => __('Headings Color', 'econature'), 
+			'desc' => __('Color for headings and some other elements', 'econature'), 
 			'type' => 'rgba', 
 			'std' => (isset($defaults[$tab])) ? $defaults[$tab]['heading'] : $defaults['default']['heading'] 
 		);
@@ -316,8 +316,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_bg', 
-			'title' => __('Main Background Color', 'cmsmasters'), 
-			'desc' => __('Main background color for some elements (e.g. tabs, toggles, ets.)', 'cmsmasters'), 
+			'title' => __('Main Background Color', 'econature'), 
+			'desc' => __('Main background color for some elements (e.g. tabs, toggles, ets.)', 'econature'), 
 			'type' => 'rgba', 
 			'std' => (isset($defaults[$tab])) ? $defaults[$tab]['bg'] : $defaults['default']['bg'] 
 		);
@@ -325,8 +325,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_alternate', 
-			'title' => __('Alternate Background Color', 'cmsmasters'), 
-			'desc' => __('Alternate background color for some elements (e.g. quotes, form fields, ets.)', 'cmsmasters'), 
+			'title' => __('Alternate Background Color', 'econature'), 
+			'desc' => __('Alternate background color for some elements (e.g. quotes, form fields, ets.)', 'econature'), 
 			'type' => 'rgba', 
 			'std' => (isset($defaults[$tab])) ? $defaults[$tab]['alternate'] : $defaults['default']['alternate'] 
 		);
@@ -334,8 +334,8 @@ function cmsms_options_color_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => $tab . '_section', 
 			'id' => CMSMS_SHORTNAME . '_' . $tab . '_border', 
-			'title' => __('Borders Color', 'cmsmasters'), 
-			'desc' => __('Color for borders (e.g. dividers, form fields, ets.)', 'cmsmasters'), 
+			'title' => __('Borders Color', 'econature'), 
+			'desc' => __('Color for borders (e.g. dividers, form fields, ets.)', 'econature'), 
 			'type' => 'rgba', 
 			'std' => (isset($defaults[$tab])) ? $defaults[$tab]['border'] : $defaults['default']['border'] 
 		);

@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.3
+ * @version 	1.4.6
  * 
  * Theme Functions
  * Created by CMSMasters
@@ -19,7 +19,9 @@ function register_css_styles() {
 		$cmsms_option = cmsms_get_global_options();
 		
 		
-		wp_register_style('theme-style', get_stylesheet_uri(), array(), '1.0.0', 'screen, print');
+		wp_register_style('theme-root-style', get_stylesheet_uri(), array(), '1.0.0', 'screen, print');
+		
+		wp_register_style('theme-style', get_template_directory_uri() . '/css/style.css', array(), '1.0.0', 'screen, print');
 		
 		wp_register_style('theme-adapt', get_template_directory_uri() . '/css/adaptive.css', array(), '1.0.0', 'screen, print');
 		
@@ -47,7 +49,7 @@ function register_css_styles() {
 		
 		
 		// Events styles
-		if (class_exists('TribeEvents')) {
+		if (class_exists('Tribe__Events__Main')) {
 			wp_register_style('theme-cmsms-events-style', get_template_directory_uri() . '/css/cmsms-events-style.css', array(), '1.0.0', 'screen');
 			
 			wp_register_style('theme-cmsms-events-adaptive', get_template_directory_uri() . '/css/cmsms-events-adaptive.css', array(), '1.0.0', 'screen');
@@ -102,7 +104,13 @@ function register_css_styles() {
 		wp_register_style('pace-theme-minimal', get_template_directory_uri() . '/css/pace-themes/minimal.css', array(), '0.5.1', 'screen');
 		
 		
+		wp_enqueue_style('theme-root-style');
+		
 		wp_enqueue_style('theme-style');
+		
+		$cmsms_theme_page_styles = cmsms_theme_header_styles() . cmsms_theme_bg_styles() . cmsms_theme_footer_styles();
+		
+		wp_add_inline_style('theme-style', $cmsms_theme_page_styles);
 		
 		
 		if ($cmsms_option[CMSMS_SHORTNAME . '_responsive']) {
@@ -131,7 +139,7 @@ function register_css_styles() {
 		
 		
 		// Events styles
-		if (class_exists('TribeEvents')) {
+		if (class_exists('Tribe__Events__Main')) {
 			wp_enqueue_style('theme-cmsms-events-style');
 			
 			if ($cmsms_option[CMSMS_SHORTNAME . '_responsive']) {
@@ -149,46 +157,46 @@ function register_css_styles() {
 			}
 			
 			// Events styles
-			if (class_exists('TribeEvents')) {
+			if (class_exists('Tribe__Events__Main')) {
 				wp_enqueue_style('theme-cmsms-events-rtl');
 			}
 		}
 		
 		
-		if (get_option('cmsms_style_exists_' . CMSMS_SHORTNAME)) {
-			$upload_dir = wp_upload_dir();
-			
-			
-			wp_register_style('theme-fonts-schemes', $upload_dir['baseurl'] . '/cmsms_styles/' . CMSMS_SHORTNAME . '.css', array(), '1.0.0', 'screen');
-			
-			wp_register_style('theme-fonts', $upload_dir['baseurl'] . '/cmsms_styles/' . CMSMS_SHORTNAME . '_fonts.css', array(), '1.0.0', 'screen');
-			
-			wp_register_style('theme-schemes-primary', $upload_dir['baseurl'] . '/cmsms_styles/' . CMSMS_SHORTNAME . '_colors_primary.css', array(), '1.0.0', 'screen');
-			
-			wp_register_style('theme-schemes-secondary', $upload_dir['baseurl'] . '/cmsms_styles/' . CMSMS_SHORTNAME . '_colors_secondary.css', array(), '1.0.0', 'screen');
-			
-			
-			if (preg_match('/(?i)msie [1-9]/', $_SERVER['HTTP_USER_AGENT'])) {
-				wp_enqueue_style('theme-fonts');
-				
-				wp_enqueue_style('theme-schemes-primary');
-				
-				wp_enqueue_style('theme-schemes-secondary');
-			} else {
-				wp_enqueue_style('theme-fonts-schemes');
-			}
-		} else {
-			$custom_css = '';
-			
-			$custom_css .= cmsms_theme_fonts();
-			
-			$custom_css .= cmsms_theme_colors_primary();
-			
-			$custom_css .= cmsms_theme_colors_secondary();
-			
-			
-			wp_add_inline_style('theme-fonts-schemes', $custom_css);
+		// Fonts and Colors styles
+		$upload_dir = wp_upload_dir();
+		
+		$style_dir = str_replace('\\', '/', $upload_dir['basedir'] . '/cmsms_styles');
+		
+		
+		$cmsms_styles_dir = get_template_directory_uri() . '/css/styles/';
+		
+		
+		if (is_dir($style_dir) && get_option('cmsms_style_exists_' . CMSMS_SHORTNAME)) {
+			$cmsms_styles_dir = $upload_dir['baseurl'] . '/cmsms_styles/';
 		}
+		
+		
+		$browser = new Browser();
+		
+		if (
+			($browser->getBrowser() == Browser::BROWSER_IE && $browser->getVersion() > 9) || 
+			$browser->getBrowser() != Browser::BROWSER_IE
+		) {
+			wp_enqueue_style('theme-fonts-schemes', $cmsms_styles_dir . CMSMS_SHORTNAME . '.css', array(), '1.0.0', 'screen');
+		}
+		
+		
+		wp_enqueue_style('theme-fonts', $cmsms_styles_dir . CMSMS_SHORTNAME . '_fonts.css', array(), '1.0.0', 'screen');
+		
+		wp_enqueue_style('theme-schemes-primary', $cmsms_styles_dir . CMSMS_SHORTNAME . '_colors_primary.css', array(), '1.0.0', 'screen');
+		
+		wp_enqueue_style('theme-schemes-secondary', $cmsms_styles_dir . CMSMS_SHORTNAME . '_colors_secondary.css', array(), '1.0.0', 'screen');
+		
+		
+		$wp_styles->add_data('theme-fonts', 'conditional', 'lte IE 9');
+		$wp_styles->add_data('theme-schemes-primary', 'conditional', 'lte IE 9');
+		$wp_styles->add_data('theme-schemes-secondary', 'conditional', 'lte IE 9');
 		
 		
 		wp_enqueue_style('theme-icons');
@@ -205,9 +213,7 @@ function register_css_styles() {
 		}
 		
 		
-		wp_register_style('theme-ie', get_template_directory_uri() . '/css/ie.css', array(), '1.0.0', 'screen');
-		
-		wp_enqueue_style('theme-ie');
+		wp_enqueue_style('theme-ie', get_template_directory_uri() . '/css/ie.css', array(), '1.0.0', 'screen');
 		
 		
 		$wp_styles->add_data('theme-ie', 'conditional', 'lt IE 9');
@@ -242,6 +248,9 @@ function register_js_scripts() {
 		wp_localize_script('script', 'cmsms_script', array( 
 			'theme_url' => 							get_template_directory_uri(), 
 			'site_url' => 							get_site_url() . '/', 
+			'home_url' => 							get_home_url() . '/', 
+			'ajaxurl' => 							admin_url('admin-ajax.php'), 
+			'nonce_ajax_like' => 					wp_create_nonce('cmsms_ajax_like-nonce'), 
 			'ilightbox_skin' => 					$cmsms_option[CMSMS_SHORTNAME . '_ilightbox_skin'], 
 			'ilightbox_path' => 					$cmsms_option[CMSMS_SHORTNAME . '_ilightbox_path'], 
 			'ilightbox_infinite' => 				$cmsms_option[CMSMS_SHORTNAME . '_ilightbox_infinite'], 
@@ -261,15 +270,15 @@ function register_js_scripts() {
 			'ilightbox_controls_mousewheel' => 		$cmsms_option[CMSMS_SHORTNAME . '_ilightbox_controls_mousewheel'], 
 			'ilightbox_controls_swipe' => 			$cmsms_option[CMSMS_SHORTNAME . '_ilightbox_controls_swipe'], 
 			'ilightbox_controls_slideshow' => 		$cmsms_option[CMSMS_SHORTNAME . '_ilightbox_controls_slideshow'], 
-			'ilightbox_close_text' => 				__('Close', 'cmsmasters'), 
-			'ilightbox_enter_fullscreen_text' => 	__('Enter Fullscreen (Shift+Enter)', 'cmsmasters'), 
-			'ilightbox_exit_fullscreen_text' => 	__('Exit Fullscreen (Shift+Enter)', 'cmsmasters'), 
-			'ilightbox_slideshow_text' => 			__('Slideshow', 'cmsmasters'), 
-			'ilightbox_next_text' => 				__('Next', 'cmsmasters'), 
-			'ilightbox_previous_text' => 			__('Previous', 'cmsmasters'), 
-			'ilightbox_load_image_error' => 		__('An error occurred when trying to load photo.', 'cmsmasters'), 
-			'ilightbox_load_contents_error' => 		__('An error occurred when trying to load contents.', 'cmsmasters'), 
-			'ilightbox_missing_plugin_error' => 	__("The content your are attempting to view requires the <a href='{pluginspage}' target='_blank'>{type} plugin<\/a>.", 'cmsmasters') 
+			'ilightbox_close_text' => 				__('Close', 'econature'), 
+			'ilightbox_enter_fullscreen_text' => 	__('Enter Fullscreen (Shift+Enter)', 'econature'), 
+			'ilightbox_exit_fullscreen_text' => 	__('Exit Fullscreen (Shift+Enter)', 'econature'), 
+			'ilightbox_slideshow_text' => 			__('Slideshow', 'econature'), 
+			'ilightbox_next_text' => 				__('Next', 'econature'), 
+			'ilightbox_previous_text' => 			__('Previous', 'econature'), 
+			'ilightbox_load_image_error' => 		__('An error occurred when trying to load photo.', 'econature'), 
+			'ilightbox_load_contents_error' => 		__('An error occurred when trying to load contents.', 'econature'), 
+			'ilightbox_missing_plugin_error' => 	__("The content your are attempting to view requires the <a href='{pluginspage}' target='_blank'>{type} plugin<\/a>.", 'econature') 
 		));
 		
 		
@@ -281,7 +290,9 @@ function register_js_scripts() {
 		wp_register_script('isotopeMode', get_template_directory_uri() . '/js/jquery.isotope.mode.js', array('jquery', 'isotope'), '1.0.0', true);
 		
 		
-		wp_register_script('gMapAPI', '//maps.google.com/maps/api/js?sensor=false', array('jquery'), '1.0.0', true);
+		$cmsms_gmap_api_key = (isset($cmsms_option[CMSMS_SHORTNAME . '_gmap_api_key']) ? $cmsms_option[CMSMS_SHORTNAME . '_gmap_api_key'] : '');
+		
+		wp_register_script('gMapAPI', '//maps.googleapis.com/maps/api/js?key=' . $cmsms_gmap_api_key, array('jquery'), '1.0.0', true);
 		
 		wp_register_script('gMap', get_template_directory_uri() . '/js/jquery.gMap.min.js', array('jquery', 'gMapAPI'), '3.2.0', true);
 		
@@ -289,6 +300,14 @@ function register_js_scripts() {
 		// WooCommerce scripts
 		if (class_exists('woocommerce')) {
 			wp_register_script('cmsms-woo-script', get_template_directory_uri() . '/js/jquery.cmsms-woo-script.js', array('jquery'), '1.0.0', true);
+			
+			
+			$cmsms_image_sizes = cmsms_image_thumbnail_list();
+			
+			wp_localize_script('cmsms-woo-script', 'cmsms_woo_script', array( 
+				'thumbnail_image_width' => 		$cmsms_image_sizes['small-thumb']['width'], 
+				'thumbnail_image_height' => 	$cmsms_image_sizes['small-thumb']['height'] 
+			));
 		}
 		
 		
@@ -310,6 +329,9 @@ function register_js_scripts() {
 		) {
 			wp_enqueue_script('pace');
 		}
+		
+		
+		wp_enqueue_script('scrollspy', get_template_directory_uri() . '/js/scrollspy.js', array('jquery'), '1.0.0', true);
 		
 		
 		wp_enqueue_script('script');
@@ -393,6 +415,7 @@ function cmsms_theme_google_fonts_generate() {
 }
 
 add_action('wp_enqueue_scripts', 'cmsms_theme_google_fonts_generate');
+add_action('enqueue_block_editor_assets', 'cmsms_theme_google_fonts_generate');
 
 
 
@@ -401,14 +424,11 @@ function cmsms_theme_google_font($fonts, $font_name = '') {
 	global $cmsms_google_font_keys;
 	
 	
-	$protocol = is_ssl() ? 'https' : 'http';
-	
-	
 	if ( 
 		$font_name == '' || 
-		($font_name != '' && !in_array($font_name, $cmsms_google_font_keys)) 
+		($font_name != '' && is_array($cmsms_google_font_keys) && !in_array($font_name, $cmsms_google_font_keys)) 
 	) {
-		wp_enqueue_style('cmsms-google-fonts' . (($font_name != '') ? '-' . str_replace('+', '-', strtolower($font_name)) : ''), $protocol . '://fonts.googleapis.com/css?family=' . $fonts);
+		wp_enqueue_style('cmsms-google-fonts' . (($font_name != '') ? '-' . str_replace('+', '-', strtolower($font_name)) : ''), '//fonts.googleapis.com/css?family=' . $fonts);
 	}
 }
 
@@ -416,6 +436,32 @@ function cmsms_theme_google_font($fonts, $font_name = '') {
 
 /* Register Admin Panel Favicon */
 add_action('admin_head', 'cmsms_favicon');
+
+
+
+/* Font Family Substing Generate Function */
+function cmsms_get_google_font($font) {
+	if ($font != '') {
+		if (strpos($font, ':')) {
+			$google_font_array = explode(':', $font);
+			
+			
+			$google_font = "'" . str_replace('+', ' ', $google_font_array[0]) . "', ";
+		} elseif (strpos($font, '&')) {
+			$google_font_array = explode('&', $font);
+			
+			
+			$google_font = "'" . str_replace('+', ' ', $google_font_array[0]) . "', ";
+		} else {
+			$google_font = "'" . str_replace('+', ' ', $font) . "', ";
+		}
+	} else {
+		$google_font = '';
+	}
+	
+	
+	return $google_font;
+}
 
 
 
@@ -427,9 +473,9 @@ function the_widgets_init() {
     
     register_sidebar(
         array(
-            'name' => __('Sidebar', 'cmsmasters'), 
+            'name' => __('Sidebar', 'econature'), 
             'id' => 'sidebar_default', 
-            'description' => __('Widgets in this area will be shown in all left and right sidebars till you don\'t use custom sidebar.', 'cmsmasters'), 
+            'description' => __('Widgets in this area will be shown in all left and right sidebars till you don\'t use custom sidebar.', 'econature'), 
             'before_widget' => '<aside id="%1$s" class="widget %2$s">', 
             'after_widget' => '</aside>', 
             'before_title' => '<h3 class="widgettitle">', 
@@ -439,9 +485,9 @@ function the_widgets_init() {
     
     register_sidebar(
         array(
-            'name' => __('Bottom Sidebar', 'cmsmasters'), 
+            'name' => __('Bottom Sidebar', 'econature'), 
             'id' => 'sidebar_bottom', 
-            'description' => __('Widgets in this area will be shown at the bottom of middle block below the content and middle sidebar, but above footer.', 'cmsmasters'), 
+            'description' => __('Widgets in this area will be shown at the bottom of middle block below the content and middle sidebar, but above footer.', 'econature'), 
             'before_widget' => '<aside id="%1$s" class="widget %2$s">', 
             'after_widget' => '</aside>', 
             'before_title' => '<h3 class="widgettitle">', 
@@ -458,7 +504,7 @@ function the_widgets_init() {
 			register_sidebar(array( 
 				'name' => $sidebar, 
 				'id' => generateSlug($sidebar, 45), 
-				'description' => __('Custom sidebar created with cmsmasters admin panel.', 'cmsmasters'), 
+				'description' => __('Custom sidebar created with cmsmasters admin panel.', 'econature'), 
 				'before_widget' => '<aside id="%1$s" class="widget %2$s">', 
 				'after_widget' => '</aside>', 
 				'before_title' => '<h3 class="widgettitle">', 
@@ -474,22 +520,22 @@ add_action('widgets_init', 'the_widgets_init');
 
 /* Register Theme Navigations */
 register_nav_menus(array( 
-    'primary' => 	__('Primary Navigation', 'cmsmasters'), 
-    'footer' => 	__('Footer Navigation', 'cmsmasters'), 
-	'top_line' => 	__('Top Line Navigation', 'cmsmasters') 
+    'primary' => 	__('Primary Navigation', 'econature'), 
+    'footer' => 	__('Footer Navigation', 'econature'), 
+	'top_line' => 	__('Top Line Navigation', 'econature') 
 ));
 
 
 
 /* Register Showing Home Page on Default Wordpress Pages Menu */
-function cmsmasters_page_menu_args($args) {
+function cmsms_page_menu_args($args) {
     $args['show_home'] = true;
     
 	
     return $args;
 }
 
-add_filter('wp_page_menu_args', 'cmsmasters_page_menu_args');
+add_filter('wp_page_menu_args', 'cmsms_page_menu_args');
 
 
 
@@ -639,7 +685,11 @@ function cmsms_add_editor_styles() {
 	add_editor_style('//fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C300%2C400%2C600&#038;subset=latin%2Clatin-ext');
 }
 
-add_action('init', 'cmsms_add_editor_styles');
+$cmsms_wp_version = get_bloginfo('version');
+
+if (version_compare($cmsms_wp_version, '5', '<') && !function_exists('is_gutenberg_page')) {
+	add_action('init', 'cmsms_add_editor_styles');
+}
 
 
 
@@ -714,26 +764,17 @@ function cmsms_divpdel($content) {
 	$block = '(address|article|aside|audio|blockquote|canvas|dd|div|dl|fieldset|figcaption|figure|footer|form|h1|h2|h3|h4|h5|h6|header|hgroup|hr|noscript|ol|output|pre|section|table|tfoot|ul|video|style|iframe)';
 	
 	
-    $content = preg_replace('/<\/' . $block . '>(\s*)<\/p>/', '</\1>', $content);
-    $content = preg_replace('/<' . $block . '([^>]+)>(\s+)<\/p>/', '<\1\2>', $content);
-    $content = preg_replace('/<p>\s+<' . $block . '([^>]+)>/', '<\1\2>', $content);
-    $content = preg_replace('/<p>\s+<\/' . $block . '>/', '</\1>', $content);
-    $content = preg_replace('/<p><' . $block . '/', '<\1', $content);
-    $content = preg_replace('/(<a\shref="[^"]*"\sid="[^"]*"\sclass="button[^"]*"[^>]*>[^<]+<\/a>\s*)<\/p>/', '\1', $content);
+	$content = preg_replace('/^<\/p>/', '', $content);
+	$content = preg_replace('/<p>$/', '', $content);
+	$content = preg_replace('/<\/' . $block . '>(\s*)<\/p>/', '</\1>', $content);
+	$content = preg_replace('/<' . $block . '([^>]+)>(\s*)<\/p>/', '<\1\2>', $content);
+	$content = preg_replace('/<p>\s+<' . $block . '([^>]+)>/', '<\1\2>', $content);
+	$content = preg_replace('/<p>\s+<\/' . $block . '>/', '</\1>', $content);
+	$content = preg_replace('/<p><' . $block . '/', '<\1', $content);
+	$content = preg_replace('/(<a\shref="[^"]*"\sid="[^"]*"\sclass="button[^"]*"[^>]*>[^<]+<\/a>\s*)<\/p>/', '\1', $content);
 	
 	
     return $content;
-}
-
-
-
-/* Unregister PayPal Donations Widget */
-if (class_exists('PayPalDonations')) {
-	function unregister_paypaldonations_widget() {
-		unregister_widget('PayPalDonations_Widget');
-	}
-
-	add_action('widgets_init', 'unregister_paypaldonations_widget');
 }
 
 
@@ -756,16 +797,24 @@ function generateSlug($phrase, $maxLength) {
 
 /* Add Icons List to Database */
 function cmsms_add_global_icons() {
-	$icons = file_get_contents(CMSMS_ADMIN . '/inc/fonts/config.json');
+	global $wp_filesystem;
 	
 	
-	$arr = json_decode($icons, true);
+	if (empty($wp_filesystem)) {
+		require_once(ABSPATH . '/wp-admin/includes/file.php');
+		
+		WP_Filesystem();
+	}
 	
 	
-	if (get_option('cmsms_' . CMSMS_SHORTNAME . '_icons')) {
+	if ($wp_filesystem) {
+		$icons = $wp_filesystem->get_contents(CMSMS_ADMIN . '/inc/fonts/config.json');
+		
+		
+		$arr = json_decode($icons, true);
+		
+		
 		update_option('cmsms_' . CMSMS_SHORTNAME . '_icons', serialize($arr));
-	} else {
-		add_option('cmsms_' . CMSMS_SHORTNAME . '_icons', serialize($arr), '', 'yes');
 	}
 }
 
@@ -815,7 +864,7 @@ function cmsms_composer_icons() {
 	'</script>' . "\n\n";
 	
 	
-	echo $out;
+	echo cmsms_return_content($out);
 }
 
 
@@ -1045,7 +1094,7 @@ function getBshop($color) {
 
 /* Convert Text to HTML Function */
 function convertToHTML($content) {
-	return htmlspecialchars_decode(preg_replace('/\x{2032}/u', "'", preg_replace('/\x{2033}/u', '"', $content)));
+	return wp_specialchars_decode(preg_replace('/\x{2032}/u', "'", preg_replace('/\x{2033}/u', '"', $content)));
 }
 
 
@@ -1055,11 +1104,11 @@ function embedConvert($url) {
 	if (str_replace('youtube', '', $url) !== $url) {
 		parse_str(parse_url($url, PHP_URL_QUERY), $my_array_of_vars);
 		
-		$result = 'http://www.youtube.com/embed/' . $my_array_of_vars['v'] . '?autoplay=1&autohide=1&border=0&egm=0&showinfo=0';
+		$result = '//www.youtube.com/embed/' . $my_array_of_vars['v'] . '?autoplay=1&autohide=1&border=0&egm=0&showinfo=0';
 	} elseif (str_replace('vimeo', '', $url) !== $url) {
 		$video_id = substr(parse_url($url, PHP_URL_PATH), 1);
 		
-		$result = 'http://player.vimeo.com/video/' . $video_id . '?autoplay=1';
+		$result = '//player.vimeo.com/video/' . $video_id . '?autoplay=1';
 	} else {
 		$result = '';
 	}
@@ -1126,6 +1175,13 @@ function cmsms_regenerate_styles() {
 
 
 
+/* Regenerate Custom Styles Function for plugins */
+function cmsmasters_regenerate_styles() {
+	cmsms_regenerate_styles();
+}
+
+
+
 /* Write Custom Styles to File Function */
 function cmsms_write_styles($styles, $filename = '') {
 	$upload_dir = wp_upload_dir();
@@ -1172,7 +1228,7 @@ function cmsms_create_folder(&$folder, $addindex = true) {
 	$created = wp_mkdir_p(trailingslashit($folder));
 	
 	
-	@chmod($folder, 0777);
+	@chmod($folder, 0755);
 	
 	
 	if ($addindex == false) {
@@ -1188,14 +1244,22 @@ function cmsms_create_folder(&$folder, $addindex = true) {
 	}
 	
 	
-	$handle = @fopen($index_file, 'w');
+	global $wp_filesystem;
 	
 	
-	if ($handle) {
-		fwrite($handle, "<?php\n// Silence is golden.\n");
+	if (empty($wp_filesystem)) {
+		require_once(ABSPATH . '/wp-admin/includes/file.php');
 		
-		
-		fclose($handle);
+		WP_Filesystem();
+	}
+	
+	
+	if ($wp_filesystem) {
+		$wp_filesystem->put_contents(
+			$index_file,
+			"<?php\n// Silence is golden.\n",
+			FS_CHMOD_FILE
+		);
 	}
 	
 	
@@ -1206,30 +1270,22 @@ function cmsms_create_folder(&$folder, $addindex = true) {
 
 /* Create File Function */
 function cmsms_create_file($file, $content = '', $verifycontent = true) {
-	$handle = @fopen($file, 'w');
+	global $wp_filesystem;
 	
 	
-	if ($handle) {
-		$created = fwrite($handle, $content);
+	if (empty($wp_filesystem)) {
+		require_once(ABSPATH . '/wp-admin/includes/file.php');
 		
-		
-		fclose($handle);
-		
-		
-		if ($verifycontent === true) {
-			$handle = fopen($file, 'r');
-			
-			
-			$filecontent = fread($handle, filesize($file));
-			
-			
-			$created = ($filecontent == $content) ? true : false;
-			
-			
-			fclose($handle);
-		}
-	} else {
-		$created = false;
+		WP_Filesystem();
+	}
+	
+	
+	if ($wp_filesystem) {
+		$created = $wp_filesystem->put_contents(
+			$file,
+			$content,
+			FS_CHMOD_FILE
+		);
 	}
 	
 	
@@ -1375,7 +1431,9 @@ function cmsms_get_tweets($username, $count) {
 	$cmsms_option = cmsms_get_global_options();
 	
 	
-	load_template(CMSMS_CLASS . '/OAuth.php', true);
+	if (defined('CMSMS_CONTENT_COMPOSER_PATH')) {
+		require_once(CMSMS_CONTENT_COMPOSER_PATH . 'inc/twitter/OAuth.php');
+	}
 	
 	
 	$excludeReplies = 1;
@@ -1397,7 +1455,7 @@ function cmsms_get_tweets($username, $count) {
 	
 	
 	$fetchedTweets = $connection->get( 
-		'https://api.twitter.com/1.1/statuses/user_timeline.json', 
+		'//api.twitter.com/1.1/statuses/user_timeline.json', 
 		array( 
 			'screen_name' => $name, 
 			'count' => $totalToFetch,
@@ -1417,7 +1475,7 @@ function cmsms_get_tweets($username, $count) {
 			
 			$name = $tweet->user->name;
 			
-			$permalink = 'http://twitter.com/' . $name . '/status/' . $tweet->id_str;
+			$permalink = '//twitter.com/' . $name . '/status/' . $tweet->id_str;
 			
 			$image = $tweet->user->profile_image_url;
 			
@@ -1462,7 +1520,7 @@ function sidebarDefaultText() {
 	
 	echo '</aside>' . "\n" . 
 	'<aside id="archives" class="widget widget_archive">' . "\n" . 
-		'<h3 class="widgettitle">' . esc_html__('Archives', 'cmsmasters') . '</h3>' . "\n" . 
+		'<h3 class="widgettitle">' . esc_html__('Archives', 'econature') . '</h3>' . "\n" . 
 		'<ul>' . "\n";
 	
 	
@@ -1474,7 +1532,7 @@ function sidebarDefaultText() {
 	echo '</ul>' . "\n" . 
 	'</aside>' . "\n" . 
 	'<aside id="meta" class="widget widget_meta">' . "\n" . 
-		'<h3 class="widgettitle">' . esc_html__('Meta', 'cmsmasters') . '</h3>' . "\n" . 
+		'<h3 class="widgettitle">' . esc_html__('Meta', 'econature') . '</h3>' . "\n" . 
 		'<ul>' . "\n\t";
 	
 	
@@ -1500,8 +1558,8 @@ function sidebarDefaultText() {
 	bloginfo('rss2_url');
 	
 	
-	echo '" title="' . esc_attr__('Syndicate this site using RSS 2.0', 'cmsmasters') . '">' . esc_html__('Entries', 'cmsmasters') . ' ' . 
-			'<abbr title="' . esc_attr__('Really Simple Syndication', 'cmsmasters') . '">' . esc_html__('RSS', 'cmsmasters') . '</abbr>' . 
+	echo '" title="' . esc_attr__('Syndicate this site using RSS 2.0', 'econature') . '">' . esc_html__('Entries', 'econature') . ' ' . 
+			'<abbr title="' . esc_attr__('Really Simple Syndication', 'econature') . '">' . esc_html__('RSS', 'econature') . '</abbr>' . 
 		'</a>' . 
 	'</li>' . "\n\t" . 
 	'<li>' . 
@@ -1511,12 +1569,12 @@ function sidebarDefaultText() {
 	bloginfo('comments_rss2_url');
 	
 	
-	echo '" title="' . esc_attr__('The latest comments to all posts in RSS', 'cmsmasters') . '">' . esc_html__('Comments', 'cmsmasters') . ' ' . 
-					'<abbr title="' . esc_attr__('Really Simple Syndication', 'cmsmasters') . '">' . esc_html__('RSS', 'cmsmasters') . '</abbr>' . 
+	echo '" title="' . esc_attr__('The latest comments to all posts in RSS', 'econature') . '">' . esc_html__('Comments', 'econature') . ' ' . 
+					'<abbr title="' . esc_attr__('Really Simple Syndication', 'econature') . '">' . esc_html__('RSS', 'econature') . '</abbr>' . 
 				'</a>' . 
 			'</li>' . "\n\t" . 
 			'<li>' . 
-				'<a href="http://wordpress.org/" title="' . esc_attr__('Powered by WordPress, state-of-the-art semantic personal publishing platform.', 'cmsmasters') . '">WordPress.org</a>' . 
+				'<a href="//wordpress.org/" title="' . esc_attr__('Powered by WordPress, state-of-the-art semantic personal publishing platform.', 'econature') . '">WordPress.org</a>' . 
 			'</li>' . "\r" . 
 		'</ul>' . "\n" . 
 	'</aside>' . "\n";
@@ -1559,6 +1617,7 @@ function cmsms_theme_header_styles() {
 	.header_mid,
 	.header_mid_outer,
 	.header_mid .header_mid_inner .search_wrap_inner,
+	.header_mid .header_mid_inner .cmsms_dynamic_cart_link,
 	.header_mid .header_mid_inner .slogan_wrap_inner,
 	.header_mid .header_mid_inner .social_wrap_inner,
 	.header_mid .header_mid_inner nav > div > ul,
@@ -1601,6 +1660,7 @@ function cmsms_theme_header_styles() {
 		.header_top_aligner,
 		.header_mid,
 		.header_mid_outer,
+		#header .header_mid_inner,
 		.header_mid .header_mid_inner nav > div > ul,
 		.header_mid .header_mid_inner nav > div > ul > li,
 		.header_mid .header_mid_inner nav > div > ul > li > a,
@@ -1826,22 +1886,6 @@ function cmsms_theme_footer_styles() {
 
 
 
-/* Theme Header Body Footer Styles */
-function cmsms_header_body_footer_styles() {
-	$out = '<style type="text/css">' . 
-		cmsms_theme_header_styles() . 
-		cmsms_theme_bg_styles() . 
-		cmsms_theme_footer_styles() . 
-	'</style>';
-	
-	
-	echo $out;
-}
-
-add_action('wp_head', 'cmsms_header_body_footer_styles');
-
-
-
 /* Theme Footer Scripts Function */
 function cmsms_theme_footer_scripts() {
 	$cmsms_option = cmsms_get_global_options();
@@ -1955,11 +1999,18 @@ function cmsms_theme_page_layout_scheme() {
 
 
 
+/* Return content */
+function cmsms_return_content($content) {
+	return $content;
+}
+
+
+
 /* Register Moving 'style' Tags from Shortcodes to Content Start */
 function cmsms_global_shortcodes_styles_move($content) {
-	preg_match_all("/<style.*?>([^`]*?)<\/style>/", $content, $new_content);
+	preg_match_all("/(?<!['\"])<style.*?>([^`]*?)<\/style>/", $content, $new_content);
 	
-	$nostyle_content = preg_replace("/<style.*?>([^`]*?)<\/style>/", '', $content);
+	$nostyle_content = preg_replace("/(?<!['\"])<style.*?>([^`]*?)<\/style>/", '', $content);
 	
 	
 	$style_content = '<style type="text/css">';
@@ -1980,4 +2031,205 @@ function cmsms_global_shortcodes_styles_move($content) {
 }
 
 add_filter('the_content', 'cmsms_global_shortcodes_styles_move', 11, 2);
+
+
+
+/* Cmsmasters Ajax like callback */
+function cmsms_ajax_like_callback() {
+	$nonce = $_POST['nonce'];
+
+	if( wp_verify_nonce($nonce, 'cmsms_ajax_like-nonce') ){
+		$post_ID = intval( $_POST['id'] );
+		
+		$ip = getenv('REMOTE_ADDR');
+		
+		$ip_name = str_replace('.', '-', $ip);
+		
+		
+		if ($post_ID != '') {
+			$likes = (get_post_meta($post_ID, 'cmsms_likes', true) != '') ? get_post_meta($post_ID, 'cmsms_likes', true) : '0';
+			
+			
+			$ipPost = new WP_Query(array( 
+				'post_type' => 		'cmsms_like', 
+				'post_status' => 	'draft', 
+				'post_parent' => 	$post_ID, 
+				'name' => 			$ip_name 
+			));
+			
+			
+			$ipCheck = $ipPost->posts;
+			
+			
+			if (isset($_COOKIE['like-' . $post_ID]) || count($ipCheck) != 0) {
+				echo esc_html($likes);
+			} else {
+				$plusLike = $likes + 1;
+				
+				
+				update_post_meta($post_ID, 'cmsms_likes', $plusLike);
+				
+				
+				setcookie('like-' . $post_ID, time(), time() + 31536000, '/');
+				
+				
+				wp_insert_post(array( 
+					'post_type' => 		'cmsms_like', 
+					'post_status' => 	'draft', 
+					'post_parent' => 	$post_ID, 
+					'post_name' => 		$ip_name, 
+					'post_title' => 	$ip 
+				));
+				
+				
+				echo esc_html($plusLike);
+			}
+		}
+		
+		wp_die();
+	} else { 
+		die('Stop!'); 
+	}
+}
+
+add_action('wp_ajax_cmsms_ajax_like', 'cmsms_ajax_like_callback');
+
+add_action('wp_ajax_nopriv_cmsms_ajax_like', 'cmsms_ajax_like_callback');
+
+
+
+/* Cmsmasters Ajax Import Settings callback */
+function cmsms_ajax_import_settings_callback() {
+	$nonce = $_POST['nonce'];
+
+	if( wp_verify_nonce($nonce, 'cmsms_ajax_import_settings-nonce') ){
+		if (isset($_POST['settings'])) {
+			$cmsms_php_ver = phpversion();
+			
+			
+			if (version_compare($cmsms_php_ver, '5.4.0', '<')) {
+				$settings = json_decode(pack("H*", $_POST['settings']), true);
+			} else {
+				$settings = json_decode(hex2bin($_POST['settings']), true);
+			}
+			
+			
+			foreach ($settings as $name => $value) {
+				update_option($name, $value);
+			}
+			
+			
+			cmsms_regenerate_styles();
+		}
+		
+		wp_die();
+	} else { 
+		die('Stop!'); 
+	}
+}
+
+add_action('wp_ajax_cmsms_ajax_import_settings', 'cmsms_ajax_import_settings_callback');
+
+add_action('wp_ajax_nopriv_cmsms_ajax_import_settings', 'cmsms_ajax_import_settings_callback');
+
+
+
+/* Cmsmasters Ajax Export Settings callback */
+function cmsms_ajax_export_settings_callback() {
+	$nonce = $_POST['nonce'];
+	
+	if (wp_verify_nonce($nonce, 'cmsms_ajax_export_settings-nonce')) {
+		$options = array( 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_general', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_sidebar', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_sitemap', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_error', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_code', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_recaptcha', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_style_bg', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_style_logo', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_style_header', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_style_content', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_style_footer', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_style_icon', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_color_default', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_color_header', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_color_header_bottom', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_color_header_top', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_color_footer', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_color_first', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_color_second', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_color_third', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_color_fourth', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_color_fifth', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_font_content', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_font_link', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_font_nav', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_font_heading', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_font_other', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_single_post', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_single_project', 
+			'cmsms_options_' . CMSMS_SHORTNAME . '_single_profile', 
+			'thumbnail_size_w', 
+			'thumbnail_size_h', 
+			'medium_size_w', 
+			'medium_size_h', 
+			'large_size_w', 
+			'large_size_h', 
+			'theme_mods_' . CMSMS_SHORTNAME, 
+			'sidebars_widgets', 
+			'widget_custom-advertisement', 
+			'widget_akismet_widget', 
+			'widget_archives', 
+			'widget_calendar', 
+			'widget_categories', 
+			'widget_custom-contact-form', 
+			'widget_custom-contact-info', 
+			'widget_nav_menu', 
+			'widget_custom-divider', 
+			'widget_custom-video', 
+			'widget_custom-facebook', 
+			'widget_custom-flickr', 
+			'widget_custom-html5-audio', 
+			'widget_custom-html5-video', 
+			'widget_custom-latest-projects', 
+			'widget_layerslider_widget', 
+			'widget_meta', 
+			'widget_pages', 
+			'widget_custom-popular-projects', 
+			'widget_custom-posts-tabs', 
+			'widget_custom-recent-comments', 
+			'widget_custom-recent-posts', 
+			'widget_rev-slider-widget', 
+			'widget_rss', 
+			'widget_search', 
+			'widget_tag_cloud', 
+			'widget_text', 
+			'widget_custom-twitter', 
+			'widget_icl_lang_sel_widget' 
+		);
+		
+		
+		$settings = array();
+		
+		
+		foreach ($options as $option) {
+			if (get_option($option)) {
+				$settings[$option] = get_option($option);
+			}
+		}
+		
+		
+		echo bin2hex(json_encode($settings));
+		
+		
+		wp_die();
+	} else { 
+		die('Stop!'); 
+	}
+}
+
+add_action('wp_ajax_cmsms_ajax_export_settings', 'cmsms_ajax_export_settings_callback');
+
+add_action('wp_ajax_nopriv_cmsms_ajax_export_settings', 'cmsms_ajax_export_settings_callback');
 

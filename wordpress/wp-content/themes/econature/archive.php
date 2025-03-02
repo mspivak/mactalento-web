@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.1.3
+ * @version		1.3.8
  * 
  * Blog Archives Page Template
  * Created by CMSMasters
@@ -24,7 +24,7 @@ if ($cmsms_layout == 'r_sidebar') {
 } elseif ($cmsms_layout == 'l_sidebar') {
 	echo '<div class="content entry fr" role="main">' . "\n\t";
 } else {
-	echo '<div class="middle_content entry" role="main">' . "\n\t";
+	echo '<div class="middle_content entry" role="main">';
 }
 
 
@@ -32,7 +32,7 @@ echo '<div class="blog">' . "\n";
 
 
 if (!have_posts()) : 
-	echo '<h2>' . __('No posts found', 'cmsmasters') . '</h2>';
+	echo '<h2>' . esc_html__('No posts found', 'econature') . '</h2>';
 else : 
 	while (have_posts()) : the_post();
 		if (get_post_type() == 'post') {
@@ -47,7 +47,7 @@ else :
 				<div class="cmsms_post_info entry-meta">
 					<span class="cmsms_post_format_img <?php echo (get_post_type() == 'profile' ? 'cmsms-icon-user-7' : 'cmsms-icon-pencil-7'); ?>"></span>
 					<?php 
-					echo '<abbr class="published cmsms_post_date" title="' . get_the_date() . '">' . 
+					echo '<abbr class="published cmsms_post_date" title="' . esc_attr(get_the_date()) . '">' . 
 						'<span class="cmsms_day_mon">' . get_the_date('d') . '.' . get_the_date('m') . '</span>' . 
 						'<span class="cmsms_year">' . get_the_date('Y') . '</span>' . 
 					'</abbr>'; 
@@ -61,25 +61,25 @@ else :
 					
 					
 					echo '<header class="cmsms_post_header entry-header">' . 
-						'<h1 class="cmsms_post_title entry-title">' . 
-							'<a href="' . get_permalink() . '">' . cmsms_title(get_the_ID(), false) . '</a>' . 
-						'</h1>' . 
+						'<h3 class="cmsms_post_title cmsms_h1_font_style entry-title">' . 
+							'<a href="' . esc_url(get_permalink()) . '">' . cmsms_title(get_the_ID(), false) . '</a>' . 
+						'</h3>' . 
 					'</header>' . 
 					'<div class="cmsms_post_cont_info entry-meta">' . 
 						'<span class="cmsms_post_user_name">' . 
-							__('By', 'cmsmasters') . ' ' . 
-							'<a href="' . get_author_posts_url(get_the_author_meta('ID')) . '" rel="author" title="' . __('Posts by', 'cmsmasters') . ' ' . get_the_author_meta('display_name') . '">' . get_the_author_meta('display_name') . '</a>' . 
+							esc_html__('By', 'econature') . ' ' . 
+							'<a href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '" rel="author" title="' . esc_attr__('Posts by', 'econature') . ' ' . esc_attr(get_the_author_meta('display_name')) . '">' . get_the_author_meta('display_name') . '</a>' . 
 						'</span>';
 					
 					
 					if (get_post_type() == 'project' && get_the_terms(get_the_ID(), 'pj-categs')) {
 						echo '<span class="cmsms_post_category">' . 
-							__('In', 'cmsmasters') . ' ' . 
+							esc_html__('In', 'econature') . ' ' . 
 							get_the_term_list(get_the_ID(), 'pj-categs', '', ', ', '') . 
 						'</span>';
 					} elseif (get_post_type() == 'profile' && get_the_terms(get_the_ID(), 'pl-categs')) {
 						echo '<span class="cmsms_post_category">' . 
-							__('In', 'cmsmasters') . ' ' . 
+							esc_html__('In', 'econature') . ' ' . 
 							get_the_term_list(get_the_ID(), 'pl-categs', '', ', ', '') . 
 						'</span>';
 					}
@@ -87,7 +87,7 @@ else :
 					
 					if (get_post_type() == 'project' && get_the_terms(get_the_ID(), 'pj-tags')) {
 						echo '<span class="cmsms_post_tags">' . 
-							__('Tags', 'cmsmasters') . ' ' . 
+							esc_html__('Tags', 'econature') . ' ' . 
 							get_the_term_list(get_the_ID(), 'pj-tags', '', ', ', '') . 
 						'</span>';
 					}
@@ -100,9 +100,9 @@ else :
 					'<footer class="cmsms_post_footer entry-meta">' . 
 						'<div class="cmsms_post_meta_info">' . 
 							(get_post_type() == 'project' ? cmsmsLike(false) : '') . 
-							(comments_open() ? '<a class="cmsms_post_comments cmsms-icon-comment-6" href="' . get_comments_link() . '" title="' . __('Comment on', 'cmsmasters') . ' ' . get_the_title() . '">' . get_comments_number() . '</a>' : '') . 
+							(comments_open() ? '<a class="cmsms_post_comments cmsms-icon-comment-6" href="' . esc_url(get_comments_link()) . '" title="' . esc_attr__('Comment on', 'econature') . ' ' . esc_attr(get_the_title()) . '">' . get_comments_number() . '</a>' : '') . 
 						'</div>' . 
-						'<a class="button cmsms_post_read_more" href="' . get_permalink(get_the_ID()) . '">' . __('Read More', 'cmsmasters') . '</a>' . 
+						'<a class="button cmsms_post_read_more" href="' . esc_url(get_permalink(get_the_ID())) . '">' . esc_html__('Read More', 'econature') . '</a>' . 
 					'</footer>';
 				?>
 				</div>
@@ -112,7 +112,7 @@ else :
 	endwhile;
 	
 	
-	echo pagination();
+	echo cmsms_pagination();
 endif;
 
 

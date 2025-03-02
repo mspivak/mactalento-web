@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.0
  * 
  * Standard Profile Format Template
  * Created by CMSMasters
@@ -41,6 +41,9 @@ if (
 	$cmsms_option[CMSMS_SHORTNAME . '_profile_post_cat'] || 
 	$cmsms_option[CMSMS_SHORTNAME . '_profile_post_comment'] || 
 	(
+		!empty($cmsms_profile_features[0][0]) && 
+		!empty($cmsms_profile_features[0][1])
+	) || (
 		!empty($cmsms_profile_features[1][0]) && 
 		!empty($cmsms_profile_features[1][1])
 	)
@@ -55,11 +58,20 @@ if (
 	$profile_details == 'true' || 
 	$cmsms_profile_social != '' || 
 	(
+		!empty($cmsms_profile_features_one[0][0]) && 
+		!empty($cmsms_profile_features_one[0][1])
+	) || (
 		!empty($cmsms_profile_features_one[1][0]) && 
 		!empty($cmsms_profile_features_one[1][1])
 	) || (
+		!empty($cmsms_profile_features_two[0][0]) && 
+		!empty($cmsms_profile_features_two[0][1])
+	) || (
 		!empty($cmsms_profile_features_two[1][0]) && 
 		!empty($cmsms_profile_features_two[1][1])
+	) || (
+		!empty($cmsms_profile_features_three[0][0]) && 
+		!empty($cmsms_profile_features_three[0][1])
 	) || (
 		!empty($cmsms_profile_features_three[1][0]) && 
 		!empty($cmsms_profile_features_three[1][1])
@@ -94,7 +106,7 @@ if (
 			the_content();
 			
 			wp_link_pages(array( 
-				'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'cmsmasters') . ':</strong>', 
+				'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'econature') . ':</strong>', 
 				'after' => '</div>', 
 				'link_before' => ' [ ', 
 				'link_after' => ' ] ' 
@@ -130,7 +142,7 @@ if (
 			cmsms_profile_features('features', $cmsms_profile_features_three, $cmsms_profile_features_three_title, 'h2', true);
 			
 			
-			cmsms_profile_social_icons($cmsms_profile_social, __('Socials', 'cmsmasters'), 'h2');
+			cmsms_profile_social_icons($cmsms_profile_social, __('Socials', 'econature'), 'h2');
 		
 		echo '</div>';
 	}

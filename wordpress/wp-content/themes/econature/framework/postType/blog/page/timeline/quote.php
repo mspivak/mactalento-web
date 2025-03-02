@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.7
  * 
  * Blog Page Timeline Quote Post Format Template
  * Created by CMSMasters
@@ -51,11 +51,11 @@ $cmsms_post_quote_author = get_post_meta(get_the_ID(), 'cmsms_post_quote_author'
 				
 			echo '</blockquote>';
 		} else {
-			echo '<p>' . __('There is no excerpt because this is a protected post.', 'cmsmasters') . '</p>';
+			echo '<p>' . __('There is no excerpt because this is a protected post.', 'econature') . '</p>';
 		}
 		
 		
-		echo '<h1 class="entry-title dn">' . cmsms_title(get_the_ID(), false) . '</h1>';
+		echo '<h3 class="entry-title dn cmsms_h1_font_style">' . cmsms_title(get_the_ID(), false) . '</h3>';
 		
 		
 		if ($cmsms_post_quote_author != '' || $author || $categories || $tags || $likes || $comments || $more) {

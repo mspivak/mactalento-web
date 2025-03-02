@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.2.7
  * 
  * Pagination Function
  * Created by CMSMasters
@@ -10,7 +10,7 @@
  */
 
 
-function pagination($max_num_pages = NULL) {
+function cmsms_pagination($max_num_pages = NULL) {
 	if ($max_num_pages == NULL) {
 		global $wp_query;
 		

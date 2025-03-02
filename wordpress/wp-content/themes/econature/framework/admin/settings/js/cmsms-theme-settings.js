@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.0
+ * @version 	1.3.0
  * 
  * Admin Panel Scripts
  * Created by CMSMasters
@@ -167,7 +167,7 @@
 		
 		$('.icon_management > ul').on('click', '> li > div', function () { 
 			var edit_icon_val = $(this).find('input[type="hidden"]').val().split('|'), 
-				edit_icon_class = $(this).attr('class');
+				edit_icon_class = $(this).attr('class'),
 				edit_icon_id = $(this).find('input[type="hidden"]').attr('id'), 
 				social_container = $(this).parents('.icon_management');
 			
@@ -307,17 +307,18 @@
 (function ($) { 
 	$('.cmsms-demo-import').bind('click', function () { 
 		var settings_field = 	$('#' + cmsms_setting.shortname + '_demo_import'), 
-			theme_settings = 	settings_field.val(), 
-			importer_url = 		cmsms_setting.theme_uri + '/framework/admin/settings/inc/settings-import.php';
+			theme_settings = 	settings_field.val();
 		
 		
 		$.ajax( { 
-			type : 		'POST', 
-			url : 		importer_url, 
+			type : 				'POST', 
+			url : 				ajaxurl, 
 			data : { 
-						settings : 	theme_settings 
+				settings :		theme_settings, 
+				action : 		'cmsms_ajax_import_settings', 
+				nonce : 		cmsms_setting.nonce_ajax_import_settings 
 			}, 
-			dataType : 	'text' 
+			dataType : 			'text' 
 		} ).done(function () { 
 			settings_field.val('');
 			
@@ -332,8 +333,67 @@
 
 /* Export Button Click Function */
 (function ($) { 
-	$('.cmsms-demo-export').bind('click', function () { 
-		document.location = cmsms_setting.theme_uri + '/framework/admin/settings/inc/settings-export.php';
+	$('.cmsms-demo-export').on('click', function () { 
+		var data = { 
+			action : 		'cmsms_ajax_export_settings', 
+			nonce : 		cmsms_setting.nonce_ajax_export_settings 
+		};
+		
+		
+		var IEversion = detectIE(); 
+		
+		function detectIE() { 
+			var ua = window.navigator.userAgent; 
+			
+			var msie = ua.indexOf('MSIE '); 
+			if (msie > 0) { 
+				return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10); 
+			} 
+			
+			var trident = ua.indexOf('Trident/'); 
+			if (trident > 0) { 
+				var rv = ua.indexOf('rv:'); 
+				return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10); 
+			} 
+			
+			var edge = ua.indexOf('Edge/'); 
+			if (edge > 0) {
+				return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+			}
+
+			return false;
+		}
+		
+		
+		$.post(ajaxurl, data, function (response) {
+			var blob = new Blob([response], {
+					type : 		'plain/text', 
+					endings : 	'native' 
+				} ),
+				link = document.createElement('a');
+			
+			if (IEversion !== false) {
+				if ( $( "#cmsms-demo-export-content" ).length == 0 ) {
+					var trToAppendTo = 'tr.cmsms-demo-export > td';
+					$(trToAppendTo).append('<br><br><textarea id="cmsms-demo-export-content" rows="5" cols="50">');
+					$(trToAppendTo).append('</textarea><br><br><span class="description">Copy and paste this code into the import window</span>');
+				}
+				
+				$('#cmsms-demo-export-content').val(response);
+			} else { 
+				link.href = window.URL.createObjectURL(blob);
+				
+				document.body.appendChild(link);
+				
+				link.download = 'theme-settings.txt';
+				
+				link.click();
+				
+				document.body.removeChild(link);
+			}
+		} );
+		
+		return false;
 	} );
 } )(jQuery);
 

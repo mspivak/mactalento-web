@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.9
  * 
  * Website Footer Template
  * Created by CMSMasters
@@ -78,6 +78,8 @@ if (
 
 
 echo '<a href="javascript:void(0);" id="slide_top" class="cmsms-icon-up-open-mini"></a>' . "\n";
+
+do_action('cmsms_after_main');
 ?>
 </div>
 <!-- _________________________ Finish Main _________________________ -->
@@ -154,9 +156,13 @@ echo '<a href="javascript:void(0);" id="slide_top" class="cmsms-icon-up-open-min
 			}
 			
 			
-			echo '<span class="copyright">' . stripslashes($cmsms_option[CMSMS_SHORTNAME . '_footer_copyright']) . '</span>' . "\n";
-			
-			echo '<br><br><a href="https://servicios1.afip.gov.ar/clavefiscal/qr/response.aspx?qr=8tIqlZgbAt757qe-8UvIzg" target="_blank"><img class="afip-data-fiscal" src="' . esc_url(get_template_directory_uri()) . '/img/datafiscal-mactalento.png"></a>';
+			echo '<span class="footer_copyright copyright">';
+				if (function_exists('the_privacy_policy_link')) {
+					the_privacy_policy_link('', ' / ');
+				}
+
+				echo stripslashes($cmsms_option[CMSMS_SHORTNAME . '_footer_copyright']) . 
+			'</span>' . "\n";
 		?>
 			</div>
 		</div>

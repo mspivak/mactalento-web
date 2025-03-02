@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.0.0
+ * @version 	1.3.1
  * 
  * Theme RTL Rules
  * Created by CMSMasters
@@ -276,6 +276,10 @@ nav > div > ul > li.menu-item-dropdown-right > ul ul {
 	float: left;
 }
 
+.header_mid_inner .logo_wrap {
+	float: right;
+}
+
 #header .header_mid_inner .logo_wrap .title_text {
 	padding-left: 0;
 	padding-right: 3px;
@@ -449,6 +453,7 @@ nav > div > ul > li.menu-item-dropdown-right > ul ul {
 
 .header_mid_inner .search_wrap .search_but {
 	margin-right: 20px;
+	margin-left: 0;
 }
 
 .header_mid_inner .search_wrap.search_opened .search_wrap_inner .search_wrap_inner_left {
@@ -515,6 +520,10 @@ nav > div > ul > li.menu-item-dropdown-right > ul ul {
 .enable_header_centered .header_mid_inner,
 .enable_header_centered .header_bot_inner {
 	text-align: center;
+}
+
+.enable_header_centered .header_mid_inner .logo_wrap {
+	float: none;
 }
 
 .enable_header_centered .header_mid_inner > nav > div > ul ul,
@@ -2128,16 +2137,11 @@ html.csstransitions .project:hover .cmsms_img_rollover_wrap .cmsms_img_rollover 
   html #page #header .header_top .header_top_outer .header_top_inner .header_top_right .nav_wrap nav #top_line_nav li li li li li li a {
     padding-right: 50px;
   }
-  html #page #header .header_mid .header_mid_outer .header_mid_inner {
-    padding-left: 0;
-    padding-right: 0;
-  }
   html #page #header .header_mid .header_mid_outer .header_mid_inner .search_wrap {
-    margin-left: 30px;
-    margin-right: -20px;
+    margin-right: 10px;
+    margin-left: 0;
   }
   html #page #header .header_mid .header_mid_outer .header_mid_inner .logo_wrap {
-    margin-right: 30px;
     float: right;
   }
   html #page #header .header_bot {
@@ -2155,9 +2159,6 @@ html.csstransitions .project:hover .cmsms_img_rollover_wrap .cmsms_img_rollover 
   }
   html #page #header .header_bot .header_bot_outer .header_bot_inner .resp_nav_wrap .resp_nav_wrap_inner {
     display: inline-block;
-  }
-  html #page #header .resp_nav_wrap {
-    margin: 0 0 0 30px;
   }
   html #page #header .resp_nav_wrap.resp_nav_closed {
     margin: 0 0 0 -30px;
@@ -2436,12 +2437,6 @@ html.csstransitions .project:hover .cmsms_img_rollover_wrap .cmsms_img_rollover 
   html #page .quote_grid.quote_two .quotes_list .cmsms_quote .quote_image {
     margin: 0 0 0 25px;
     float: right;
-  }
-  html #page #header .header_mid .header_mid_outer .header_mid_inner .search_wrap {
-    float: none;
-    margin: 0 5%;
-    padding: 15px 0;
-    clear: both;
   }
   html #page #header .header_mid .header_mid_outer .header_mid_inner .search_wrap .search_wrap_inner .search_wrap_inner_left {
     margin: 0;

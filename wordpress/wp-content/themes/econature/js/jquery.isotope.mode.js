@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.1.0
+ * @version		1.2.2
  * 
  * Modes & Functions for jQuery Isotope Plugin
  * Created by CMSMasters
@@ -178,7 +178,8 @@ function setPuzzleColumnWidth(container) {
 		postPaddingLeft = Number(firstPost.css('paddingLeft').replace('px', '')), 
 		postPaddingRight = Number(firstPost.css('paddingRight').replace('px', '')), 
 		postStaticWidth = Math.floor(containerWidth / 4), 
-		postStaticHeight = Math.floor(((postStaticWidth - postPaddingLeft - postPaddingRight) / 100) * 79/* preloader padding bottom in % */), 
+		postStaticHeight = Math.floor((postStaticWidth / 100) * 79.3), 
+		postStaticPadding = Math.floor(((postPaddingLeft + postPaddingRight) / 100) * 79.3), 
 		postWidth = postStaticWidth, 
 		postHeight = postStaticHeight;
 		
@@ -193,96 +194,96 @@ function setPuzzleColumnWidth(container) {
 	container.find('article.project').each(function () { 
 		if (jQuery(this).hasClass('four_x_four')) {
 			postWidth = postStaticWidth * 4;
-			postHeight = postStaticHeight * 4;
+			postHeight = (postStaticHeight * 4) - postStaticPadding;
 		} else if (jQuery(this).hasClass('three_x_three')) {
 			if (containerWidth > postMinWidth * 4) {
 				postWidth = postStaticWidth * 3;
-				postHeight = postStaticHeight * 3;
+				postHeight = (postStaticHeight * 3) - postStaticPadding;
 			} else if (containerWidth > postMinWidth * 2) {
 				postWidth = postStaticWidth * 2;
-				postHeight = postStaticHeight * 2;
+				postHeight = (postStaticHeight * 2) - postStaticPadding;
 			} else {
 				postWidth = postStaticWidth * 4;
-				postHeight = postStaticHeight * 4;
+				postHeight = (postStaticHeight * 4) - postStaticPadding;
 			}
 		} else if (jQuery(this).hasClass('three_x_two')) {
 			if (containerWidth > postMinWidth * 4) {
 				postWidth = postStaticWidth * 3;
-				postHeight = postStaticHeight * 2;
+				postHeight = (postStaticHeight * 2) - postStaticPadding;
 			} else if (containerWidth > postMinWidth * 2) {
 				postWidth = postStaticWidth * 2;
-				postHeight = Math.floor((postStaticHeight * 4) / 3);
+				postHeight = Math.floor((postStaticHeight * 4) / 3) - postStaticPadding;
 			} else {
 				postWidth = postStaticWidth * 4;
-				postHeight = Math.floor((postStaticHeight * 8) / 3);
+				postHeight = Math.floor((postStaticHeight * 8) / 3) - postStaticPadding;
 			}
 		} else if (jQuery(this).hasClass('three_x_one')) {
 			if (containerWidth > postMinWidth * 4) {
 				postWidth = postStaticWidth * 3;
-				postHeight = postStaticHeight;
+				postHeight = postStaticHeight - postStaticPadding;
 			} else if (containerWidth > postMinWidth * 2) {
 				postWidth = postStaticWidth * 2;
-				postHeight = Math.floor((postStaticHeight * 2) / 3);
+				postHeight = Math.floor((postStaticHeight * 2) / 3) - postStaticPadding;
 			} else {
 				postWidth = postStaticWidth * 4;
-				postHeight = Math.floor((postStaticHeight * 4) / 3);
+				postHeight = Math.floor((postStaticHeight * 4) / 3) - postStaticPadding;
 			}
 		} else if (jQuery(this).hasClass('two_x_three')) {
 			if (containerWidth > postMinWidth * 2) {
 				postWidth = postStaticWidth * 2;
-				postHeight = postStaticHeight * 3;
+				postHeight = (postStaticHeight * 3) - postStaticPadding;
 			} else {
 				postWidth = postStaticWidth * 4;
-				postHeight = postStaticHeight * 6;
+				postHeight = (postStaticHeight * 6) - postStaticPadding;
 			}
 		} else if (jQuery(this).hasClass('two_x_two')) {
 			if (containerWidth > postMinWidth * 2) {
 				postWidth = postStaticWidth * 2;
-				postHeight = postStaticHeight * 2;
+				postHeight = (postStaticHeight * 2) - postStaticPadding;
 			} else {
 				postWidth = postStaticWidth * 4;
-				postHeight = postStaticHeight * 4;
+				postHeight = (postStaticHeight * 4) - postStaticPadding;
 			}
 		} else if (jQuery(this).hasClass('two_x_one')) {
 			if (containerWidth > postMinWidth * 2) {
 				postWidth = postStaticWidth * 2;
-				postHeight = postStaticHeight;
+				postHeight = postStaticHeight - postStaticPadding;
 			} else {
 				postWidth = postStaticWidth * 4;
-				postHeight = postStaticHeight * 2;
+				postHeight = (postStaticHeight * 2) - postStaticPadding;
 			}
 		} else if (jQuery(this).hasClass('one_x_three')) {
 			if (containerWidth > postMinWidth * 4) {
 				postWidth = postStaticWidth;
-				postHeight = postStaticHeight * 3;
+				postHeight = (postStaticHeight * 3) - postStaticPadding;
 			} else if (containerWidth > postMinWidth * 2) {
 				postWidth = postStaticWidth * 2;
-				postHeight = postStaticHeight * 6;
+				postHeight = (postStaticHeight * 6) - postStaticPadding;
 			} else {
 				postWidth = postStaticWidth * 4;
-				postHeight = postStaticHeight * 12;
+				postHeight = (postStaticHeight * 12) - postStaticPadding;
 			}
 		} else if (jQuery(this).hasClass('one_x_two')) {
 			if (containerWidth > postMinWidth * 4) {
 				postWidth = postStaticWidth;
-				postHeight = postStaticHeight * 2;
+				postHeight = (postStaticHeight * 2) - postStaticPadding;
 			} else if (containerWidth > postMinWidth * 2) {
 				postWidth = postStaticWidth * 2;
-				postHeight = postStaticHeight * 4;
+				postHeight = (postStaticHeight * 4) - postStaticPadding;
 			} else {
 				postWidth = postStaticWidth * 4;
-				postHeight = postStaticHeight * 8;
+				postHeight = (postStaticHeight * 8) - postStaticPadding;
 			}
 		} else if (jQuery(this).hasClass('one_x_one')) {
 			if (containerWidth > postMinWidth * 4) {
 				postWidth = postStaticWidth;
-				postHeight = postStaticHeight;
+				postHeight = postStaticHeight - postStaticPadding;
 			} else if (containerWidth > postMinWidth * 2) {
 				postWidth = postStaticWidth * 2;
-				postHeight = postStaticHeight * 2;
+				postHeight = (postStaticHeight * 2) - postStaticPadding;
 			} else {
 				postWidth = postStaticWidth * 4;
-				postHeight = postStaticHeight * 4;
+				postHeight = (postStaticHeight * 4) - postStaticPadding;
 			}
 		}
 		
@@ -330,7 +331,7 @@ function reArrangeProjects(portfolio, portfolioGrid, portfolioPuzzle) {
 
 
 /* Start Blog Isotope Function */
-function startBlog(id, layout, layoutMode, url, orderby, order, count, categories) { 
+function startBlog(id, layout, layoutMode, url, orderby, order, count, categories, metadata) { 
 	var blogContainer = 	jQuery('#blog_' + id), 
 		blog = 				blogContainer.find('> .blog'), 
 		blogColumns = 		(layout === 'columns') ? true : false;
@@ -341,7 +342,7 @@ function startBlog(id, layout, layoutMode, url, orderby, order, count, categorie
 	}
 	
 	
-	blog.imagesLoaded(function () { 
+	jQuery(window).load(function () { 
 		blog.isotope( { 
 			itemSelector : 	'article.post' 
 		} );
@@ -414,6 +415,7 @@ function startBlog(id, layout, layoutMode, url, orderby, order, count, categorie
 				order : 		order, 
 				count : 		count, 
 				categories : 	categories, 
+				metadata : 		metadata, 
 				offset : 		blog.find('.post').length 
 			}, 
 			success : function (data) { 
@@ -476,7 +478,7 @@ function startBlog(id, layout, layoutMode, url, orderby, order, count, categorie
 
 
 /* Start Portfolio Isotope Function */
-function startPortfolio(id, layout, layoutMode, url, orderby, order, count, categories) { 
+function startPortfolio(id, layout, layoutMode, url, orderby, order, count, categories, metadata) { 
 	var portfolioContainer = 	jQuery('#portfolio_' + id), 
 		portfolio = 			portfolioContainer.find('> .portfolio'), 
 		portfolioGrid = 		(layout === 'grid') ? true : false, 
@@ -490,7 +492,7 @@ function startPortfolio(id, layout, layoutMode, url, orderby, order, count, cate
 	}
 	
 	
-	portfolio.imagesLoaded(function () { 
+	jQuery(window).load(function () { 
 		if (portfolioGrid) {
 			portfolio.isotope( { 
 				itemSelector : 	'article.project', 
@@ -678,12 +680,13 @@ function startPortfolio(id, layout, layoutMode, url, orderby, order, count, cate
 			url : 		url + 'inc/project/projects-loader.php', 
 			data : { 
 				layout : 		layout, 
+				layoutmode: 	layoutMode, 
 				orderby : 		orderby, 
 				order : 		order, 
 				count : 		count, 
 				categories : 	categories, 
-				offset : 		portfolio.find('.project').length, 
-				meta : 			portfolioContainer.data('meta') 
+				metadata : 		metadata, 
+				offset : 		portfolio.find('.project').length 
 			}, 
 			success : 	function (data) { 
 				if (data !== '') {

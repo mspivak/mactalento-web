@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.3
  * 
  * Portfolio Puzzle Standard Project Format Template
  * Created by CMSMasters
@@ -57,6 +57,7 @@ $rollover = in_array('rollover', $cmsms_project_metadata) ? true : false;
 
 $cmsms_project_link_url = get_post_meta(get_the_ID(), 'cmsms_project_link_url', true);
 $cmsms_project_link_redirect = get_post_meta(get_the_ID(), 'cmsms_project_link_redirect', true);
+$cmsms_project_link_target = get_post_meta(get_the_ID(), 'cmsms_project_link_target', true);
 
 $cmsms_project_images = explode(',', str_replace(' ', '', str_replace('img_', '', get_post_meta(get_the_ID(), 'cmsms_project_images', true))));
 
@@ -83,14 +84,14 @@ if ($project_sort_categs != '') {
 		
 		if (!$title) {
 			echo '<div class="dn">';
-				cmsms_project_heading(get_the_ID(), 'h3');
+				cmsms_project_heading(get_the_ID(), 'h3', true, $cmsms_project_link_redirect, $cmsms_project_link_url, $cmsms_project_link_target);
 			echo '</div>';
 		}
 		
 		if ($title || $categories || $excerpt || $likes || $comments) {
 			echo '<div class="project_inner">';
 			
-				($title) ? cmsms_project_heading(get_the_ID(), 'h3', true, $cmsms_project_link_redirect, $cmsms_project_link_url) : '';
+				($title) ? cmsms_project_heading(get_the_ID(), 'h3', true, $cmsms_project_link_redirect, $cmsms_project_link_url, $cmsms_project_link_target) : '';
 				
 				if ($categories) {
 					echo '<div class="cmsms_project_cont_info entry-meta">';

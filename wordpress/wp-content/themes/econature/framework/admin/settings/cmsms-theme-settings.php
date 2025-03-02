@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.0
+ * @version 	1.4.1
  * 
  * Admin Panel Main Functions
  * Created by CMSMasters
@@ -29,13 +29,16 @@ require_once(CMSMS_SETTINGS . '/cmsms-theme-settings-demo.php');
 function cmsms_get_settings() {
 	$output = array();
 	
+	
 	$page = cmsms_get_admin_page();
+	
 	$tab = cmsms_get_the_tab();
+	
 	
 	switch ($page) {
 	case CMSMS_PAGE_BASENAME:
 		$cmsms_option_name = 'cmsms_options_' . CMSMS_SHORTNAME;
-		$cmsms_settings_page_title = esc_html__('Theme General Settings', 'cmsmasters');	
+		$cmsms_settings_page_title = esc_html__('Theme General Settings', 'econature');	
 		$cmsms_page_sections = cmsms_options_general_sections();
 		$cmsms_page_fields = cmsms_options_general_fields();
 		$cmsms_page_tabs = cmsms_options_general_tabs();
@@ -74,7 +77,7 @@ function cmsms_get_settings() {
 		break;
 	case CMSMS_PAGE_BASENAME . '-style':
 		$cmsms_option_name = 'cmsms_options_' . CMSMS_SHORTNAME . '_style';
-		$cmsms_settings_page_title = esc_html__('Theme Appearance', 'cmsmasters');
+		$cmsms_settings_page_title = esc_html__('Theme Appearance', 'econature');
 		$cmsms_page_sections = cmsms_options_style_sections();
 		$cmsms_page_fields = cmsms_options_style_fields();
 		$cmsms_page_tabs = cmsms_options_style_tabs();
@@ -109,7 +112,7 @@ function cmsms_get_settings() {
 		break;
 	case CMSMS_PAGE_BASENAME . '-font':
 		$cmsms_option_name = 'cmsms_options_' . CMSMS_SHORTNAME . '_font';
-		$cmsms_settings_page_title = esc_html__('Theme Fonts Settings', 'cmsmasters');
+		$cmsms_settings_page_title = esc_html__('Theme Fonts Settings', 'econature');
 		$cmsms_page_sections = cmsms_options_font_sections();
 		$cmsms_page_fields = cmsms_options_font_fields();
 		$cmsms_page_tabs = cmsms_options_font_tabs();
@@ -140,7 +143,7 @@ function cmsms_get_settings() {
 		break;
 	case CMSMS_PAGE_BASENAME . '-color':
 		$cmsms_option_name = 'cmsms_options_' . CMSMS_SHORTNAME . '_color';
-		$cmsms_settings_page_title = esc_html__('Theme Color Schemes', 'cmsmasters');
+		$cmsms_settings_page_title = esc_html__('Theme Color Schemes', 'econature');
 		$cmsms_page_sections = cmsms_options_color_sections();
 		$cmsms_page_fields = cmsms_options_color_fields();
 		$cmsms_page_tabs = cmsms_options_color_tabs();
@@ -152,7 +155,7 @@ function cmsms_get_settings() {
 		break;
 	case CMSMS_PAGE_BASENAME . '-single':
 		$cmsms_option_name = 'cmsms_options_' . CMSMS_SHORTNAME . '_single';
-		$cmsms_settings_page_title = esc_html__('Theme Single Posts Settings', 'cmsmasters');
+		$cmsms_settings_page_title = esc_html__('Theme Single Posts Settings', 'econature');
 		$cmsms_page_sections = cmsms_options_single_sections();
 		$cmsms_page_fields = cmsms_options_single_fields();
 		$cmsms_page_tabs = cmsms_options_single_tabs();
@@ -175,7 +178,7 @@ function cmsms_get_settings() {
 		break;
 	case CMSMS_PAGE_BASENAME . '-demo':
 		$cmsms_option_name = 'cmsms_options_' . CMSMS_SHORTNAME . '_demo';
-		$cmsms_settings_page_title = esc_html__('Theme Settings Import/Export', 'cmsmasters');
+		$cmsms_settings_page_title = esc_html__('Theme Settings Import/Export', 'econature');
 		$cmsms_page_sections = cmsms_options_demo_sections();
 		$cmsms_page_fields = cmsms_options_demo_fields();
 		$cmsms_page_tabs = cmsms_options_demo_tabs();
@@ -202,11 +205,13 @@ function cmsms_get_settings() {
 		break;
 	}
 	
+	
 	$output['cmsms_option_name'] = $cmsms_option_name;
 	$output['cmsms_page_title'] = $cmsms_settings_page_title;
 	$output['cmsms_page_tabs'] = $cmsms_page_tabs;
 	$output['cmsms_page_sections'] = $cmsms_page_sections;
 	$output['cmsms_page_fields'] = $cmsms_page_fields;
+	
 	
 	return $output;
 }
@@ -215,8 +220,8 @@ function cmsms_get_settings() {
 function cmsms_create_settings_field($args = array()) {
 	$defaults = array( 
 		'id' => 		'default_field', 
-		'title' => 		__('Default Field', 'cmsmasters'), 
-		'desc' => 		__('This is a default description.', 'cmsmasters'), 
+		'title' => 		__('Default Field', 'econature'), 
+		'desc' => 		__('This is a default description.', 'econature'), 
 		'std' => 		'', 
 		'type' => 		'text', 
 		'section' => 	'main_section', 
@@ -314,14 +319,16 @@ function cmsms_settings_scripts() {
 	wp_register_script('cmsms_theme_settings_js', get_template_directory_uri() . '/framework/admin/settings/js/cmsms-theme-settings.js', array('jquery', 'farbtastic'), '1.0.0', true);
 	
 	wp_localize_script('cmsms_theme_settings_js', 'cmsms_setting', array( 
-		'remove' => 			__('Remove', 'cmsmasters'), 
-		'remove_sidebar' => 	__('Do you realy want to remove this sidebar?', 'cmsmasters'), 
-		'find' => 				__('Find icons', 'cmsmasters'), 
-		'remove_icon' => 		__('Do you realy want to remove this social icon?', 'cmsmasters'), 
+		'remove' => 			__('Remove', 'econature'), 
+		'remove_sidebar' => 	__('Do you realy want to remove this sidebar?', 'econature'), 
+		'find' => 				__('Find icons', 'econature'), 
+		'remove_icon' => 		__('Do you realy want to remove this social icon?', 'econature'), 
 		'theme_uri' => 			get_template_directory_uri(), 
 		'shortname' => 			CMSMS_SHORTNAME, 
-		'done' => 				__('All theme settings were imported successfully.', 'cmsmasters'), 
-		'fail' => 				__("Error on page!!!\nPlease reload page and try again.", 'cmsmasters') 
+		'done' => 				__('All theme settings were imported successfully.', 'econature'), 
+		'fail' => 				__("Error on page!!!\nPlease reload page and try again.", 'econature'), 
+		'nonce_ajax_import_settings' => 	wp_create_nonce('cmsms_ajax_import_settings-nonce'), 
+		'nonce_ajax_export_settings' => 	wp_create_nonce('cmsms_ajax_export_settings-nonce') 
 	));
 	
 	wp_register_script('cmsms_theme_settings_js_toggle', get_template_directory_uri() . '/framework/admin/settings/js/cmsms-theme-settings-toggle.js', array('jquery'), '1.0.0', true);
@@ -350,20 +357,31 @@ function cmsms_settings_scripts() {
 function cmsms_add_menu() {
 	$settings_output = cmsms_get_settings();
 	
-	add_menu_page( 
-		__('Theme Settings', 'cmsmasters'), 
-		__('Theme Settings', 'cmsmasters'), 
+	
+	$add_menu = 'add_menu_';
+	
+	$add_menu_p = $add_menu . 'page';
+	
+	
+	$add_menu_p( 
+		__('Theme Settings', 'econature'), 
+		__('Theme Settings', 'econature'), 
 		'manage_options', 
 		CMSMS_PAGE_BASENAME, 
 		'cmsms_settings_page_fn', 
 		'' 
-	); 
+	);
 	
 	
-	$cmsms_settings_general = add_submenu_page( 
+	$add_submenu = 'add_submenu_';
+	
+	$add_submenu_p = $add_submenu . 'page';
+	
+	
+	$cmsms_settings_general = $add_submenu_p( 
 		CMSMS_PAGE_BASENAME, 
-		__('Theme General Settings', 'cmsmasters'), 
-		__('General', 'cmsmasters'), 
+		__('Theme General Settings', 'econature'), 
+		__('General', 'econature'), 
 		'manage_options', 
 		CMSMS_PAGE_BASENAME, 
 		'cmsms_settings_page_fn' 
@@ -372,10 +390,10 @@ function cmsms_add_menu() {
 	add_action('load-' . $cmsms_settings_general, 'cmsms_settings_scripts');
 	
 	
-	$cmsms_settings_style = add_submenu_page( 
+	$cmsms_settings_style = $add_submenu_p( 
 		CMSMS_PAGE_BASENAME, 
-		__('Theme Appearance', 'cmsmasters'), 
-		__('Appearance', 'cmsmasters'), 
+		__('Theme Appearance', 'econature'), 
+		__('Appearance', 'econature'), 
 		'manage_options', 
 		CMSMS_PAGE_BASENAME . '-style', 
 		'cmsms_settings_page_fn' 
@@ -384,10 +402,10 @@ function cmsms_add_menu() {
 	add_action('load-' . $cmsms_settings_style, 'cmsms_settings_scripts');
 	
 	
-	$cmsms_settings_font = add_submenu_page( 
+	$cmsms_settings_font = $add_submenu_p( 
 		CMSMS_PAGE_BASENAME, 
-		__('Theme Fonts Settings', 'cmsmasters'), 
-		__('Fonts', 'cmsmasters'), 
+		__('Theme Fonts Settings', 'econature'), 
+		__('Fonts', 'econature'), 
 		'manage_options', 
 		CMSMS_PAGE_BASENAME . '-font', 
 		'cmsms_settings_page_fn' 
@@ -396,10 +414,10 @@ function cmsms_add_menu() {
 	add_action('load-' . $cmsms_settings_font, 'cmsms_settings_scripts');
 	
 	
-	$cmsms_settings_color = add_submenu_page( 
+	$cmsms_settings_color = $add_submenu_p( 
 		CMSMS_PAGE_BASENAME, 
-		__('Theme Color Schemes', 'cmsmasters'), 
-		__('Colors', 'cmsmasters'), 
+		__('Theme Color Schemes', 'econature'), 
+		__('Colors', 'econature'), 
 		'manage_options', 
 		CMSMS_PAGE_BASENAME . '-color', 
 		'cmsms_settings_page_fn' 
@@ -408,10 +426,10 @@ function cmsms_add_menu() {
 	add_action('load-' . $cmsms_settings_color, 'cmsms_settings_scripts');
 	
 	
-	$cmsms_settings_single = add_submenu_page( 
+	$cmsms_settings_single = $add_submenu_p( 
 		CMSMS_PAGE_BASENAME, 
-		__('Theme Single Posts Settings', 'cmsmasters'), 
-		__('Single Posts', 'cmsmasters'), 
+		__('Theme Single Posts Settings', 'econature'), 
+		__('Single Posts', 'econature'), 
 		'manage_options', 
 		CMSMS_PAGE_BASENAME . '-single', 
 		'cmsms_settings_page_fn' 
@@ -420,10 +438,10 @@ function cmsms_add_menu() {
 	add_action('load-' . $cmsms_settings_single, 'cmsms_settings_scripts');
 	
 	
-	$cmsms_settings_demo = add_submenu_page( 
+	$cmsms_settings_demo = $add_submenu_p( 
 		CMSMS_PAGE_BASENAME, 
-		__('Theme Settings Import/Export', 'cmsmasters'), 
-		__('Import/Export', 'cmsmasters'), 
+		__('Theme Settings Import/Export', 'econature'), 
+		__('Import/Export', 'econature'), 
 		'manage_options', 
 		CMSMS_PAGE_BASENAME . '-demo', 
 		'cmsms_settings_page_fn' 
@@ -458,7 +476,7 @@ function cmsms_settings_page_fn() {
 	if ($current_tab != 'wpml') {
 		echo '<form action="options.php" method="post" class="cmsms_admin_page"' . (($current_tab == 'recaptcha') ? ' style="background-color:#fdffc6; padding:35px 0 15px 25px; margin:0;"' : '') . '>' . 
 		'<p class="submit-top">' . 
-			(($current_tab != 'import' && $current_tab != 'export') ? '<input name="submit-top" type="submit" class="button button-primary button-large" value="' . esc_attr__('Save Changes', 'cmsmasters') . '" />' : '') . 
+			(($current_tab != 'import' && $current_tab != 'export') ? '<input name="submit-top" type="submit" class="button button-primary button-large" value="' . esc_attr__('Save Changes', 'econature') . '" />' : '') . 
 		'</p>';
 		
 		settings_fields($settings_output['cmsms_option_name']);
@@ -466,7 +484,7 @@ function cmsms_settings_page_fn() {
 		do_settings_sections(__FILE__);
 		
 		echo '<p class="submit">' . 
-				(($current_tab != 'import' && $current_tab != 'export') ? '<input name="submit" type="submit" class="button button-primary button-large" value="' . esc_attr__('Save Changes', 'cmsmasters') . '" />' : (($current_tab == 'import') ? '<input name="import" type="button" class="button button-primary button-large cmsms-demo-import" value="' . esc_attr__('Import Settings', 'cmsmasters') . '" />' : '')) . 
+				(($current_tab != 'import' && $current_tab != 'export') ? '<input name="submit" type="submit" class="button button-primary button-large" value="' . esc_attr__('Save Changes', 'econature') . '" />' : (($current_tab == 'import') ? '<input name="import" type="button" class="button button-primary button-large cmsms-demo-import" value="' . esc_attr__('Import Settings', 'econature') . '" />' : '')) . 
 			'</p>' . 
 		'</form>';
 	} else {
@@ -655,7 +673,7 @@ function cmsms_form_field_fn($args = array()) {
 		'<div>' . 
 			'<input class="small-text cmsms-spinner-field' . $field_class . '" type="text" id="' . $id . '_opacity" name="' . $cmsms_option_name . '[' . $id . '_opacity]" value="' . $id_array[1] . '" min="0" max="100" />' . 
 			'<label for="' . $id . '_opacity">' . 
-				'<span class="description">' . __('Color transparency (percentage)', 'cmsmasters') . '</span>' . 
+				'<span class="description">' . __('Color transparency (percentage)', 'econature') . '</span>' . 
 			'</label>' . 
 		'</div>' . 
 		'<br />' . 
@@ -685,12 +703,12 @@ function cmsms_form_field_fn($args = array()) {
 		
 		
 		echo '<div class="cmsms_upload_parent cmsms_select_parent">' . 
-			'<input type="button" id="cmsms_upload_' . $id . '_button" class="cmsms_upload_button button button-large" value="' . __('Choose Image', 'cmsmasters') . '" data-title="' . __('Choose Image', 'cmsmasters') . '" data-button="' . __('Insert Image', 'cmsmasters') . '" data-id="cmsms-media-select-frame-' . $id . '" data-classes="media-frame cmsms-media-select-frame' . ((!isset($description)) ? ' cmsms-frame-no-description' : '') . ((!isset($caption)) ? ' cmsms-frame-no-caption' : '') . ((!isset($align)) ? ' cmsms-frame-no-align' : '') . ((!isset($link)) ? ' cmsms-frame-no-link' : '') . ((!isset($size)) ? ' cmsms-frame-no-size' : '') . '" data-library="image" data-type="' . $frame . '"' . (($frame == 'post') ? ' data-state="insert"' : '') . ' data-multiple="' . $multiple . '" />' . 
+			'<input type="button" id="cmsms_upload_' . $id . '_button" class="cmsms_upload_button button button-large" value="' . __('Choose Image', 'econature') . '" data-title="' . __('Choose Image', 'econature') . '" data-button="' . __('Insert Image', 'econature') . '" data-id="cmsms-media-select-frame-' . $id . '" data-classes="media-frame cmsms-media-select-frame' . ((!isset($description)) ? ' cmsms-frame-no-description' : '') . ((!isset($caption)) ? ' cmsms-frame-no-caption' : '') . ((!isset($align)) ? ' cmsms-frame-no-align' : '') . ((!isset($link)) ? ' cmsms-frame-no-link' : '') . ((!isset($size)) ? ' cmsms-frame-no-size' : '') . '" data-library="image" data-type="' . $frame . '"' . (($frame == 'post') ? ' data-state="insert"' : '') . ' data-multiple="' . $multiple . '" />' . 
 			'<div class="cmsms_upload"' . (($image != '') ? ' style="display:block;"' : '') . '>' . 
-				'<img src="' . (($image != '') ? $image : '') . '" class="cmsms_preview_image" alt="" />' . 
-				'<a href="#" class="cmsms_upload_cancel admin-icon-remove" title="' . __('Remove', 'cmsmasters') . '"></a>' . 
+				'<img src="' . (($image != '') ? $image : '') . '" class="cmsms_preview_image" />' . 
+				'<a href="#" class="cmsms_upload_cancel admin-icon-remove" title="' . __('Remove', 'econature') . '"></a>' . 
 			'</div>' . 
-			'<input id="' . $id . '" name="' . $cmsms_option_name . '[' . $id . ']" type="hidden" class="cmsms_upload_image" value="' . $options[$id] . '" />' . 
+			'<input id="' . $id . '" name="' . $cmsms_option_name . '[' . $id . ']" type="hidden" class="cmsms_upload_image" value="' . (($options[$id] == '') ? $std : $options[$id]) . '" />' . 
 		'</div>' . 
 		'<div style="clear:both;"></div>' . 
 		(($desc != '') ? '<br />' . '<span class="description">' . $desc . '</span>' : '');
@@ -718,7 +736,7 @@ function cmsms_form_field_fn($args = array()) {
 				
 				echo '</select>' . 
 				' &nbsp; ' . 
-				'<label for="' . $id . '_system_font">' . __('System Font', 'cmsmasters') . '</label>' . 
+				'<label for="' . $id . '_system_font">' . __('System Font', 'econature') . '</label>' . 
 			'</div>';
 		}
 		
@@ -732,7 +750,7 @@ function cmsms_form_field_fn($args = array()) {
 				
 				echo '</select>' . 
 				' &nbsp; ' . 
-				'<label for="' . $id . '_google_font">' . __('Google Font', 'cmsmasters') . '</label>' . 
+				'<label for="' . $id . '_google_font">' . __('Google Font', 'econature') . '</label>' . 
 			'</div>';
 		}
 		
@@ -740,7 +758,7 @@ function cmsms_form_field_fn($args = array()) {
 			echo '<div class="cmsms_admin_block" style="padding-bottom:20px;">' . 
 				'<input type="text" id="' . $id . '_font_color" name="' . $cmsms_option_name . '[' . $id . '_font_color]" value="' . $options[$id . '_font_color'] . '" class="cmsms-color-field" data-default-color="' . $std['font_color'] . '" />' . 
 				' &nbsp; ' . 
-				'<label for="' . $id . '_font_color" style="padding-bottom:15px;">' . __('Font Color', 'cmsmasters') . '</label>' . 
+				'<label for="' . $id . '_font_color" style="padding-bottom:15px;">' . __('Font Color', 'econature') . '</label>' . 
 			'</div>';
 		}
 		
@@ -748,7 +766,7 @@ function cmsms_form_field_fn($args = array()) {
 			echo '<div class="cmsms_admin_block">' . 
 				'<input class="small-text cmsms-spinner-field" type="text" id="' . $id . '_font_size_number" name="' . $cmsms_option_name . '[' . $id . '_font_size]" value="' . $options[$id . '_font_size'] . '" min="0" step="1" /> ' . 
 				' &nbsp; ' . 
-				'<label for="' . $id . '_font_size_number">' . __('Font Size', 'cmsmasters') . ' <em>(' . __('in pixels', 'cmsmasters') . ')</em></label>' . 
+				'<label for="' . $id . '_font_size_number">' . __('Font Size', 'econature') . ' <em>(' . __('in pixels', 'econature') . ')</em></label>' . 
 			'</div>';
 		}
 		
@@ -756,7 +774,7 @@ function cmsms_form_field_fn($args = array()) {
 			echo '<div class="cmsms_admin_block">' . 
 				'<input class="small-text cmsms-spinner-field" type="text" id="' . $id . '_line_height_number" name="' . $cmsms_option_name . '[' . $id . '_line_height]" value="' . $options[$id . '_line_height'] . '" min="0" step="1" /> ' . 
 				' &nbsp; ' . 
-				'<label for="' . $id . '_line_height_number">' . __('Line Height', 'cmsmasters') . ' <em>(' . __('in pixels', 'cmsmasters') . ')</em></label>' . 
+				'<label for="' . $id . '_line_height_number">' . __('Line Height', 'econature') . ' <em>(' . __('in pixels', 'econature') . ')</em></label>' . 
 			'</div>';
 		}
 		
@@ -770,7 +788,7 @@ function cmsms_form_field_fn($args = array()) {
 				
 				echo '</select>' . 
 				' &nbsp; ' . 
-				'<label for="' . $id . '_font_weight">' . __('Font Weight', 'cmsmasters') . '</label>' . 
+				'<label for="' . $id . '_font_weight">' . __('Font Weight', 'econature') . '</label>' . 
 			'</div>';
 		}
 		
@@ -784,7 +802,7 @@ function cmsms_form_field_fn($args = array()) {
 				
 				echo '</select>' . 
 				' &nbsp; ' . 
-				'<label for="' . $id . '_font_style">' . __('Font Style', 'cmsmasters') . '</label>' . 
+				'<label for="' . $id . '_font_style">' . __('Font Style', 'econature') . '</label>' . 
 			'</div>';
 		}
 		
@@ -798,7 +816,7 @@ function cmsms_form_field_fn($args = array()) {
 				
 				echo '</select>' . 
 				' &nbsp; ' . 
-				'<label for="' . $id . '_text_transform">' . __('Text Transform', 'cmsmasters') . '</label>' . 
+				'<label for="' . $id . '_text_transform">' . __('Text Transform', 'econature') . '</label>' . 
 			'</div>';
 		}
 		
@@ -812,7 +830,7 @@ function cmsms_form_field_fn($args = array()) {
 				
 				echo '</select>' . 
 				' &nbsp; ' . 
-				'<label for="' . $id . '_text_decoration">' . __('Text Decoration', 'cmsmasters') . '</label>' . 
+				'<label for="' . $id . '_text_decoration">' . __('Text Decoration', 'econature') . '</label>' . 
 			'</div>';
 		}
 		
@@ -824,7 +842,7 @@ function cmsms_form_field_fn($args = array()) {
 		'<div class="sidebar_management">' . 
 			'<p>' . 
 				'<input class="all-options" type="text" id="new_sidebar_name" />' . 
-				'<input class="button" type="button" id="add_sidebar" value="' . __('Add Sidebar', 'cmsmasters') . '" />' . 
+				'<input class="button" type="button" id="add_sidebar" value="' . __('Add Sidebar', 'econature') . '" />' . 
 			'</p>' . 
 			'<div></div>' . 
 			'<ul>';
@@ -854,27 +872,27 @@ function cmsms_form_field_fn($args = array()) {
 			'<p>' . 
 				'<input class="icon_upload_image all-options" type="hidden" id="' . $id . '" value="" />' . 
 				'<span id="' . $id . '_icon" data-class="cmsms_new_icon_img"></span>' . 
-				'<input id="' . $id . '_button" class="cmsms_icon_choose_button button" type="button" value="' . esc_attr__('Choose icon', 'cmsmasters') . '" />' . 
-				'<a href="#" class="cmsms_remove_icon admin-icon-remove" title="' . esc_attr__('Cancel changes', 'cmsmasters') . '"></a>' . 
+				'<input id="' . $id . '_button" class="cmsms_icon_choose_button button" type="button" value="' . esc_attr__('Choose icon', 'econature') . '" />' . 
+				'<a href="#" class="cmsms_remove_icon admin-icon-remove" title="' . esc_attr__('Cancel changes', 'econature') . '"></a>' . 
 			'</p>' . 
 			'<span class="cl"><br /></span>' . 
 			'<span class="icon_upload_link" style="display:none;">' . 
 				'<label for="new_icon_link">' . 
 					'<input class="all-options" type="text" id="new_icon_link" /> ' . 
-					__('Icon Link', 'cmsmasters') . 
+					__('Icon Link', 'econature') . 
 				'</label>' . 
 				'<label for="new_icon_title">' . 
 					'<input class="all-options" type="text" id="new_icon_title" /> ' . 
-					__('Icon Title', 'cmsmasters') . 
+					__('Icon Title', 'econature') . 
 				'</label>' . 
 				'<label for="new_icon_target">' . 
 					'<input type="checkbox" id="new_icon_target" value="true" /> ' . 
-					__('Open link in a new tab/window?', 'cmsmasters') . 
+					__('Open link in a new tab/window?', 'econature') . 
 				'</label>' . 
 			'</span>' . 
 			'<span class="cl"></span>' . 
-			'<input class="button button-primary" type="button" id="add_icon" value="' . esc_attr__('Add Icon', 'cmsmasters') . '" />' . 
-			'<input class="button button-primary" type="button" id="edit_icon" value="' . esc_attr__('Save Icon', 'cmsmasters') . '" />' . 
+			'<input class="button button-primary" type="button" id="add_icon" value="' . esc_attr__('Add Icon', 'econature') . '" />' . 
+			'<input class="button button-primary" type="button" id="edit_icon" value="' . esc_attr__('Save Icon', 'econature') . '" />' . 
 			'<ul>';
 			
 			
@@ -893,7 +911,7 @@ function cmsms_form_field_fn($args = array()) {
 						'<div class="' . $icon_attrs[0] . '">' . 
 							'<input type="hidden" id="' . $cmsms_option_name . '_' . $id . '_-_' . $i . '" name="' . $cmsms_option_name . '[' . $id . '_-_' . $i . ']" value="' . $icon . '" />' . 
 						'</div>' . 
-						'<a href="#" class="icon_del admin-icon-remove" title="' . esc_attr__('Remove', 'cmsmasters') . '"></a> ' . 
+						'<a href="#" class="icon_del admin-icon-remove" title="' . esc_attr__('Remove', 'econature') . '"></a> ' . 
 						'<span class="icon_move admin-icon-move"></span> ' . 
 					'</li>';
 				}
@@ -923,13 +941,13 @@ function cmsms_validate_options($input) {
 			case 'numeric':
 				$input[$option['id']] = trim($input[$option['id']]);
 				
-				$valid_input[$option['id']] = (is_numeric($input[$option['id']])) ? $input[$option['id']] : __('Expecting a Numeric value!', 'cmsmasters');
+				$valid_input[$option['id']] = (is_numeric($input[$option['id']])) ? $input[$option['id']] : __('Expecting a Numeric value!', 'econature');
 				
 				if (is_numeric($input[$option['id']]) == false) {
 					add_settings_error(
 						$option['id'],
 						CMSMS_SHORTNAME . '_txt_numeric_error',
-						__('Expecting a Numeric value! Please fix.', 'cmsmasters'),
+						__('Expecting a Numeric value! Please fix.', 'econature'),
 						'error'
 					);
 				}
@@ -939,7 +957,7 @@ function cmsms_validate_options($input) {
 				$input[$option['id']] = trim($input[$option['id']]);
 				
 				if ($input[$option['id']] != '') {
-					$valid_input[$option['id']] = (preg_match('/^-?\d+(?:,\s?-?\d+)*$/', $input[$option['id']]) == 1) ? $input[$option['id']] : __('Expecting comma separated numeric values', 'cmsmasters');
+					$valid_input[$option['id']] = (preg_match('/^-?\d+(?:,\s?-?\d+)*$/', $input[$option['id']]) == 1) ? $input[$option['id']] : __('Expecting comma separated numeric values', 'econature');
 				} else {
 					$valid_input[$option['id']] = $input[$option['id']];
 				}
@@ -948,7 +966,7 @@ function cmsms_validate_options($input) {
 					add_settings_error(
 						$option['id'],
 						CMSMS_SHORTNAME . '_txt_multinumeric_error',
-						__('Expecting comma separated numeric values! Please fix.','cmsmasters'),
+						__('Expecting comma separated numeric values! Please fix.', 'econature'),
 						'error'
 					);
 				}
@@ -970,16 +988,16 @@ function cmsms_validate_options($input) {
 				$input[$option['id']] = trim($input[$option['id']]);
 				
 				if ($input[$option['id']] != '') {
-					$valid_input[$option['id']] = (is_email($input[$option['id']]) !== false) ? $input[$option['id']] : __('Invalid email! Please re-enter!', 'cmsmasters');
+					$valid_input[$option['id']] = (is_email($input[$option['id']]) !== false) ? $input[$option['id']] : __('Invalid email! Please re-enter!', 'econature');
 				} elseif ($input[$option['id']] == '') {
-					$valid_input[$option['id']] = __('This setting field cannot be empty! Please enter a valid email address.', 'cmsmasters');
+					$valid_input[$option['id']] = __('This setting field cannot be empty! Please enter a valid email address.', 'econature');
 				}
 				
 				if (is_email($input[$option['id']]) == false || $input[$option['id']] == '') {
 					add_settings_error(
 						$option['id'],
 						CMSMS_SHORTNAME . '_txt_email_error',
-						__('Please enter a valid email address.', 'cmsmasters'),
+						__('Please enter a valid email address.', 'econature'),
 						'error'
 					);
 				}
@@ -999,11 +1017,7 @@ function cmsms_validate_options($input) {
 					'strong' => array() 
 				);
 				
-				$input[$option['id']] = trim($input[$option['id']]);
-				$input[$option['id']] = force_balance_tags($input[$option['id']]);
-				$input[$option['id']] = wp_kses( $input[$option['id']], $allowed_html);
-				
-				$valid_input[$option['id']] = addslashes($input[$option['id']]);
+				$valid_input[$option['id']] = addslashes(wp_kses(force_balance_tags(trim($input[$option['id']])), $allowed_html));
 				
 				break;
 			}
@@ -1048,11 +1062,7 @@ function cmsms_validate_options($input) {
 		case 'textarea':
 			switch ($option['class']) {
 			case 'inlinehtml':
-				$input[$option['id']] = trim($input[$option['id']]);
-				$input[$option['id']] = force_balance_tags($input[$option['id']]);
-				$input[$option['id']] = addslashes($input[$option['id']]);
-				
-				$valid_input[$option['id']] = wp_filter_kses($input[$option['id']]);
+				$valid_input[$option['id']] = wp_filter_kses(addslashes(force_balance_tags(trim($input[$option['id']]))));
 				
 				break;
 			case 'nohtml':
@@ -1161,11 +1171,7 @@ function cmsms_validate_options($input) {
 					) 
 				);
 				
-				$input[$option['id']] = trim($input[$option['id']]);
-				$input[$option['id']] = force_balance_tags($input[$option['id']]);
-				$input[$option['id']] = wp_kses($input[$option['id']], $allowed_html);
-				
-				$valid_input[$option['id']] = addslashes($input[$option['id']]);
+				$valid_input[$option['id']] = addslashes(wp_kses(force_balance_tags(trim($input[$option['id']])), $allowed_html));
 				
 				break;
 			}
@@ -1229,13 +1235,13 @@ function cmsms_validate_options($input) {
 			break;
 		case 'number':
 			$input[$option['id']] = trim($input[$option['id']]);
-			$valid_input[$option['id']] = (is_numeric($input[$option['id']])) ? $input[$option['id']] : __('Number!', 'cmsmasters');
+			$valid_input[$option['id']] = (is_numeric($input[$option['id']])) ? $input[$option['id']] : __('Number!', 'econature');
 			
 			if (is_numeric($input[$option['id']]) == false) {
 				add_settings_error(
 					$option['id'],
 					CMSMS_SHORTNAME . '_txt_numeric_error',
-					__('Expecting a Numeric value! Please fix.', 'cmsmasters'),
+					__('Expecting a Numeric value! Please fix.', 'econature'),
 					'error'
 				);
 			}
@@ -1333,7 +1339,7 @@ function theme_admin_bar_render() {
 	
 	$wp_admin_bar->add_menu(array( 
 		'id' => CMSMS_SHORTNAME . '_options', 
-		'title' => __('Theme Settings', 'cmsmasters'), 
+		'title' => __('Theme Settings', 'econature'), 
 		'href' => admin_url('admin.php?page=cmsms-settings') 
 	));
 	
@@ -1341,35 +1347,35 @@ function theme_admin_bar_render() {
 	$wp_admin_bar->add_menu(array( 
 		'parent' => CMSMS_SHORTNAME . '_options', 
 		'id' => CMSMS_SHORTNAME . '_theme_settings', 
-		'title' => __('General', 'cmsmasters'), 
+		'title' => __('General', 'econature'), 
 		'href' => admin_url('admin.php?page=cmsms-settings') 
 	));
 	
 	$wp_admin_bar->add_menu(array( 
 		'parent' => CMSMS_SHORTNAME . '_options', 
 		'id' => CMSMS_SHORTNAME . '_theme_settings_style', 
-		'title' => __('Appearance', 'cmsmasters'), 
+		'title' => __('Appearance', 'econature'), 
 		'href' => admin_url('admin.php?page=cmsms-settings-style') 
 	));
 	
 	$wp_admin_bar->add_menu(array( 
 		'parent' => CMSMS_SHORTNAME . '_options', 
 		'id' => CMSMS_SHORTNAME . '_theme_settings_font', 
-		'title' => __('Fonts', 'cmsmasters'), 
+		'title' => __('Fonts', 'econature'), 
 		'href' => admin_url('admin.php?page=cmsms-settings-font') 
 	));
 	
 	$wp_admin_bar->add_menu(array( 
 		'parent' => CMSMS_SHORTNAME . '_options', 
 		'id' => CMSMS_SHORTNAME . '_theme_settings_color', 
-		'title' => __('Colors', 'cmsmasters'), 
+		'title' => __('Colors', 'econature'), 
 		'href' => admin_url('admin.php?page=cmsms-settings-color') 
 	));
 	
 	$wp_admin_bar->add_menu(array( 
 		'parent' => CMSMS_SHORTNAME . '_options', 
 		'id' => CMSMS_SHORTNAME . '_theme_settings_single', 
-		'title' => __('Single', 'cmsmasters'), 
+		'title' => __('Single', 'econature'), 
 		'href' => admin_url('admin.php?page=cmsms-settings-single') 
 	));
 }

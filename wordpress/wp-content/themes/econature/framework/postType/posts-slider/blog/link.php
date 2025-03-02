@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.7
  * 
  * Posts Slider Link Post Format Template
  * Created by CMSMasters
@@ -28,7 +28,7 @@ $cmsms_post_link_text = get_post_meta(get_the_ID(), 'cmsms_post_link_text', true
 $cmsms_post_link_address = get_post_meta(get_the_ID(), 'cmsms_post_link_address', true);
 
 if ($cmsms_post_link_text == '') {
-	$cmsms_post_link_text = __('Enter link text', 'cmsmasters');
+	$cmsms_post_link_text = __('Enter link text', 'econature');
 }
 
 if ($cmsms_post_link_address == '') {
@@ -45,12 +45,12 @@ if ($cmsms_post_link_address == '') {
 		<header class="cmsms_slider_post_header entry-header">
 		<?php 
 			if (!post_password_required()) {
-				echo '<h3 class="cmsms_slider_post_title entry-title">' . 
+				echo '<h3 class="cmsms_slider_post_title entry-title cmsms_h1_font_style">' . 
 					'<a href="' . $cmsms_post_link_address . '" target="_blank">' . $cmsms_post_link_text . '</a>' . 
 				'</h3>' . 
 				'<h5 class="cmsms_slider_post_subtitle">' . $cmsms_post_link_address . '</h5>';
 			} else {
-				echo '<h1 class="cmsms_slider_post_title entry-title">' . $cmsms_post_link_text . '</h1>';
+				echo '<h3 class="cmsms_slider_post_title entry-title cmsms_h1_font_style">' . $cmsms_post_link_text . '</h3>';
 			}
 		?>
 		</header>

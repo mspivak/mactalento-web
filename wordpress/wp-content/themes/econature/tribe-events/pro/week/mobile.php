@@ -5,7 +5,7 @@
  * Please see single-event-hourly.php in this directory for detailed instructions on how to use and modify these templates.
  *
  * @cmsms_package 	EcoNature
- * @cmsms_version 	1.1.0
+ * @cmsms_version 	1.4.1
  *
  */
 
@@ -18,12 +18,9 @@
 		</h2>
 		<div class="tribe-events-event-body">
 			<div class="updated published time-details">
-				<span class="date-start dtstart">[[=startTime]] </span>
-				[[ if(endTime.length) { ]]
-				-<span class="date-end dtend"> [[=endTime]]</span>
-				[[ } ]]
+				<span class="date-start dtstart">[[=dateDisplay]] </span>
 			</div>
-			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark">Find out more »</a>
+			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark"><?php esc_html_e( 'Find out more', 'econature' ); ?> &raquo;</a>
 		</div>
 	</div>
 </script>

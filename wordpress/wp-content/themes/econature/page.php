@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.1.3
+ * @version		1.3.8
  * 
  * Default Page Template
  * Created by CMSMasters
@@ -24,7 +24,7 @@ if ($cmsms_layout == 'r_sidebar') {
 } elseif ($cmsms_layout == 'l_sidebar') {
 	echo '<div class="content entry fr" role="main">' . "\n\t";
 } else {
-	echo '<div class="middle_content entry" role="main">' . "\n\t";
+	echo '<div class="middle_content entry" role="main">';
 }
 
 
@@ -48,12 +48,12 @@ if (have_posts()) : the_post();
 		((is_singular('project')) ? ' project_page' : '') . 
 		((is_singular('profile')) ? ' profile_page' : '') . 
 		'">' . "\n\n" . 
-			'<div class="middle_content entry" role="main">' . "\n\t";
+			'<div class="middle_content entry" role="main">';
 	}
 	
 	
 	wp_link_pages(array( 
-		'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . esc_html__('Pages', 'cmsmasters') . ':</strong>', 
+		'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . esc_html__('Pages', 'econature') . ':</strong>', 
 		'after' => '</div>' . "\n", 
 		'link_before' => ' [ ', 
 		'link_after' => ' ] ' 

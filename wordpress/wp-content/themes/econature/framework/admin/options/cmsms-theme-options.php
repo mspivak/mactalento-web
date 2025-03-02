@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.0
+ * @version 	1.4.1
  * 
  * Post, Page, Project, Product & Profile Options Functions
  * Created by CMSMasters
@@ -19,64 +19,76 @@ require_once(CMSMS_OPTIONS . '/cmsms-theme-options-other.php');
 require_once(CMSMS_OPTIONS . '/cmsms-theme-options-product.php');
 
 
-global $custom_meta_fields, 
-	$custom_post_meta_fields, 
-	$custom_page_meta_fields, 
-	$custom_project_meta_fields, 
-	$custom_profile_meta_fields, 
-	$custom_other_meta_fields, 
-	$custom_product_meta_fields;
-
-
-if ( 
-	(isset($_GET['post_type']) && $_GET['post_type'] == 'page') || 
-	(isset($_POST['post_type']) && $_POST['post_type'] == 'page') || 
-	(isset($_GET['post']) && get_post_type($_GET['post']) == 'page') 
-) {
-	$custom_new_meta_fields = array();
+if (!function_exists('get_custom_all_meta_fields')) {
+function get_custom_all_meta_fields() {
+	$custom_meta_fields = get_custom_general_meta_fields();
 	
 	
-	foreach ($custom_meta_fields as $custom_meta_field) {
-		if ( 
-			$custom_meta_field['id'] == 'cmsms_heading' && 
-			$custom_meta_field['type'] != 'tab_start' && 
-			$custom_meta_field['type'] != 'tab_finish' 
-		) {
-			$custom_meta_field['std'] = 'default';
+	if ( 
+		(isset($_GET['post_type']) && $_GET['post_type'] == 'page') || 
+		(isset($_POST['post_type']) && $_POST['post_type'] == 'page') || 
+		(isset($_GET['post']) && get_post_type($_GET['post']) == 'page') 
+	) {
+		$custom_new_meta_fields = array();
+		
+		
+		foreach ($custom_meta_fields as $custom_meta_field) {
+			if ( 
+				$custom_meta_field['id'] == 'cmsms_heading' && 
+				$custom_meta_field['type'] != 'tab_start' && 
+				$custom_meta_field['type'] != 'tab_finish' 
+			) {
+				$custom_meta_field['std'] = 'default';
+			}
+			
+			
+			$custom_new_meta_fields[] = $custom_meta_field;
 		}
 		
+		$custom_page_meta_fields = get_custom_page_meta_fields();
 		
-		$custom_new_meta_fields[] = $custom_meta_field;
+		$custom_all_meta_fields = array_merge($custom_page_meta_fields, $custom_new_meta_fields);
+	} elseif ( 
+		(isset($_GET['post_type']) && $_GET['post_type'] == 'project') || 
+		(isset($_POST['post_type']) && $_POST['post_type'] == 'project') || 
+		(isset($_GET['post']) && get_post_type($_GET['post']) == 'project') 
+	) {
+		$custom_project_meta_fields = get_custom_project_meta_fields();
+		
+		$custom_all_meta_fields = array_merge($custom_project_meta_fields, $custom_meta_fields);
+	} elseif ( 
+		(isset($_GET['post_type']) && $_GET['post_type'] == 'profile') || 
+		(isset($_POST['post_type']) && $_POST['post_type'] == 'profile') || 
+		(isset($_GET['post']) && get_post_type($_GET['post']) == 'profile') 
+	) {
+		$custom_profile_meta_fields = get_custom_profile_meta_fields();
+		
+		$custom_all_meta_fields = array_merge($custom_profile_meta_fields, $custom_meta_fields);
+	} elseif ( 
+		(isset($_GET['post_type']) && $_GET['post_type'] == 'product') || 
+		(isset($_POST['post_type']) && $_POST['post_type'] == 'product') || 
+		(isset($_GET['post']) && get_post_type($_GET['post']) == 'product') 
+	) {
+		$custom_product_meta_fields = get_custom_product_meta_fields();
+		
+		$custom_all_meta_fields = array_merge($custom_product_meta_fields, $custom_meta_fields);
+	} elseif ( 
+		(!isset($_GET['action']) && !isset($_GET['post_type'])) || 
+		(isset($_POST['post_type']) && $_POST['post_type'] == 'post') || 
+		(isset($_GET['post']) && get_post_type($_GET['post']) == 'post') 
+	) {
+		$custom_post_meta_fields = get_custom_post_meta_fields();
+		
+		$custom_all_meta_fields = array_merge($custom_post_meta_fields, $custom_meta_fields);
+	} else {
+		$custom_other_meta_fields = get_custom_other_meta_fields();
+		
+		$custom_all_meta_fields = array_merge($custom_other_meta_fields, $custom_meta_fields);
 	}
 	
 	
-	$custom_all_meta_fields = array_merge($custom_page_meta_fields, $custom_new_meta_fields);
-} elseif ( 
-	(isset($_GET['post_type']) && $_GET['post_type'] == 'project') || 
-	(isset($_POST['post_type']) && $_POST['post_type'] == 'project') || 
-	(isset($_GET['post']) && get_post_type($_GET['post']) == 'project') 
-) {
-	$custom_all_meta_fields = array_merge($custom_project_meta_fields, $custom_meta_fields);
-} elseif ( 
-	(isset($_GET['post_type']) && $_GET['post_type'] == 'profile') || 
-	(isset($_POST['post_type']) && $_POST['post_type'] == 'profile') || 
-	(isset($_GET['post']) && get_post_type($_GET['post']) == 'profile') 
-) {
-	$custom_all_meta_fields = array_merge($custom_profile_meta_fields, $custom_meta_fields);
-} elseif ( 
-	(isset($_GET['post_type']) && $_GET['post_type'] == 'product') || 
-	(isset($_POST['post_type']) && $_POST['post_type'] == 'product') || 
-	(isset($_GET['post']) && get_post_type($_GET['post']) == 'product') 
-) {
-	$custom_all_meta_fields = array_merge($custom_product_meta_fields, $custom_meta_fields);
-} elseif ( 
-	(!isset($_GET['action']) && !isset($_GET['post_type'])) || 
-	(isset($_POST['post_type']) && $_POST['post_type'] == 'post') || 
-	(isset($_GET['post']) && get_post_type($_GET['post']) == 'post') 
-) {
-	$custom_all_meta_fields = array_merge($custom_post_meta_fields, $custom_meta_fields);
-} else {
-	$custom_all_meta_fields = array_merge($custom_other_meta_fields, $custom_meta_fields);
+	return $custom_all_meta_fields;
+}
 }
 
 
@@ -106,13 +118,13 @@ function cmsms_admin_enqueue_scripts($hook) {
 		wp_register_script('cmsms_theme_options_js', get_template_directory_uri() . '/framework/admin/options/js/cmsms-theme-options.js', array('jquery'), '1.0.0', true);
 		
 		wp_localize_script('cmsms_theme_options_js', 'cmsms_options', array( 
-			'create_gallery' => 	__('Create Gallery', 'cmsmasters'), 
-			'select_format' => 		__('Please select the format.', 'cmsmasters'), 
-			'link_exists' => 		__('Link with this format already exists.', 'cmsmasters'), 
-			'want_remove' => 		__('Do you realy want to remove this item?', 'cmsmasters'), 
-			'remove' => 			__('Remove', 'cmsmasters'), 
-			'find' => 				__('Find icons', 'cmsmasters'), 
-			'remove_icon' => 		__('Do you realy want to remove this social icon?', 'cmsmasters') 
+			'create_gallery' => 	__('Create Gallery', 'econature'), 
+			'select_format' => 		__('Please select the format.', 'econature'), 
+			'link_exists' => 		__('Link with this format already exists.', 'econature'), 
+			'want_remove' => 		__('Do you realy want to remove this item?', 'econature'), 
+			'remove' => 			__('Remove', 'econature'), 
+			'find' => 				__('Find icons', 'econature'), 
+			'remove_icon' => 		__('Do you realy want to remove this social icon?', 'econature') 
 		));
 		
 		wp_register_script('cmsms_theme_options_js_hide', get_template_directory_uri() . '/framework/admin/options/js/cmsms-theme-options-toggle.js', array('jquery'), '1.0.0', true);
@@ -131,8 +143,9 @@ add_action('admin_enqueue_scripts', 'cmsms_admin_enqueue_scripts');
 
 
 function show_cmsms_meta_box() {
-	global $post, 
-		$custom_all_meta_fields;
+	global $post;
+	
+	$custom_all_meta_fields = get_custom_all_meta_fields();
 	
 	
 	$cmsms_option = cmsms_get_global_options();
@@ -338,7 +351,7 @@ function show_cmsms_meta_box() {
 			
 			
 			echo '<select name="' . $field['id'] . '" id="' . $field['id'] . '">' . 
-				'<option value="">' . __('Default Sidebar', 'cmsmasters') . '</option>';
+				'<option value="">' . __('Default Sidebar', 'econature') . '</option>';
 			
 			
 			foreach ($wp_registered_sidebars as $wp_registered_sidebar) {
@@ -373,7 +386,7 @@ function show_cmsms_meta_box() {
 			$sliders = $sliderManager->getSliders();
 			
 			echo '<select name="' . $field['id'] . '" id="' . $field['id'] . '">' . 
-				'<option value="">' . __('Select Slider', 'cmsmasters') . '</option>';
+				'<option value="">' . __('Select Slider', 'econature') . '</option>';
 			
 			if (!empty($sliders)) {
 				foreach ($sliders as $slider) {
@@ -390,7 +403,7 @@ function show_cmsms_meta_box() {
 			$categories = get_categories();
 			
 			echo '<select name="' . $field['id'] . '" id="' . $field['id'] . '">' . 
-				'<option value="">' . __('Select Blog Category', 'cmsmasters') . '</option>';
+				'<option value="">' . __('Select Blog Category', 'econature') . '</option>';
 			
 			foreach ($categories as $category) {
 				echo '<option value="' . $category->cat_ID . '"' . (($meta !== '' && (int) $meta === $category->cat_ID) ? ' selected="selected"' : '') . '>' . $category->cat_name . '</option>';
@@ -408,7 +421,7 @@ function show_cmsms_meta_box() {
 			));
 			
 			echo '<select name="' . $field['id'] . '" id="' . $field['id'] . '">' . 
-				'<option value="">' . __('Select Project Category', 'cmsmasters') . '</option>';
+				'<option value="">' . __('Select Project Category', 'econature') . '</option>';
 			
 			if (is_array($categories) && !empty($categories)) {
 				foreach ($categories as $category) {
@@ -427,7 +440,7 @@ function show_cmsms_meta_box() {
 			));
 			
 			echo '<select name="' . $field['id'] . '" id="' . $field['id'] . '">' . 
-				'<option value="">' . __('Select Profile Category', 'cmsmasters') . '</option>';
+				'<option value="">' . __('Select Profile Category', 'econature') . '</option>';
 			
 			if (is_array($pl_categs) && !empty($pl_categs)) {
 				foreach ($pl_categs as $pl_categ) {
@@ -460,10 +473,10 @@ function show_cmsms_meta_box() {
 			
 			
 			echo '<div class="cmsms_upload_parent cmsms_select_parent">' . 
-				'<input type="button" id="cmsms_upload_' . $field['id'] . '_button" class="cmsms_upload_button button button-large" value="' . __('Choose Image', 'cmsmasters') . '" data-title="' . __('Choose Image', 'cmsmasters') . '" data-button="' . __('Insert Image', 'cmsmasters') . '" data-id="cmsms-media-select-frame-' . $field['id'] . '" data-classes="media-frame cmsms-media-select-frame' . ((!isset($field['description'])) ? ' cmsms-frame-no-description' : '') . ((!isset($field['caption'])) ? ' cmsms-frame-no-caption' : '') . ((!isset($field['align'])) ? ' cmsms-frame-no-align' : '') . ((!isset($field['link'])) ? ' cmsms-frame-no-link' : '') . ((!isset($field['size'])) ? ' cmsms-frame-no-size' : '') . '" data-library="image" data-type="' . $field['frame'] . '"' . (($field['frame'] === 'post') ? ' data-state="insert"' : '') . ' data-multiple="' . $field['multiple'] . '" />' . 
+				'<input type="button" id="cmsms_upload_' . $field['id'] . '_button" class="cmsms_upload_button button button-large" value="' . __('Choose Image', 'econature') . '" data-title="' . __('Choose Image', 'econature') . '" data-button="' . __('Insert Image', 'econature') . '" data-id="cmsms-media-select-frame-' . $field['id'] . '" data-classes="media-frame cmsms-media-select-frame' . ((!isset($field['description'])) ? ' cmsms-frame-no-description' : '') . ((!isset($field['caption'])) ? ' cmsms-frame-no-caption' : '') . ((!isset($field['align'])) ? ' cmsms-frame-no-align' : '') . ((!isset($field['link'])) ? ' cmsms-frame-no-link' : '') . ((!isset($field['size'])) ? ' cmsms-frame-no-size' : '') . '" data-library="image" data-type="' . $field['frame'] . '"' . (($field['frame'] === 'post') ? ' data-state="insert"' : '') . ' data-multiple="' . $field['multiple'] . '" />' . 
 				'<div class="cmsms_upload"' . (($image != '') ? ' style="display:block;"' : '') . '>' . 
-					'<img src="' . (($image != '') ? $image : '') . '" class="cmsms_preview_image" alt="" />' . 
-					'<a href="#" class="cmsms_upload_cancel admin-icon-remove" title="' . __('Remove', 'cmsmasters') . '"></a>' . 
+					'<img src="' . (($image != '') ? $image : '') . '" class="cmsms_preview_image" />' . 
+					'<a href="#" class="cmsms_upload_cancel admin-icon-remove" title="' . __('Remove', 'econature') . '"></a>' . 
 				'</div>' . 
 				'<input type="hidden" id="' . $field['id'] . '" name="' . $field['id'] . '" class="cmsms_upload_image" value="' . $meta . '" />' . 
 			'</div>' . 
@@ -489,8 +502,8 @@ function show_cmsms_meta_box() {
 				'<p>' . 
 					'<input class="icon_upload_image all-options" type="hidden" id="' . $field['id'] . '" name="' . $field['id'] . '" value="' . $meta . '" />' . 
 					'<span id="' . $field['id'] . '_icon" data-class="cmsms_new_icon_img"' . (($meta != '') ? ' class="' . $meta . '" style="display:block;"' : '') . '></span>' . 
-					'<input id="' . $field['id'] . '_button" class="cmsms_icon_choose_button button" type="button" value="' . esc_attr__('Choose icon', 'cmsmasters') . '" />' . 
-					'<a href="#" class="cmsms_remove_icon admin-icon-remove" title="' . esc_attr__('Remove icon', 'cmsmasters') . '"' . (($meta != '') ? ' style="display:inline-block;"' : '') . '></a>' . 
+					'<input id="' . $field['id'] . '_button" class="cmsms_icon_choose_button button" type="button" value="' . esc_attr__('Choose icon', 'econature') . '" />' . 
+					'<a href="#" class="cmsms_remove_icon admin-icon-remove" title="' . esc_attr__('Remove icon', 'econature') . '"' . (($meta != '') ? ' style="display:inline-block;"' : '') . '></a>' . 
 				'</p>' . 
 			'</div>' . 
 			(($field['desc'] != '') ? '<br />' . '<span class="description">' . $field['desc'] . '</span>': '');
@@ -503,28 +516,28 @@ function show_cmsms_meta_box() {
 				'<p>' . 
 					'<input class="icon_upload_image all-options" type="hidden" id="' . $field['id'] . '" value="" />' . 
 					'<span id="' . $field['id'] . '_icon" data-class="cmsms_new_icon_img"></span>' . 
-					'<input id="' . $field['id'] . '_button" class="cmsms_icon_choose_button button" type="button" value="' . esc_attr__('Choose icon', 'cmsmasters') . '" />' . 
-					'<a href="#" class="cmsms_remove_icon admin-icon-remove" title="' . esc_attr__('Cancel changes', 'cmsmasters') . '"></a>' . 
+					'<input id="' . $field['id'] . '_button" class="cmsms_icon_choose_button button" type="button" value="' . esc_attr__('Choose icon', 'econature') . '" />' . 
+					'<a href="#" class="cmsms_remove_icon admin-icon-remove" title="' . esc_attr__('Cancel changes', 'econature') . '"></a>' . 
 				'</p>' . 
 				'<div class="icon_choose_container icon_choose_social"></div>' . 
 				'<span class="cl"><br /></span>' . 
 				'<span class="icon_upload_link" style="display:none;">' . 
 					'<label for="new_icon_link">' . 
 						'<input class="all-options" type="text" id="new_icon_link" /> ' . 
-						__('Icon link', 'cmsmasters') . 
+						__('Icon link', 'econature') . 
 					'</label>' . 
 					'<label for="new_icon_title">' . 
 						'<input class="all-options" type="text" id="new_icon_title" /> ' . 
-						__('Icon title', 'cmsmasters') . 
+						__('Icon title', 'econature') . 
 					'</label>' . 
 					'<label for="new_icon_target">' . 
 						'<input type="checkbox" id="new_icon_target" value="true" /> ' . 
-						__('Open link in a new tab/window?', 'cmsmasters') . 
+						__('Open link in a new tab/window?', 'econature') . 
 					'</label>' . 
 				'</span>' . 
 				'<span class="cl"></span>' . 
-				'<input class="button button-primary" type="button" id="add_icon" value="' . esc_attr__('Add Icon', 'cmsmasters') . '" />' . 
-				'<input class="button button-primary" type="button" id="edit_icon" value="' . esc_attr__('Save Icon', 'cmsmasters') . '" />' . 
+				'<input class="button button-primary" type="button" id="add_icon" value="' . esc_attr__('Add Icon', 'econature') . '" />' . 
+				'<input class="button button-primary" type="button" id="edit_icon" value="' . esc_attr__('Save Icon', 'econature') . '" />' . 
 				'<ul>';
 			
 			
@@ -543,7 +556,7 @@ function show_cmsms_meta_box() {
 						'<div class="' . $icon_attrs[0] . '">' . 
 							'<input type="hidden" id="' . $field['id'] . '_' . $i . '" name="' . $field['id'] . '[' . $i . ']" value="' . $icon . '" />' . 
 						'</div>' . 
-						'<a href="#" class="icon_del admin-icon-remove" title="' . esc_attr__('Remove', 'cmsmasters') . '"></a> ' . 
+						'<a href="#" class="icon_del admin-icon-remove" title="' . esc_attr__('Remove', 'econature') . '"></a> ' . 
 						'<span class="icon_move admin-icon-move"></span> ' . 
 					'</li>';
 				}
@@ -609,8 +622,8 @@ function show_cmsms_meta_box() {
 			));
 			
 			echo '<div class="ovh">' . 
-				'<div class="fl"><strong>' . __('Title', 'cmsmasters') . '</strong></div>' . 
-				'<div class="fl"><strong>' . __('Link', 'cmsmasters') . '</strong></div>' . 
+				'<div class="fl"><strong>' . __('Title', 'econature') . '</strong></div>' . 
+				'<div class="fl"><strong>' . __('Link', 'econature') . '</strong></div>' . 
 			'</div>' . 
 			'<ul id="' . $field['id'] . '-repeatable" class="custom_repeatable">';
 			
@@ -647,24 +660,24 @@ function show_cmsms_meta_box() {
 			
 			echo '</ul>' . 
 			'<select name="' . $field['id'] . '-select" id="' . $field['id'] . '-select">' . 
-				'<optgroup label="' . __('Blank Field', 'cmsmasters') . '">' . 
-					'<option value="">' . __('Select Link', 'cmsmasters') . '</option>' . 
+				'<optgroup label="' . __('Blank Field', 'econature') . '">' . 
+					'<option value="">' . __('Select Link', 'econature') . '</option>' . 
 				'</optgroup>' . 
-				'<optgroup label="' . __('Posts', 'cmsmasters') . '">';
+				'<optgroup label="' . __('Posts', 'econature') . '">';
 			
 			foreach ($post_items as $post_item) {
 				echo '<option value="' . get_permalink($post_item->ID) . '">' . $post_item->post_title . '</option>';
 			}
 			
 			echo '</optgroup>' . 
-				'<optgroup label="' . __('Pages', 'cmsmasters') . '">';
+				'<optgroup label="' . __('Pages', 'econature') . '">';
 			
 			foreach ($page_items as $page_item) {
 				echo '<option value="' . get_permalink($page_item->ID) . '">' . $page_item->post_title . '</option>';
 			}
 			
 			echo '</optgroup>' . 
-				'<optgroup label="' . __('Projects', 'cmsmasters') . '">';
+				'<optgroup label="' . __('Projects', 'econature') . '">';
 			
 			foreach ($project_items as $project_item) {
 				echo '<option value="' . get_permalink($project_item->ID) . '">' . $project_item->post_title . '</option>';
@@ -678,8 +691,8 @@ function show_cmsms_meta_box() {
 			break;
 		case 'repeatable_multiple':
 			echo '<div class="ovh">' . 
-				'<div class="fl"><strong>' . __('Title', 'cmsmasters') . '</strong></div>' . 
-				'<div class="fl"><strong>' . __('Values', 'cmsmasters') . '</strong></div>' . 
+				'<div class="fl"><strong>' . __('Title', 'econature') . '</strong></div>' . 
+				'<div class="fl"><strong>' . __('Values', 'econature') . '</strong></div>' . 
 			'</div>' . 
 			'<ul id="' . $field['id'] . '-repeatable" class="custom_repeatable">';
 			
@@ -724,7 +737,7 @@ function show_cmsms_meta_box() {
 			break;
 		case 'repeatable_media':
 			echo '<select name="' . $field['id'] . '-select" id="' . $field['id'] . '-select">' . 
-				'<option value="">' . __('Select Format', 'cmsmasters') . ' &nbsp;</option>';
+				'<option value="">' . __('Select Format', 'econature') . ' &nbsp;</option>';
 			
 			foreach ($field['media'] as $key => $value) {
 				echo '<option value="' . $key . '">' . $value . '</option>';
@@ -782,7 +795,7 @@ function show_cmsms_meta_box() {
 			
 			
 			echo '<div class="cmsms_upload_parent cmsms_gallery_parent">' . 
-				'<input type="button" id="cmsms_gallery_' . $field['id'] . '_button" class="cmsms_upload_button button button-large" value="' . (($meta != '') ? __('Edit Gallery', 'cmsmasters') : __('Create Gallery', 'cmsmasters')) . '" data-title="' . __('Create/Edit Gallery', 'cmsmasters') . '" data-button="' . __('Insert Gallery', 'cmsmasters') . '" data-id="cmsms-media-select-frame-' . $field['id'] . '" data-classes="media-frame cmsms-media-gallery-frame' . ((!isset($field['description'])) ? ' cmsms-frame-no-description' : '') . ((!isset($field['caption'])) ? ' cmsms-frame-no-caption' : '') . ((!isset($field['align'])) ? ' cmsms-frame-no-align' : '') . ((!isset($field['link'])) ? ' cmsms-frame-no-link' : '') . ((!isset($field['size'])) ? ' cmsms-frame-no-size' : '') . '" data-library="image" data-type="' . $field['frame'] . '"' . (($field['frame'] == 'post') ? ' data-state="' . (($meta != '') ? 'gallery-edit' : 'gallery-library') . '"' : '') . ' data-multiple="' . $field['multiple'] . '"' . (($meta != '') ? ' data-editing="true"' : '') . ' />' . 
+				'<input type="button" id="cmsms_gallery_' . $field['id'] . '_button" class="cmsms_upload_button button button-large" value="' . (($meta != '') ? __('Edit Gallery', 'econature') : __('Create Gallery', 'econature')) . '" data-title="' . __('Create/Edit Gallery', 'econature') . '" data-button="' . __('Insert Gallery', 'econature') . '" data-id="cmsms-media-select-frame-' . $field['id'] . '" data-classes="media-frame cmsms-media-gallery-frame' . ((!isset($field['description'])) ? ' cmsms-frame-no-description' : '') . ((!isset($field['caption'])) ? ' cmsms-frame-no-caption' : '') . ((!isset($field['align'])) ? ' cmsms-frame-no-align' : '') . ((!isset($field['link'])) ? ' cmsms-frame-no-link' : '') . ((!isset($field['size'])) ? ' cmsms-frame-no-size' : '') . '" data-library="image" data-type="' . $field['frame'] . '"' . (($field['frame'] == 'post') ? ' data-state="' . (($meta != '') ? 'gallery-edit' : 'gallery-library') . '"' : '') . ' data-multiple="' . $field['multiple'] . '"' . (($meta != '') ? ' data-editing="true"' : '') . ' />' . 
 				'<ul class="cmsms_gallery">';
 			
 			
@@ -790,8 +803,8 @@ function show_cmsms_meta_box() {
 				foreach ($ids as $id) {
 					if (isset($id[0]) && isset($id[1])) {
 						echo '<li class="cmsms_gallery_item">' . 
-							'<img src="' . $id[1] . '" alt="" data-id="' . $id[0] . '" class="cmsms_gallery_image" />' . 
-							'<a href="#" class="cmsms_gallery_cancel admin-icon-remove" title="' . __('Remove', 'cmsmasters') . '"></a>' . 
+							'<img src="' . $id[1] . '" data-id="' . $id[0] . '" class="cmsms_gallery_image" />' . 
+							'<a href="#" class="cmsms_gallery_cancel admin-icon-remove" title="' . __('Remove', 'econature') . '"></a>' . 
 						'</li>';
 					}
 				}
@@ -823,7 +836,7 @@ function show_cmsms_meta_box() {
 
 
 function save_custom_meta($post_id) {
-    global $custom_all_meta_fields;
+    $custom_all_meta_fields = get_custom_all_meta_fields();
 	
 	if (!isset($_POST['custom_meta_box_nonce']) || !wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__))) {
 		return $post_id;
@@ -876,7 +889,7 @@ add_action('save_post', 'save_custom_meta');
 function add_custom_cmsms_meta_box() {
     add_meta_box( 
 		'cmsms_custom_meta_box', 
-		__('Theme Options', 'cmsmasters'), 
+		__('Theme Options', 'econature'), 
 		'show_cmsms_meta_box', 
 		'', 
 		'normal', 

@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.0
  * 
  * Admin Panel Fonts Options
  * Created by CMSMasters
@@ -13,11 +13,11 @@
 function cmsms_options_font_tabs() {
 	$tabs = array();
 	
-	$tabs['content'] = __('Content', 'cmsmasters');
-	$tabs['link'] = __('Links', 'cmsmasters');
-	$tabs['nav'] = __('Navigation', 'cmsmasters');
-	$tabs['heading'] = __('Heading', 'cmsmasters');
-	$tabs['other'] = __('Other', 'cmsmasters');
+	$tabs['content'] = __('Content', 'econature');
+	$tabs['link'] = __('Links', 'econature');
+	$tabs['nav'] = __('Navigation', 'econature');
+	$tabs['heading'] = __('Heading', 'econature');
+	$tabs['other'] = __('Other', 'econature');
 	
 	return $tabs;
 }
@@ -30,31 +30,31 @@ function cmsms_options_font_sections() {
 	case 'content':
 		$sections = array();
 		
-		$sections['content_section'] = __('Content Font Options', 'cmsmasters');
+		$sections['content_section'] = __('Content Font Options', 'econature');
 		
 		break;
 	case 'link':
 		$sections = array();
 		
-		$sections['link_section'] = __('Links Font Options', 'cmsmasters');
+		$sections['link_section'] = __('Links Font Options', 'econature');
 		
 		break;
 	case 'nav':
 		$sections = array();
 		
-		$sections['nav_section'] = __('Navigation Font Options', 'cmsmasters');
+		$sections['nav_section'] = __('Navigation Font Options', 'econature');
 		
 		break;
 	case 'heading':
 		$sections = array();
 		
-		$sections['heading_section'] = __('Headings Font Options', 'cmsmasters');
+		$sections['heading_section'] = __('Headings Font Options', 'econature');
 		
 		break;
 	case 'other':
 		$sections = array();
 		
-		$sections['other_section'] = __('Other Fonts Options', 'cmsmasters');
+		$sections['other_section'] = __('Other Fonts Options', 'econature');
 		
 		break;
 	}
@@ -81,7 +81,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'content_section', 
 			'id' => CMSMS_SHORTNAME . '_content_font', 
-			'title' => __('Main Content Font', 'cmsmasters'), 
+			'title' => __('Main Content Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -107,7 +107,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'link_section', 
 			'id' => CMSMS_SHORTNAME . '_link_font', 
-			'title' => __('Links Font', 'cmsmasters'), 
+			'title' => __('Links Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -135,7 +135,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'link_section', 
 			'id' => CMSMS_SHORTNAME . '_link_hover_decoration', 
-			'title' => __('Links Hover Text Decoration', 'cmsmasters'), 
+			'title' => __('Links Hover Text Decoration', 'econature'), 
 			'desc' => '', 
 			'type' => 'select_scheme', 
 			'std' => 'none', 
@@ -147,7 +147,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'nav_section', 
 			'id' => CMSMS_SHORTNAME . '_nav_title_font', 
-			'title' => __('Navigation Title Font', 'cmsmasters'), 
+			'title' => __('Navigation Title Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -173,7 +173,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'nav_section', 
 			'id' => CMSMS_SHORTNAME . '_nav_dropdown_font', 
-			'title' => __('Navigation Dropdown Font', 'cmsmasters'), 
+			'title' => __('Navigation Dropdown Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -201,7 +201,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'heading_section', 
 			'id' => CMSMS_SHORTNAME . '_h1_font', 
-			'title' => __('H1 Tag Font', 'cmsmasters'), 
+			'title' => __('H1 Tag Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -229,7 +229,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'heading_section', 
 			'id' => CMSMS_SHORTNAME . '_h2_font', 
-			'title' => __('H2 Tag Font', 'cmsmasters'), 
+			'title' => __('H2 Tag Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -257,7 +257,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'heading_section', 
 			'id' => CMSMS_SHORTNAME . '_h3_font', 
-			'title' => __('H3 Tag Font', 'cmsmasters'), 
+			'title' => __('H3 Tag Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -285,7 +285,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'heading_section', 
 			'id' => CMSMS_SHORTNAME . '_h4_font', 
-			'title' => __('H4 Tag Font', 'cmsmasters'), 
+			'title' => __('H4 Tag Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -294,7 +294,7 @@ function cmsms_options_font_fields($set_tab = false) {
 				'font_size' => 			'16', 
 				'line_height' => 		'26', 
 				'font_weight' => 		'300', 
-				'font_style' => 		'italic', 
+				'font_style' => 		'normal', 
 				'text_transform' => 	'none', 
 				'text_decoration' => 	'none' 
 			), 
@@ -313,7 +313,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'heading_section', 
 			'id' => CMSMS_SHORTNAME . '_h5_font', 
-			'title' => __('H5 Tag Font', 'cmsmasters'), 
+			'title' => __('H5 Tag Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -341,7 +341,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'heading_section', 
 			'id' => CMSMS_SHORTNAME . '_h6_font', 
-			'title' => __('H6 Tag Font', 'cmsmasters'), 
+			'title' => __('H6 Tag Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -371,7 +371,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'other_section', 
 			'id' => CMSMS_SHORTNAME . '_button_font', 
-			'title' => __('Button Font', 'cmsmasters'), 
+			'title' => __('Button Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -397,7 +397,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'other_section', 
 			'id' => CMSMS_SHORTNAME . '_small_font', 
-			'title' => __('Small Tag Font', 'cmsmasters'), 
+			'title' => __('Small Tag Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -423,7 +423,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'other_section', 
 			'id' => CMSMS_SHORTNAME . '_input_font', 
-			'title' => __('Text Fields Font', 'cmsmasters'), 
+			'title' => __('Text Fields Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 
@@ -447,7 +447,7 @@ function cmsms_options_font_fields($set_tab = false) {
 		$options[] = array( 
 			'section' => 'other_section', 
 			'id' => CMSMS_SHORTNAME . '_quote_font', 
-			'title' => __('Blockquote Font', 'cmsmasters'), 
+			'title' => __('Blockquote Font', 'econature'), 
 			'desc' => '', 
 			'type' => 'typorgaphy', 
 			'std' => array( 

@@ -2,12 +2,74 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.1.0
+ * @version		1.4.6
  * 
  * Template Functions
  * Created by CMSMasters
  * 
  */
+
+
+/* Get Page Container Classes */
+function cmsms_get_page_classes($cmsms_option, $classes = false) {
+	$browser = new Browser();
+	if (
+		( $browser->getPlatform() != Browser::PLATFORM_IPHONE ) && 
+		( $browser->getPlatform() != Browser::PLATFORM_IPOD ) && 
+		( $browser->getPlatform() != Browser::PLATFORM_IPAD ) && 
+		( $browser->getPlatform() != Browser::PLATFORM_BLACKBERRY ) && 
+		( $browser->getPlatform() != Browser::PLATFORM_ANDROID ) && 
+		( $browser->getPlatform() != Browser::PLATFORM_APPLE ) 
+	) {
+		echo 'csstransition ';
+	}
+
+	if ( $browser->getBrowser() == Browser::BROWSER_CHROME ) {
+		echo 'chrome_only ';
+	}
+
+	if (
+		( $browser->getBrowser() == Browser::BROWSER_SAFARI ) &&
+		( $browser->getBrowser() != Browser::BROWSER_CHROME ) 
+	) {
+		echo 'safari_only ';
+	}
+
+	if ( $browser->getBrowser() == Browser::BROWSER_IE ) {
+		echo 'ie_only ';
+	}
+
+	echo 'cmsms_' . $cmsms_option[CMSMS_SHORTNAME . '_theme_layout'] . ' ';
+
+	if ($cmsms_option[CMSMS_SHORTNAME . '_fixed_header']) {
+		echo 'fixed_header ';
+	}
+
+	if ($cmsms_option[CMSMS_SHORTNAME . '_fixed_footer'] && $cmsms_option[CMSMS_SHORTNAME . '_footer_type'] == 'default') {
+		echo 'fixed_footer ';
+	}
+
+	if ($cmsms_option[CMSMS_SHORTNAME . '_header_top_line']) {
+		echo 'enable_header_top ';
+	}
+
+	if ($cmsms_option[CMSMS_SHORTNAME . '_header_styles'] != 'default') {
+		echo 'enable_header_bottom ';
+	}
+
+	if ($cmsms_option[CMSMS_SHORTNAME . '_header_styles'] == 'r_nav') {
+		echo 'enable_header_right ';
+	}
+
+	if ($cmsms_option[CMSMS_SHORTNAME . '_header_styles'] == 'c_nav') {
+		echo 'enable_header_centered ';
+	}
+	
+	
+	if ($classes && $classes != '') {
+		echo esc_attr($classes) . ' ';
+	}
+}
 
 
 /* Get Logo Function */
@@ -29,7 +91,7 @@ function cmsms_logo() {
 		if ($cmsms_option[CMSMS_SHORTNAME . '_logo_subtitle'] != '') {
 			$blog_descr = $cmsms_option[CMSMS_SHORTNAME . '_logo_subtitle'];
 		} else {
-			$blog_descr = (get_bloginfo('description')) ? get_bloginfo('description') : esc_html__('Default Logo Subtitle', 'cmsmasters');
+			$blog_descr = (get_bloginfo('description')) ? get_bloginfo('description') : esc_html__('Default Logo Subtitle', 'econature');
 		}
 		
 		
@@ -66,7 +128,7 @@ function cmsms_logo() {
 			echo "
 <style type=\"text/css\">
 	.header_mid_inner .logo .logo_retina {
-		width : 172px;
+		max-width : 172px;
 	}
 </style>
 ";
@@ -119,7 +181,7 @@ function cmsms_logo() {
 				echo "
 <style type=\"text/css\">
 	.header_mid_inner .logo .logo_retina {
-		width : {$logo_img_retina_width}px;
+		max-width : {$logo_img_retina_width}px;
 	}
 </style>
 ";
@@ -158,7 +220,7 @@ function cmsms_footer_logo() {
 		echo "
 <style type=\"text/css\">
 	.footer_inner .logo .footer_logo_retina {
-		width : 172px;
+		max-width : 172px;
 	}
 </style>
 ";
@@ -378,36 +440,36 @@ function cmsms_page_heading() {
 							
 							if (!empty($wp_query->found_posts)) {
 								if ($wp_query->found_posts > 1) {
-									echo $wp_query->found_posts . ' ' . __('search results for', 'cmsmasters') . ': ' . esc_attr(get_search_query());
+									echo esc_html($wp_query->found_posts . ' ' . __('search results for', 'econature') . ': ' . esc_attr(get_search_query()));
 								} else {
-									echo $wp_query->found_posts . ' ' . __('search result for', 'cmsmasters') . ': ' . esc_attr(get_search_query());
+									echo esc_html($wp_query->found_posts . ' ' . __('search result for', 'econature') . ': ' . esc_attr(get_search_query()));
 								}
 							} else {
-								echo __('Search results for', 'cmsmasters') . ': ' . esc_attr(get_search_query());
+								echo __('Search results for', 'econature') . ': ' . esc_attr(get_search_query());
 							}
 						} elseif (is_archive()) {
 							if (is_day()) {
-								echo __('Archive for date', 'cmsmasters') . ': ' . get_the_date();
+								echo __('Archive for date', 'econature') . ': ' . get_the_date();
 							} elseif (is_month()) {
-								echo __('Archive for month', 'cmsmasters') . ': ' . get_the_date('F Y');
+								echo __('Archive for month', 'econature') . ': ' . get_the_date('F Y');
 							} elseif (is_year()) {
-								echo __('Archive for year', 'cmsmasters') . ': ' . get_the_date('Y');
+								echo __('Archive for year', 'econature') . ': ' . get_the_date('Y');
 							} elseif (is_category()) {
-								echo single_cat_title(__('Archive for category', 'cmsmasters') . ': ', false);
+								echo single_cat_title(__('Archive for category', 'econature') . ': ', false);
 							} elseif (is_tag()) {
-								echo single_tag_title(__('Archive for tag', 'cmsmasters') . ': ', false);
+								echo single_tag_title(__('Archive for tag', 'econature') . ': ', false);
 							} elseif (is_author()) {
 								$archive_author = (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
 								
-								_e('Author archive', 'cmsmasters');
+								_e('Author archive', 'econature');
 								
 								if (isset($archive_author->nickname)) {
-									echo ' ' . __('for', 'cmsmasters') . ': ' . $archive_author->nickname;
+									echo ' ' . __('for', 'econature') . ': ' . $archive_author->nickname;
 								}
 							} elseif (is_tax()) {
 								$archive_taxonomy = get_taxonomy(get_query_var('taxonomy'));
 								
-								_e('Archive for', 'cmsmasters');
+								_e('Archive for', 'econature');
 								
 								if (isset($archive_taxonomy->singular_label) && $archive_taxonomy->singular_label != '') {
 									echo ' <span class="low_case"">' . $archive_taxonomy->singular_label . '</span>';
@@ -415,9 +477,19 @@ function cmsms_page_heading() {
 								
 								echo ': ' . single_term_title('', false);
 							} elseif (is_post_type_archive()) {
-								echo post_type_archive_title('', false) . ' ' . __('archive', 'cmsmasters');
+								if (post_type_archive_title('', false) != '') {
+									echo post_type_archive_title('', false);
+								} elseif (
+									function_exists('tribe_is_month') && 
+									tribe_is_month()
+								) {
+									echo __('Events', 'econature');
+								}
+								
+								
+								echo ' ' . __('archive', 'econature');
 							} else {
-								_e('Archives', 'cmsmasters');
+								_e('Archives', 'econature');
 							}
 						}
 						
@@ -439,7 +511,7 @@ function cmsms_page_heading() {
 		!is_front_page() && 
 		$cmsms_breadcrumbs == 'true' && 
 		!(
-			class_exists('TribeEvents') && 
+			class_exists('Tribe__Events__Main') && 
 			(
 				tribe_is_list_view() || 
 				tribe_is_month() || 
@@ -513,7 +585,7 @@ function cmsms_thumb($cmsms_id, $type = 'post-thumbnail', $link = true, $group =
 	);
 	
 	
-	$link_href = ($attachment) ? wp_get_attachment_image_src((int) $attachment, 'full') : wp_get_attachment_image_src((int) get_post_thumbnail_id($cmsms_id), 'full');
+	$link_href = ($attachment) ? wp_get_attachment_image_src(strstr($attachment, '|', true), 'full') : wp_get_attachment_image_src((int) get_post_thumbnail_id($cmsms_id), 'full');
 	
 	$unique_id = uniqid();
 	
@@ -529,7 +601,7 @@ function cmsms_thumb($cmsms_id, $type = 'post-thumbnail', $link = true, $group =
 	
 	
 	if ($attachment) {
-		$out .= wp_get_attachment_image($attachment, (($type) ? $type : 'full'), false, $args);
+		$out .= wp_get_attachment_image(strstr($attachment, '|', true), (($type) ? $type : 'full'), false, $args);
 	} else {
 		$out .= get_the_post_thumbnail($cmsms_id, (($type) ? $type : 'full'), $args);
 	}
@@ -540,7 +612,7 @@ function cmsms_thumb($cmsms_id, $type = 'post-thumbnail', $link = true, $group =
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}
@@ -569,9 +641,9 @@ function cmsms_thumb_rollover($cmsms_id, $type = 'post-thumbnail', $rollover = t
 		
 		$cmsms_image_link = wp_get_attachment_image_src((int) get_post_thumbnail_id($cmsms_id), 'full');
 	} elseif ($attachment_images && sizeof($attachment_images) > 0) {
-		$out .= wp_get_attachment_image($attachment_images[0], (($type) ? $type : 'full'), false, $args);
+		$out .= wp_get_attachment_image(strstr($attachment_images[0], '|', true), (($type) ? $type : 'full'), false, $args);
 		
-		$cmsms_image_link = wp_get_attachment_image_src((int) $attachment_images[0], 'full');
+		$cmsms_image_link = wp_get_attachment_image_src(strstr($attachment_images[0], '|', true), 'full');
 	} else {
 		$out .= '<span class="img_placeholder cmsms-icon-photo"></span>';
 		
@@ -629,7 +701,7 @@ function cmsms_thumb_rollover($cmsms_id, $type = 'post-thumbnail', $rollover = t
 				$cmsms_image_link != ''
 			)
 		) {
-			$out .= '<a ' . ($is_video_selfhosted ? $shv_out : 'href="' . ((!$attachment_video_link) ? $cmsms_image_link[0] : embedConvert($attachment_video_link)) . '"') . ' rel="ilightbox[' . $cmsms_id . '_' . $unique_id . ']" title="' . $cmsms_title . '" class="cmsms_image_link' . (($open_link) ? '' : ' no_open_link') . '"><span class="cmsms-icon-search-7"></span></a>';
+			$out .= '<a ' . ($is_video_selfhosted ? $shv_out : 'href="' . ((!$attachment_video_link) ? $cmsms_image_link[0] : $attachment_video_link) . '"') . ' rel="ilightbox[' . $cmsms_id . '_' . $unique_id . ']" title="' . $cmsms_title . '" class="cmsms_image_link' . (($open_link) ? '' : ' no_open_link') . '"><span class="cmsms-icon-search-7"></span></a>';
 		}
 		
 		
@@ -646,16 +718,18 @@ function cmsms_thumb_rollover($cmsms_id, $type = 'post-thumbnail', $rollover = t
 	
 	
 	if ($group && $attachment_images && sizeof($attachment_images) > 1) {
-		unset($attachment_images[0]);
+		if (!has_post_thumbnail($cmsms_id)) {
+			unset($attachment_images[0]);
+		}
 		
 		$out .= '<div class="dn">';
 		
 		foreach ($attachment_images as $attachment_image) {
-			$attachment_image_link = wp_get_attachment_image_src((int) $attachment_image, 'full');
+			$attachment_image_link = wp_get_attachment_image_src(strstr($attachment_image, '|', true), 'full');
 			
 			$out .= '<figure>' . 
 				'<a href="' . $attachment_image_link[0] . '" rel="ilightbox[' . $cmsms_id . '_' . $unique_id . ']" title="' . $cmsms_title . '" class="preloader highImg">' . 
-					wp_get_attachment_image($attachment_image, 'full', false, $args) . 
+					wp_get_attachment_image(strstr($attachment_image, '|', true), 'full', false, $args) . 
 				'</a>' . 
 			'</figure>';
 		}
@@ -665,7 +739,7 @@ function cmsms_thumb_rollover($cmsms_id, $type = 'post-thumbnail', $rollover = t
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}
@@ -700,7 +774,7 @@ function cmsms_thumb_small($cmsms_id, $type = 'post', $w = 100, $h = 100, $show 
 				$cmsms_post_image = $cmsms_post_images[0];
 				
 				if (isset($cmsms_post_image) && $cmsms_post_image != '') {
-					$out .= wp_get_attachment_image($cmsms_post_image, array($w, $h), false, $args);
+					$out .= wp_get_attachment_image(strstr($cmsms_post_image, '|', true), array($w, $h), false, $args);
 				} else {
 					$out .= '<span class="img_placeholder cmsms-icon-camera-7"></span>';
 				}
@@ -708,7 +782,7 @@ function cmsms_thumb_small($cmsms_id, $type = 'post', $w = 100, $h = 100, $show 
 				$cmsms_post_image = get_post_meta($cmsms_id, 'cmsms_post_image_link', true);
 				
 				if (isset($cmsms_post_image) && $cmsms_post_image != '') {
-					$out .= wp_get_attachment_image($cmsms_post_image, array($w, $h), false, $args);
+					$out .= wp_get_attachment_image(strstr($cmsms_post_image, '|', true), array($w, $h), false, $args);
 				} else {
 					$out .= '<span class="img_placeholder cmsms-icon-photo"></span>';
 				}
@@ -730,7 +804,7 @@ function cmsms_thumb_small($cmsms_id, $type = 'post', $w = 100, $h = 100, $show 
 				$cmsms_project_image = $cmsms_project_images[0];
 				
 				if (isset($cmsms_project_image) && $cmsms_project_image != '') {
-					$out .= wp_get_attachment_image($cmsms_project_image, array($w, $h), false, $args);
+					$out .= wp_get_attachment_image(strstr($cmsms_project_image, '|', true), array($w, $h), false, $args);
 				} else {
 					$out .= '<span class="img_placeholder cmsms-icon-camera-7"></span>';
 				}
@@ -746,7 +820,7 @@ function cmsms_thumb_small($cmsms_id, $type = 'post', $w = 100, $h = 100, $show 
 	
 	
 	if ($show) {
-		echo $out;
+		echo cmsms_return_content($out);
 	} else {
 		return $out;
 	}
@@ -770,7 +844,7 @@ function cmsms_title($cmsms_id, $show = true) {
     
 	
     if ($show) {
-        echo $out;
+        echo cmsms_return_content($out);
     } else {
         return $out;
     }
@@ -811,7 +885,7 @@ function cmsms_sharing_box($title_box = false, $tag = 'h3') {
 		}
 ?>	
 		<div class="fl share_posts_item">
-			<a href="https://twitter.com/share" class="twitter-share-button" data-lang="en"><?php _e('Tweet', 'cmsmasters'); ?></a>
+			<a href="//twitter.com/share" class="twitter-share-button" data-lang="en"><?php _e('Tweet', 'econature'); ?></a>
 			<script type="text/javascript">
 				!function (d, s, id) { 
 					var js = undefined, 
@@ -830,23 +904,8 @@ function cmsms_sharing_box($title_box = false, $tag = 'h3') {
 			</script>
 		</div>
 		<div class="fl share_posts_item">
-			<div class="g-plusone" data-size="medium"></div>
-			<script type="text/javascript">
-				(function () { 
-					var po = document.createElement('script'), 
-						s = document.getElementsByTagName('script')[0];
-					
-					po.type = 'text/javascript';
-					po.async = true;
-					po.src = 'https://apis.google.com/js/plusone.js';
-					
-					s.parentNode.insertBefore(po, s);
-				} )();
-			</script>
-		</div>
-		<div class="fl share_posts_item">
-			<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode(get_permalink(get_the_ID())); ?>" class="pin-it-button" count-layout="horizontal">
-				<img border="0" src="//assets.pinterest.com/images/PinExt.png" title="<?php _e('Pin It', 'cmsmasters'); ?>" />
+			<a href="//pinterest.com/pin/create/button/?url=<?php echo urlencode(get_permalink(get_the_ID())); ?>" class="pin-it-button" count-layout="horizontal">
+				<img border="0" src="//assets.pinterest.com/images/PinExt.png" title="<?php _e('Pin It', 'econature'); ?>" />
 			</a>
 			<script type="text/javascript">
 				(function (d, s, id) { 
@@ -883,10 +942,6 @@ function cmsms_sharing_box($title_box = false, $tag = 'h3') {
 					fjs.parentNode.insertBefore(js, fjs);
 				} (document, 'script', 'facebook-jssdk'));
 			</script>
-		</div>
-		<div class="fl share_posts_item">
-			<script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-			<script type="IN/Share" data-counter="right"></script>
 		</div>
 		<div class="cl"></div>
 <?php 
@@ -958,31 +1013,31 @@ function cmsms_author_box($title_box = false, $tag = 'h3') {
 	
 	if ($user_email) {
 		echo '<li>' . 
-			'<a href="mailto:' . $user_email . '" class="cmsms-icon-mail-6" title="' . __('Email', 'cmsmasters') . '" target="_blank"></a>' . 
+			'<a href="mailto:' . $user_email . '" class="cmsms-icon-mail-6" title="' . __('Email', 'econature') . '" target="_blank"></a>' . 
 		'</li>';
 	}
 	
 	if ($user_url) {
 		echo '<li>' . 
-			'<a href="' . $user_url . '" class="cmsms-icon-globe-1" title="' . __('Website', 'cmsmasters') . '" target="_blank"></a>' . 
+			'<a href="' . $user_url . '" class="cmsms-icon-globe-1" title="' . __('Website', 'econature') . '" target="_blank"></a>' . 
 		'</li>';
 	}
 	
 	if ($user_googleplus) {
 		echo '<li>' . 
-			'<a href="https://plus.google.com/+' . $user_googleplus . '" class="cmsms-icon-gplus-3" title="' . __('Website', 'cmsmasters') . '" target="_blank"></a>' . 
+			'<a href="//plus.google.com/+' . $user_googleplus . '" class="cmsms-icon-gplus-3" title="' . __('Website', 'econature') . '" target="_blank"></a>' . 
 		'</li>';
 	}
 	
 	if ($user_twitter) {
 		echo '<li>' . 
-			'<a href="https://twitter.com/' . $user_twitter . '" class="cmsms-icon-twitter-5" title="' . __('Twitter', 'cmsmasters') . '" target="_blank"></a>' . 
+			'<a href="//twitter.com/' . $user_twitter . '" class="cmsms-icon-twitter-5" title="' . __('Twitter', 'econature') . '" target="_blank"></a>' . 
 		'</li>';
 	}
 	
 	if ($user_facebook) {
 		echo '<li>' . 
-			'<a href="' . $user_facebook . '" class="cmsms-icon-facebook-5" title="' . __('Facebook', 'cmsmasters') . '" target="_blank"></a>' . 
+			'<a href="' . $user_facebook . '" class="cmsms-icon-facebook-5" title="' . __('Facebook', 'econature') . '" target="_blank"></a>' . 
 		'</li>';
 	}
 	
@@ -1029,9 +1084,9 @@ function cmsms_related($tag = 'h3', $related_box = false, $tgsarray = null, $pop
 			'<' . $tag . '>';
 		
 		if ($type == 'post') {
-			echo __('More posts', 'cmsmasters');
+			echo __('More posts', 'econature');
 		} else {
-			echo __('More projects', 'cmsmasters');
+			echo __('More projects', 'econature');
 		}
 		
 		echo '</' . $tag . '>' . 
@@ -1039,7 +1094,7 @@ function cmsms_related($tag = 'h3', $related_box = false, $tgsarray = null, $pop
 		
 		if ($related_box && !empty($tgsarray) && $r->have_posts()) {
 			echo '<li>' . 
-				'<a href="#" class="current">' . __('Related', 'cmsmasters') . '</a>' . 
+				'<a href="#" class="current">' . __('Related', 'econature') . '</a>' . 
 			'</li>';
 		}
 		
@@ -1051,7 +1106,7 @@ function cmsms_related($tag = 'h3', $related_box = false, $tgsarray = null, $pop
 				echo ' class="current"';
 			}
 			
-			echo '">' . __('Popular', 'cmsmasters') . '</a>' . 
+			echo '">' . __('Popular', 'econature') . '</a>' . 
 			'</li>';
 		}
 		
@@ -1063,7 +1118,7 @@ function cmsms_related($tag = 'h3', $related_box = false, $tgsarray = null, $pop
 				echo ' class="current"';
 			}
 			
-			echo '">' . __('Latest', 'cmsmasters') . '</a>' . 
+			echo '">' . __('Latest', 'econature') . '</a>' . 
 			'</li>';
 		}
 		
@@ -1130,9 +1185,9 @@ function cmsms_related($tag = 'h3', $related_box = false, $tgsarray = null, $pop
 			else :
 				echo '<h5>';
 				if ($type == 'post') {
-					echo __('No related posts found', 'cmsmasters');
+					echo __('No related posts found', 'econature');
 				} else {
-					echo __('No related projects found', 'cmsmasters');
+					echo __('No related projects found', 'econature');
 				}
 				echo '</h5>';
 			endif;
@@ -1193,9 +1248,9 @@ function cmsms_related($tag = 'h3', $related_box = false, $tgsarray = null, $pop
 			else :
 				echo '<h5>';
 				if ($type == 'post') {
-					echo __('No popular posts found', 'cmsmasters');
+					echo __('No popular posts found', 'econature');
 				} else {
-					echo __('No popular projects found', 'cmsmasters');
+					echo __('No popular projects found', 'econature');
 				}
 				echo '</h5>';
 			endif;
@@ -1252,9 +1307,9 @@ function cmsms_related($tag = 'h3', $related_box = false, $tgsarray = null, $pop
 			else :
 				echo '<h5>';
 				if ($type == 'post') {
-					echo __('No latest posts found', 'cmsmasters');
+					echo __('No latest posts found', 'econature');
 				} else {
-					echo __('No latest projects found', 'cmsmasters');
+					echo __('No latest projects found', 'econature');
 				}
 				echo '</h5>';
 			endif;
@@ -1289,5 +1344,39 @@ function cmsms_author_avatar($template_type = 'page') {
 			'</figure>';
 		}
 	}
+}
+
+
+
+/* Get Pingbacks & Trackbacks Function */
+function cmsms_get_post_pings($id, $tag = 'h3') {
+	$out = '';
+	
+	$pings = get_comments(array(
+		'type' => 		'pings',
+		'post_id' => 	$id
+	));
+	
+	
+	if (pings_open($id) && sizeof($pings) > 0) {
+		$out .= '<aside class="cmsmasters_pings_list">' . "\n" .
+			'<' . esc_html($tag) . '>' . esc_html__('Trackbacks and Pingbacks', 'econature') . '</' . esc_html($tag) . '>' . "\n" .
+			'<div class="cmsmasters_pings_wrap">' . "\n" .
+				'<ol class="pingslist">' . "\n";
+		
+		
+		$out .= wp_list_comments(array(
+			'short_ping' => 	true,
+			'echo' => 			false
+		), $pings);
+		
+		
+		$out .= '</ol>' . "\n" .
+			'</div>' . "\n" .
+		'</aside>';
+	}
+	
+	
+	return $out;
 }
 

@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.0
+ * @version 	1.4.1
  * 
  * Theme Primary Color Schemes Rules
  * Created by CMSMasters
@@ -25,7 +25,7 @@ function cmsms_theme_colors_primary() {
 	$custom_css = "/**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.0
+ * @version 	1.4.1
  * 
  * Theme Primary Color Schemes Rules
  * Created by CMSMasters
@@ -56,9 +56,11 @@ function cmsms_theme_colors_primary() {
 	{$rule}.footer_inner, 
 	{$rule}.tweet_time:before,
 	{$rule}input[type=text],
+	{$rule}input[type=search],
 	{$rule}input[type=number],
 	{$rule}input[type=email],
 	{$rule}input[type=password],
+	{$rule}input[type=tel],
 	{$rule}input[type=submit],
 	{$rule}textarea,
 	{$rule}select,
@@ -133,7 +135,6 @@ function cmsms_theme_colors_primary() {
 	{$rule}.cmsms_posts_slider .post .cmsms_slider_post_cont .cmsms_slider_post_footer .cmsms_slider_post_meta_info .cmsms_slider_post_comments:hover:before, 
 	{$rule}.cmsms_posts_slider .post .cmsms_slider_post_cont .cmsms_slider_post_header .cmsms_slider_post_title a:hover, 
 	{$rule}.pl_social_list li a:hover,
-	{$rule}q:before,
 	{$rule}blockquote:before,
 	{$rule}.cmsms_breadcrumbs .cmsms_breadcrumbs_inner a:hover, 
 	{$rule}.post_comments .commentlist > li.bypostauthor .fn:before, 
@@ -376,8 +377,10 @@ function cmsms_theme_colors_primary() {
 	}
 	
 	{$rule}input[type=text]:focus,
+	{$rule}input[type=search]:focus,
 	{$rule}input[type=email]:focus,
 	{$rule}input[type=password]:focus,
+	{$rule}input[type=tel]:focus,
 	{$rule}textarea:focus,
 	{$rule}select:focus,
 	{$rule}.cmsms_prev_arrow:before,
@@ -455,9 +458,11 @@ function cmsms_theme_colors_primary() {
 	
 	" . (($scheme == 'default') ? "body," : '') . (($scheme != 'default') ? ".cmsms_color_scheme_{$scheme}," : '') . "
 	{$rule}input[type=text]:focus,
+	{$rule}input[type=search]:focus,
 	{$rule}input[type=number]:focus,
 	{$rule}input[type=email]:focus,
 	{$rule}input[type=password]:focus,
+	{$rule}input[type=tel]:focus,
 	{$rule}textarea:focus,
 	{$rule}select:focus,
 	" . (($scheme == 'default') ? ".middle_inner," : '') . "
@@ -528,12 +533,15 @@ function cmsms_theme_colors_primary() {
 	}
 	
 	{$rule}input[type=text],
+	{$rule}input[type=search],
 	{$rule}input[type=number],
 	{$rule}input[type=email],
 	{$rule}input[type=password],
+	{$rule}input[type=tel],
 	{$rule}textarea,
 	{$rule}select,
 	{$rule}option,
+	{$rule}.gallery .gallery-item .wp-caption-text,
 	{$rule}.cmsms_table tr.cmsms_table_row_footer td,
 	{$rule}.cmsms_table tr.cmsms_table_row_footer th,
 	{$rule}.search_bar_wrap,
@@ -572,8 +580,7 @@ function cmsms_theme_colors_primary() {
 	{$rule}.cmsms_profile.vertical .format-profile .pl_img .pl_noimg,
 	{$rule}.cmsms_posts_slider .post .cmsms_slider_post_cont, 
 	{$rule}.tweet_list li,
-	{$rule}.quote_content, 
-	{$rule}code {
+	{$rule}.quote_content {
 		" . cmsms_color_css('background-color', $cmsms_option[CMSMS_SHORTNAME . '_' . $scheme . '_alternate']) . "
 	}
 	
@@ -608,13 +615,17 @@ function cmsms_theme_colors_primary() {
 	}
 	
 	{$rule}input[type=text],
+	{$rule}input[type=search],
 	{$rule}input[type=email],
 	{$rule}input[type=password],
+	{$rule}input[type=tel],
 	{$rule}textarea,
 	{$rule}select,
 	{$rule}option,
 	{$rule}.search_bar_wrap,
 	" . (($scheme == 'default') ? "#slide_top:hover," : '') . "
+	{$rule}table th, 
+	{$rule}table td,
 	{$rule}.headline_outer,
 	{$rule}.cmsms_notice .notice_close,
 	{$rule}.cmsms_toggles .cmsms_toggle_wrap .cmsms_toggle_title > .cmsms_toggle_plus,
@@ -667,7 +678,6 @@ function cmsms_theme_colors_primary() {
 	{$rule}.cmsms_profile.vertical .format-profile .pl_img .pl_noimg, 
 	{$rule}.cmsms_posts_slider .owl-controls .owl-buttons .owl-prev, 
 	{$rule}.cmsms_posts_slider .owl-controls .owl-buttons .owl-next, 
-	{$rule}code, 
 	{$rule}.cmsms_button, 
 	{$rule}.button,
 	{$rule}input[type=submit],
@@ -873,6 +883,6 @@ function cmsms_theme_colors_primary() {
 	}
 	
 	
-	return $custom_css;
+	return apply_filters('cmsms_theme_colors_primary_filter', $custom_css);
 }
 

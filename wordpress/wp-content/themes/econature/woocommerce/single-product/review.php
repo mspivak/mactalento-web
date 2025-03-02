@@ -6,16 +6,16 @@
  *
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     2.1.0
+ * @version     2.6.3
  * 
  * @cmsms_package 	EcoNature
- * @cmsms_version 	1.1.0
+ * @cmsms_version 	1.4.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 ?>
-<li itemprop="reviews" itemscope itemtype="http://schema.org/Review" <?php comment_class(); ?> id="li-comment-<?php comment_ID() ?>">
+<li itemprop="reviews" itemscope itemtype="//schema.org/Review" <?php comment_class(); ?> id="li-comment-<?php comment_ID() ?>">
 
 	<div id="comment-<?php comment_ID(); ?>" class="comment_container">
 
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			
 			if ( $comment->comment_approved == '0' ) : 
 		?>
-				<p class="meta"><em><?php _e( 'Your comment is awaiting approval', 'woocommerce' ); ?></em></p>
+				<p class="meta"><em><?php _e( 'Your comment is awaiting approval', 'econature' ); ?></em></p>
 		<?php 
 			else : 
 		?>
@@ -37,10 +37,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 					<?php
 						if ( get_option( 'woocommerce_review_rating_verification_label' ) === 'yes' )
 							if ( wc_customer_bought_product( $comment->comment_author_email, $comment->user_id, $comment->comment_post_ID ) )
-								echo '<em class="verified">(' . __( 'verified owner', 'woocommerce' ) . ')</em> ';
+								echo '<em class="verified">(' . __( 'verified owner', 'econature' ) . ')</em> ';
 					?> 
 					<time itemprop="datePublished" datetime="<?php echo get_comment_date( 'c' ); ?>">
-						<?php echo get_comment_date( __( get_option( 'date_format' ), 'woocommerce' ) ); ?>
+						<?php echo get_comment_date( wc_date_format() ); ?>
 					</time>
 				</div>
 

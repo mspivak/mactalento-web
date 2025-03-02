@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.7
  * 
  * Posts Slider Chat Post Format Template
  * Created by CMSMasters
@@ -30,7 +30,7 @@ $likes = in_array('likes', $cmsms_metadata) ? true : false;
 		cmsms_slider_post_format_chat();
 		
 		
-		echo '<h1 class="entry-title dn">' . cmsms_title(get_the_ID(), false) . '</h1>';
+		echo '<h3 class="entry-title dn cmsms_h1_font_style">' . cmsms_title(get_the_ID(), false) . '</h3>';
 		
 		
 		if ($date || $likes || $comments) {

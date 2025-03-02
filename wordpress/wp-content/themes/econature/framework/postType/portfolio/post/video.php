@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.0
  * 
  * Video Project Format Template
  * Created by CMSMasters
@@ -52,11 +52,14 @@ if (
 	$cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_comment'] || 
 	$cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_author'] || 
 	$cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_tag'] || 
+	$cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_link'] || 
 	(
+		!empty($cmsms_project_features[0][0]) && 
+		!empty($cmsms_project_features[0][1])
+	) || (
 		!empty($cmsms_project_features[1][0]) && 
 		!empty($cmsms_project_features[1][1])
-	) || 
-	$cmsms_option[CMSMS_SHORTNAME . '_portfolio_project_link']
+	)
 ) {
 	$project_details = 'true';
 }
@@ -68,11 +71,20 @@ if (
 	$project_details == 'true' || 
 	$cmsms_project_sharing_box == 'true' || 
 	(
+		!empty($cmsms_project_features_one[0][0]) && 
+		!empty($cmsms_project_features_one[0][1])
+	) || (
 		!empty($cmsms_project_features_one[1][0]) && 
 		!empty($cmsms_project_features_one[1][1])
 	) || (
+		!empty($cmsms_project_features_two[0][0]) && 
+		!empty($cmsms_project_features_two[0][1])
+	) || (
 		!empty($cmsms_project_features_two[1][0]) && 
 		!empty($cmsms_project_features_two[1][1])
+	) || (
+		!empty($cmsms_project_features_three[0][0]) && 
+		!empty($cmsms_project_features_three[0][1])
 	) || (
 		!empty($cmsms_project_features_three[1][0]) && 
 		!empty($cmsms_project_features_three[1][1])
@@ -143,7 +155,7 @@ if (
 			the_content();
 			
 			wp_link_pages(array( 
-				'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'cmsmasters') . ':</strong>', 
+				'before' => '<div class="subpage_nav" role="navigation">' . '<strong>' . __('Pages', 'econature') . ':</strong>', 
 				'after' => '</div>', 
 				'link_before' => ' [ ', 
 				'link_after' => ' ] ' 
@@ -190,7 +202,7 @@ if (
 			
 			
 			if ($cmsms_project_sharing_box == 'true') {
-				cmsms_sharing_box(__('Like this project?', 'cmsmasters'), 'h2');
+				cmsms_sharing_box(__('Like this project?', 'econature'), 'h2');
 			}
 			
 		echo '</div>';

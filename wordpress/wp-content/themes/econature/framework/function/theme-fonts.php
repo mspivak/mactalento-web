@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.1
+ * @version 	1.4.3
  * 
  * Theme Fonts Rules
  * Created by CMSMasters
@@ -17,7 +17,7 @@ function cmsms_theme_fonts() {
 	$custom_css = "/**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.1
+ * @version 	1.4.3
  * 
  * Theme Fonts Rules
  * Created by CMSMasters
@@ -42,10 +42,6 @@ function cmsms_theme_fonts() {
 	.cmsms_posts_slider .post .cmsms_slider_post_quote_author, 
 	.post.cmsms_timeline_type .cmsms_post_info .cmsms_post_date .cmsms_year {
 		font-size:" . $cmsms_option[CMSMS_SHORTNAME . '_content_font_font_size'] . "px;
-	}
-	
-	.wp-caption .wp-caption-text {
-		font-size:" . ((int) $cmsms_option[CMSMS_SHORTNAME . '_content_font_font_size'] + 1) . "px;
 	}
 	/* Finish Content Font */
 
@@ -121,6 +117,9 @@ function cmsms_theme_fonts() {
 	/* Start H1 Font */
 	h1,
 	h1 a,
+	.cmsms_h1_font_style,
+	.cmsms_h1_font_style a,
+	.pricing_title,
 	#header .logo .title,
 	.error_subtitle,
 	.cmsms_pricing_table .cmsms_currency,
@@ -550,8 +549,7 @@ function cmsms_theme_fonts() {
 	input[type=tel],
 	textarea,
 	select,
-	option, 
-	code {
+	option {
 		font-family:" . cmsms_get_google_font($cmsms_option[CMSMS_SHORTNAME . '_input_font_google_font']) . $cmsms_option[CMSMS_SHORTNAME . '_input_font_system_font'] . ";
 		font-size:" . $cmsms_option[CMSMS_SHORTNAME . '_input_font_font_size'] . "px;
 		line-height:" . $cmsms_option[CMSMS_SHORTNAME . '_input_font_line_height'] . "px;
@@ -573,7 +571,6 @@ function cmsms_theme_fonts() {
 
 
 	/* Start Blockquote Font */
-	q,
 	blockquote {
 		font-family:" . cmsms_get_google_font($cmsms_option[CMSMS_SHORTNAME . '_quote_font_google_font']) . $cmsms_option[CMSMS_SHORTNAME . '_quote_font_system_font'] . ";
 		font-size:" . $cmsms_option[CMSMS_SHORTNAME . '_quote_font_font_size'] . "px;
@@ -582,9 +579,10 @@ function cmsms_theme_fonts() {
 		font-style:" . $cmsms_option[CMSMS_SHORTNAME . '_quote_font_font_style'] . ";
 	}
 	
-	q:before,
-	blockquote:before {
-		font:50px/50px Georgia, Times, 'Century Schoolbook L', serif; // static
+	q {
+		font-family:" . cmsms_get_google_font($cmsms_option[CMSMS_SHORTNAME . '_quote_font_google_font']) . $cmsms_option[CMSMS_SHORTNAME . '_quote_font_system_font'] . ";
+		font-weight:" . $cmsms_option[CMSMS_SHORTNAME . '_quote_font_font_weight'] . ";
+		font-style:" . $cmsms_option[CMSMS_SHORTNAME . '_quote_font_font_style'] . ";
 	}
 	/* Finish Blockquote Font */
 
@@ -676,7 +674,8 @@ if (class_exists('woocommerce')) {
 	
 	
 	/* Start H5 Font */
-	.shop_table thead th {
+	.shop_table thead th, 
+	.cmsms_products .product.product-category .woocommerce-loop-category__title {
 		font-family:" . cmsms_get_google_font($cmsms_option[CMSMS_SHORTNAME . '_h5_font_google_font']) . $cmsms_option[CMSMS_SHORTNAME . '_h5_font_system_font'] . ";
 		font-size:" . $cmsms_option[CMSMS_SHORTNAME . '_h5_font_font_size'] . "px;
 		line-height:" . $cmsms_option[CMSMS_SHORTNAME . '_h5_font_line_height'] . "px;
@@ -718,7 +717,8 @@ if (class_exists('woocommerce')) {
 	.shop_table td.product-name a, 
 	.widget_shopping_cart_content .cart_list li a, 
 	.cmsms_added_product_info .cmsms_added_product_info_text, 
-	.product_list_widget li > a {
+	.product_list_widget li > a, 
+	.cmsms_products .product.product-category .woocommerce-loop-category__title {
 		font-family:" . cmsms_get_google_font($cmsms_option[CMSMS_SHORTNAME . '_button_font_google_font']) . $cmsms_option[CMSMS_SHORTNAME . '_button_font_system_font'] . ";
 		font-weight:" . $cmsms_option[CMSMS_SHORTNAME . '_button_font_font_weight'] . ";
 		font-style:" . $cmsms_option[CMSMS_SHORTNAME . '_button_font_font_style'] . ";
@@ -738,14 +738,18 @@ if (class_exists('woocommerce')) {
 }
 
 
-if (class_exists('TribeEvents')) {
+if (class_exists('Tribe__Events__Main')) {
 
 	$custom_css .= "
 /***************** Start Events Font Styles ******************/
 
 	/* Start Content Font */
+	.widget.tribe-this-week-events-widget .tribe-events-viewmore a,
 	.recurringinfo, 
 	.recurringinfo *, 
+	.widget.tribe-this-week-events-widget .duration, 
+	.widget.tribe-this-week-events-widget .tribe-venue a, 
+	.tribe-this-week-events-widget .tribe-this-week-widget-wrapper .tribe-this-week-widget-header-date,
 	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*=\"tribe-events-event-\"] .tribe-events-month-event-title, 
 	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*=\"tribe-events-event-\"] .tribe-events-month-event-title a, 
 	#tribe-events-content.tribe-events-photo #tribe-events-photo-events .tribe-events-photo-event .tribe-events-photo-event-wrap .tribe-events-event-details .tribe-events-event-meta .time-details, 
@@ -753,11 +757,12 @@ if (class_exists('TribeEvents')) {
 	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-allday .column.first, 
 	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-grid-wrapper .tribe-grid-body .tribe-week-grid-hours, 
 	#tribe-mobile-container .tribe-mobile-day .tribe-events-mobile .tribe-events-event-body .time-details, 
-	.widget .vcalendar .vevent .cmsms_widget_event_info *, 
+	.widget .vevent .cmsms_widget_event_info *, 
+	.widget.tribe-events-list-widget .tribe-event-duration, 
 	.widget .tribe-events-widget-link a, 
-	.widget .vcalendar .vevent .cmsms_widget_event_venue_info_loc, 
-	.widget .vcalendar .vevent .cmsms_widget_event_venue_info_loc *, 
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td *, 
+	.widget .vevent .cmsms_widget_event_venue_info_loc, 
+	.widget .vevent .cmsms_widget_event_venue_info_loc *, 
+	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td *, 
 	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info, 
 	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info .tribe-mini-calendar-event-venue a, 
 	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info .recurringinfo * {
@@ -776,6 +781,7 @@ if (class_exists('TribeEvents')) {
 	}
 	
 	.tribe-events-event-body .tribe-events-abbr,
+	.widget.tribe-this-week-events-widget .tribe-events-viewmore a,
 	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*=\"tribe-events-event-\"] .tribe-events-month-event-title, 
 	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*=\"tribe-events-event-\"] .tribe-events-month-event-title a, 
 	#tribe-events-content.tribe-events-list .vevent .cmsms_events_list_event_wrap .tribe-events-event-meta .time-details, 
@@ -785,19 +791,24 @@ if (class_exists('TribeEvents')) {
 	#tribe-events-content.tribe-events-photo #tribe-events-photo-events .tribe-events-photo-event .tribe-events-photo-event-wrap .tribe-events-event-details .tribe-events-event-meta .time-details, 
 	#tribe-events-content.tribe-events-photo #tribe-events-photo-events .tribe-events-photo-event .tribe-events-photo-event-wrap .tribe-events-event-details .tribe-events-event-meta .time-details *, 
 	#tribe-mobile-container .tribe-mobile-day .tribe-events-mobile .tribe-events-event-body .time-details, 
-	.widget .vcalendar .vevent .cmsms_widget_event_info *, 
+	.tribe-this-week-events-widget .tribe-this-week-widget-wrapper .tribe-this-week-widget-header-date,
+	.widget .vevent .cmsms_widget_event_info *, 
+	.widget.tribe-events-list-widget .tribe-event-duration, 
+	.widget.tribe-this-week-events-widget .duration,
+	.widget.tribe-this-week-events-widget .tribe-venue a,
 	.widget .tribe-events-widget-link a, 
-	.widget .vcalendar .vevent .cmsms_widget_event_venue_info_loc, 
-	.widget .vcalendar .vevent .cmsms_widget_event_venue_info_loc * {
+	.widget .vevent .cmsms_widget_event_venue_info_loc, 
+	.widget .vevent .cmsms_widget_event_venue_info_loc * {
 		font-size:" . ((int) $cmsms_option[CMSMS_SHORTNAME . '_content_font_font_size'] - 1) . "px;
 	}
 	
+	.tribe-this-week-events-widget .tribe-this-week-widget-wrapper .tribe-this-week-widget-header-date,
 	.tribe-events-event-body .tribe-events-abbr {
 		line-height:" . ((int) $cmsms_option[CMSMS_SHORTNAME . '_content_font_line_height'] - 2) . "px;
 	}
 	
 	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-allday .column.first, 
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .vcalendar td *, 
+	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody td *, 
 	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info, 
 	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info .tribe-mini-calendar-event-venue a, 
 	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info .recurringinfo * {
@@ -867,9 +878,10 @@ if (class_exists('TribeEvents')) {
 	#tribe-events-bar .tribe-bar-filters .tribe-bar-filters-inner .tribe-bar-geoloc-filter label, 
 	#tribe-events-bar .tribe-bar-filters .tribe-bar-filters-inner .tribe-bar-submit label, 
 	#tribe-events-content.tribe-events-month table.tribe-events-calendar thead th, 
-	.tribe-events-countdown-widget .tribe-countdown-text a, 
-	.widget .vcalendar .vevent .entry-title, 
-	.widget .vcalendar .vevent .entry-title a {
+	.widget.tribe-events-list-widget .tribe-event-title,
+	.widget.tribe-events-list-widget .tribe-event-title a,
+	.widget .vevent .entry-title, 
+	.widget .vevent .entry-title a {
 		font-family:" . cmsms_get_google_font($cmsms_option[CMSMS_SHORTNAME . '_h3_font_google_font']) . $cmsms_option[CMSMS_SHORTNAME . '_h3_font_system_font'] . ";
 		font-size:" . $cmsms_option[CMSMS_SHORTNAME . '_h3_font_font_size'] . "px;
 		line-height:" . $cmsms_option[CMSMS_SHORTNAME . '_h3_font_line_height'] . "px;
@@ -888,12 +900,16 @@ if (class_exists('TribeEvents')) {
 	/* Start H5 Font */
 	.tribe-events-tooltip .entry-title, 
 	.tribe-events-tooltip .entry-title a, 
+	.tribe-events-tooltip .tribe-event-title, 
+	.tribe-events-tooltip .tribe-event-title a, 
+	.tribe-this-week-events-widget .tribe-this-week-widget-wrapper .entry-title,
+	.tribe-this-week-events-widget .tribe-this-week-widget-wrapper .entry-title a,
 	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-header .tribe-grid-content-wrap .column, 
 	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-header .tribe-grid-content-wrap .column *, 
 	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .tribe-mini-calendar-nav div, 
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-date span.list-daynumber, 
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info h2, 
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info h2 a {
+	.widget .list-date span.list-daynumber, 
+	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .entry-title, 
+	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .entry-title a {
 		font-family:" . cmsms_get_google_font($cmsms_option[CMSMS_SHORTNAME . '_h5_font_google_font']) . $cmsms_option[CMSMS_SHORTNAME . '_h5_font_system_font'] . ";
 		font-size:" . $cmsms_option[CMSMS_SHORTNAME . '_h5_font_font_size'] . "px;
 		line-height:" . $cmsms_option[CMSMS_SHORTNAME . '_h5_font_line_height'] . "px;
@@ -906,15 +922,17 @@ if (class_exists('TribeEvents')) {
 	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-header .tribe-grid-content-wrap .column, 
 	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-header .tribe-grid-content-wrap .column *, 
 	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .tribe-mini-calendar-nav div, 
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-date span.list-daynumber, 
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info h2, 
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-info h2 a {
+	.widget .list-date span.list-daynumber, 
+	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .entry-title, 
+	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .entry-title a {
 		font-size:" . ((int) $cmsms_option[CMSMS_SHORTNAME . '_h5_font_font_size'] - 1) . "px;
 	}
 	/* Finish H5 Font */
 	
 	
 	/* Start H6 Font */
+	.tribe-this-week-events-widget .tribe-this-week-widget-wrapper .tribe-events-page-title,
+	.tribe-events-countdown-widget .tribe-countdown-text a, 
 	#tribe-events-content.tribe-events-single .cmsms_single_event_header .cmsms_single_event_header_right .tribe-events-cal-links a, 
 	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*=\"tribe-events-daynum-\"], 
 	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*=\"tribe-events-daynum-\"] a, 
@@ -936,7 +954,7 @@ if (class_exists('TribeEvents')) {
 	.tribe-events-venue-widget .tribe-venue-widget-wrapper .tribe-venue-widget-venue .tribe-venue-widget-venue-name, 
 	.tribe-events-venue-widget .tribe-venue-widget-wrapper .tribe-venue-widget-venue .tribe-venue-widget-venue-name a, 
 	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar th.tribe-mini-calendar-dayofweek, 
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-date span.list-dayname {
+	.widget .list-date span.list-dayname {
 		font-family:" . cmsms_get_google_font($cmsms_option[CMSMS_SHORTNAME . '_h6_font_google_font']) . $cmsms_option[CMSMS_SHORTNAME . '_h6_font_system_font'] . ";
 		font-size:" . $cmsms_option[CMSMS_SHORTNAME . '_h6_font_font_size'] . "px;
 		line-height:" . $cmsms_option[CMSMS_SHORTNAME . '_h6_font_line_height'] . "px;
@@ -962,6 +980,8 @@ if (class_exists('TribeEvents')) {
 		font-size:" . ((int) $cmsms_option[CMSMS_SHORTNAME . '_h6_font_font_size'] + 3) . "px;
 	}
 	
+	
+	.tribe-this-week-events-widget .tribe-this-week-widget-wrapper .tribe-events-page-title,
 	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*=\"tribe-events-daynum-\"], 
 	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*=\"tribe-events-daynum-\"] a, 
 	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td .tribe-events-viewmore, 
@@ -973,7 +993,7 @@ if (class_exists('TribeEvents')) {
 	
 	.tribe-events-countdown-widget .tribe-countdown-time .tribe-countdown-timer .tribe-countdown-number .tribe-countdown-under, 
 	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar th.tribe-mini-calendar-dayofweek, 
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-date span.list-dayname {
+	.widget .list-date span.list-dayname {
 		font-size:" . ((int) $cmsms_option[CMSMS_SHORTNAME . '_h6_font_font_size'] - 3) . "px;
 	}
 	
@@ -985,7 +1005,7 @@ if (class_exists('TribeEvents')) {
 	.tribe-events-venue-widget .tribe-venue-widget-wrapper .tribe-venue-widget-venue .tribe-venue-widget-venue-name, 
 	.tribe-events-venue-widget .tribe-venue-widget-wrapper .tribe-venue-widget-venue .tribe-venue-widget-venue-name a, 
 	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar th.tribe-mini-calendar-dayofweek, 
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-list-wrapper .tribe-events-loop .vevent .tribe-mini-calendar-event .list-date span.list-dayname {
+	.widget .list-date span.list-dayname {
 		text-transform:uppercase;
 	}
 	/* Finish H6 Font */
@@ -997,31 +1017,6 @@ if (class_exists('TribeEvents')) {
 ";
 
 }
-	return $custom_css;
-}
-
-
-
-function cmsms_get_google_font($font) {
-	if ($font != '') {
-		if (strpos($font, ':')) {
-			$google_font_array = explode(':', $font);
-			
-			
-			$google_font = "'" . str_replace('+', ' ', $google_font_array[0]) . "', ";
-		} elseif (strpos($font, '&')) {
-			$google_font_array = explode('&', $font);
-			
-			
-			$google_font = "'" . str_replace('+', ' ', $google_font_array[0]) . "', ";
-		} else {
-			$google_font = "'" . str_replace('+', ' ', $font) . "', ";
-		}
-	} else {
-		$google_font = '';
-	}
-	
-	
-	return $google_font;
+	return apply_filters('cmsms_theme_fonts_filter', $custom_css);
 }
 

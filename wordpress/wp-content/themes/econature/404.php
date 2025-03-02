@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.0
+ * @version 	1.3.0
  * 
  * 404 Error Page Template
  * Created by CMSMasters
@@ -46,7 +46,7 @@ $cmsms_option = cmsms_get_global_options();
 <section class="content_wrap fullwidth">
 	<div class="error">
 		<?php 
-			echo '<h2 class="error_subtitle">' . esc_html__("We're sorry, but the page you were looking for doesn't exist.", 'cmsmasters') . '</h2>';
+			echo '<h2 class="error_subtitle">' . esc_html__("We're sorry, but the page you were looking for doesn't exist.", 'econature') . '</h2>';
 			
 			
 			if ($cmsms_option[CMSMS_SHORTNAME . '_error_search']) { 
@@ -55,7 +55,7 @@ $cmsms_option = cmsms_get_global_options();
 			
 			
 			if ($cmsms_option[CMSMS_SHORTNAME . '_error_sitemap_button'] && $cmsms_option[CMSMS_SHORTNAME . '_error_sitemap_link'] != '') {
-				echo '<div class="error_button_wrap"><a href="' . esc_url($cmsms_option[CMSMS_SHORTNAME . '_error_sitemap_link']) . '" class="cmsms_button">' . esc_html__('Sitemap', 'cmsmasters') . '</a></div>';
+				echo '<div class="error_button_wrap"><a href="' . esc_url($cmsms_option[CMSMS_SHORTNAME . '_error_sitemap_link']) . '" class="cmsms_button">' . esc_html__('Sitemap', 'econature') . '</a></div>';
 			}
 		?>
 	</div>

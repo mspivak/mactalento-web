@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.4.1
  * 
  * Blog Page Masonry Chat Post Format Template
  * Created by CMSMasters
@@ -36,7 +36,7 @@ if ($post_sort_categs != '') {
 
 <!--_________________________ Start Chat Article _________________________ -->
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('cmsms_masonry_type'); ?> data-category="<?php echo $post_categs; ?>">
+<article id="post-<?php the_ID(); ?>" <?php post_class('cmsms_masonry_type'); ?> data-category="<?php echo esc_attr($post_categs); ?>">
 	<span class="cmsms_post_format_img <?php 
 			if (is_sticky()) {
 				echo ' cmsms-icon-attach-6';
@@ -49,7 +49,7 @@ if ($post_sort_categs != '') {
 		cmsms_post_format_chat();
 		
 		
-		echo '<h1 class="entry-title dn">' . cmsms_title(get_the_ID(), false) . '</h1>';
+		echo '<h3 class="entry-title dn cmsms_h1_font_style">' . cmsms_title(get_the_ID(), false) . '</h3>';
 		
 		
 		if ($date || $likes || $comments) {

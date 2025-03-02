@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version 	1.1.0
+ * @version 	1.2.8
  * 
  * Post, Page, Project & Profile Options Scripts
  * Created by CMSMasters
@@ -109,6 +109,7 @@
 			return false;
 		} );
 		
+		
 		// Sort Gallery Images
 		$('table.form-table .cmsms_gallery').sortable( { 
 			items : '> li', 
@@ -137,7 +138,6 @@
 				}, 150);
 			} 
 		} );
-		
 		
 		
 		/* Repeatable Add Button Click */
@@ -325,15 +325,12 @@
 				if ($(this).parent().prev().is('li') || $(this).parent().next().is('li')) {
 					$(this).parent().remove();
 				} else {
+					$(this).parent().find('.cmsms_name').val('');
+					$(this).parent().find('.cmsms_val').text('');
+					
 					$(this).parent().css( { 
 						display : 'none' 
 					} );
-					
-					$(this).prev().val('');
-					
-					if ($(this).prev().prev().is('input')) {
-						$(this).prev().prev().val('');
-					}
 				}
 			}
 			
@@ -403,7 +400,6 @@
 		} );
 		
 		
-		
 		/* Project Size Change Script */
 		$('.cmsms_tr_radio_img_pj input[type="radio"]').bind('change', function () { 
 			var pj_size = $(this).attr('data-size');
@@ -414,7 +410,6 @@
 			
 			return false;
 		} );
-		
 		
 		
 		/* Social Field Type Script */
@@ -462,7 +457,7 @@
 		
 		$('.icon_management > ul').on('click', '> li > div', function () { 
 			var edit_icon_val = $(this).find('input[type="hidden"]').val().split('|'), 
-				edit_icon_class = $(this).attr('class');
+				edit_icon_class = $(this).attr('class'), 
 				edit_icon_id = $(this).find('input[type="hidden"]').attr('id'), 
 				social_container = $(this).parents('.icon_management');
 			
@@ -606,7 +601,6 @@
 		} );
 	} );
 } )(jQuery);
-
 
 
 /* Update Media Uploader Images ID's Function */

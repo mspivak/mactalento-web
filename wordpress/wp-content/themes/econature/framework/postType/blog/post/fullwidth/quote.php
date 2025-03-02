@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.3.0
  * 
  * Blog Post Full Width Quote Post Format Template
  * Created by CMSMasters
@@ -36,7 +36,7 @@ $cmsms_post_quote_author = get_post_meta(get_the_ID(), 'cmsms_post_quote_author'
 				
 			echo '</blockquote>';
 		} else {
-			echo '<p>' . __('There is no excerpt because this is a protected post.', 'cmsmasters') . '</p>';
+			echo '<p>' . __('There is no excerpt because this is a protected post.', 'econature') . '</p>';
 		}
 		?>
 		<div class="cmsms_quote_info">

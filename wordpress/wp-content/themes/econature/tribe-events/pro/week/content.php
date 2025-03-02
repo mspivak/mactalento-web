@@ -9,17 +9,20 @@
  * @package TribeEventsCalendar
  *
  * @cmsms_package 	EcoNature
- * @cmsms_version 	1.1.0
+ * @cmsms_version 	1.2.2
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+} ?>
 
 <div id="tribe-events-content" class="tribe-events-week-grid tribe-clearfix">
 	
 	<!-- Calendar Header -->
 	<?php do_action( 'tribe_events_before_header') ?>
-	<div id="tribe-events-header" <?php tribe_events_the_header_attributes('week-header') ?>>
+	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
 		
 		<!-- Calendar Title -->
 		<?php do_action( 'tribe_events_before_the_title') ?>
@@ -33,7 +36,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	<?php do_action( 'tribe_events_after_header') ?>
 	
 	<!-- Notices -->
-	<?php tribe_events_the_notices() ?>
+	<?php tribe_the_notices() ?>
 	
 	<!-- Calendar Grid -->
 	<?php tribe_get_template_part( 'pro/week/loop', 'grid' ) ?>

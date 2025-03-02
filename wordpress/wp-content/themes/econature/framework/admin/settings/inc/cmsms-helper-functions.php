@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	EcoNature
- * @version		1.0.0
+ * @version		1.4.1
  * 
  * Admin Panel Helper Functions
  * Created by CMSMasters
@@ -110,7 +110,7 @@ function cmsms_settings_page_header() {
 		echo '<h2 class="nav-tab-wrapper">';
 		
 		foreach ($links as $link) {
-			echo $link;
+			echo wp_kses_post($link);
 		}
 		
 		echo '</h2>';
